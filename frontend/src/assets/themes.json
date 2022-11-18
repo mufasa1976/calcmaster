@@ -1,0 +1,34 @@
+[
+  {
+    "backgroundColor": "#fff",
+    "buttonColor": "#ffc107",
+    "headingColor": "#673ab7",
+    "label": "Deep Purple & Amber",
+    "value": "deeppurple-amber",
+    "logo": "assets/logo_dark.png"
+  },
+  {
+    "backgroundColor": "#fff",
+    "buttonColor": "#ff4081",
+    "headingColor": "#3f51b5",
+    "label": "Indigo & Pink",
+    "value": "indigo-pink",
+    "logo": "assets/logo_dark.png"
+  },
+  {
+    "backgroundColor": "#303030",
+    "buttonColor": "#607d8b",
+    "headingColor": "#e91e63",
+    "label": "Pink & Blue Grey",
+    "value": "pink-bluegrey",
+    "logo": "assets/logo_dark.png"
+  },
+  {
+    "backgroundColor": "#303030",
+    "buttonColor": "#4caf50",
+    "headingColor": "#9c27b0",
+    "label": "Purple & Green",
+    "value": "purple-green",
+    "logo": "assets/logo_dark.png"
+  }
+]

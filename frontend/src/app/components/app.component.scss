@@ -1,0 +1,62 @@
+div.container {
+  overflow-x: hidden;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+main {
+  width: 60%;
+  @media (max-width: 599px) {
+    width: 90%;
+  }
+  margin: 0 auto;
+}
+
+mat-form-field.className {
+  padding-top: 20px;
+  width: 100%;
+}
+
+div.operator {
+  display: grid;
+  grid-template-columns: [first] 120px [line2] 90% [end];
+  width: 100%;
+  margin: 20px 0 0 0;
+}
+
+span.exceptionToggle {
+  font-size: smaller;
+  padding-left: 5px;
+  @media (max-width: 599px) {
+    &::before {
+      content: "\a";
+      white-space: pre;
+    }
+  }
+}
+
+mat-form-field.verticalDisplayThreshold {
+  width: 250px;
+  padding-top: 20px;
+}
+
+mat-form-field.numberOfCalculations {
+  max-width: 100px;
+  padding-top: 20px;
+  padding-left: 5px;
+  @media (max-width: 469px) {
+    padding-left: 0;
+  }
+}
+
+mat-form-field.outputFormat {
+  max-width: 150px;
+  padding-top: 20px;
+  padding-left: 20px;
+}
+
+button.generateButton {
+  height: 48px;
+}

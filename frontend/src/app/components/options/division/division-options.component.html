@@ -1,0 +1,66 @@
+<mat-form-field class="maxDividend">
+  <mat-label i18n>maximaler Dividend</mat-label>
+  <mat-select [(value)]="maxDividend">
+    <mat-option [value]="20" i18n>bis 20</mat-option>
+    <mat-option [value]="30" i18n>bis 30</mat-option>
+    <mat-option [value]="40" i18n>bis 40</mat-option>
+    <mat-option [value]="50" i18n>bis 50</mat-option>
+    <mat-option [value]="60" i18n>bis 60</mat-option>
+    <mat-option [value]="70" i18n>bis 70</mat-option>
+    <mat-option [value]="80" i18n>bis 80</mat-option>
+    <mat-option [value]="90" i18n>bis 90</mat-option>
+    <mat-option [value]="100" i18n>bis 100</mat-option>
+    <mat-option [value]="1000" i18n>bis 1.000</mat-option>
+    <mat-option [value]="10000" i18n>bis 10.000</mat-option>
+    <mat-option [value]="100000" i18n>bis 100.000</mat-option>
+    <mat-option [value]="1000000" i18n>bis 1.000.000</mat-option>
+  </mat-select>
+</mat-form-field>
+<mat-form-field class="maxRemainder">
+  <mat-label i18n>maximaler Rest</mat-label>
+  <input matInput
+         type="number"
+         min="0"
+         [disabled]="maxDividend < 100"
+         [(ngModel)]="maxRemainder">
+</mat-form-field>
+<mat-form-field class="excludedNumbers">
+  <mat-label i18n>Auszuschließende Zahlen</mat-label>
+  <mat-chip-list #excludedNumberInput>
+    <mat-chip *ngFor="let excludedNumber of exclusions" (removed)="removeExclusion(excludedNumber)">
+      {{excludedNumber}}
+      <button matChipRemove>
+        <fa-icon icon="times"></fa-icon>
+      </button>
+    </mat-chip>
+    <input placeholder="auszuschließende Zahl..."
+           i18n-placeholder
+           type="number"
+           matTooltip="Zahl eingeben und mit Enter oder Komma bestätigen"
+           i18n-matTooltip
+           [matChipInputFor]="excludedNumberInput"
+           [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+           [matChipInputAddOnBlur]="addOnBlur"
+           (matChipInputTokenEnd)="addExclusion($event)">
+  </mat-chip-list>
+</mat-form-field>
+<mat-form-field class="fixedDivisors">
+  <mat-label i18n>Divisor eingrenzen auf</mat-label>
+  <mat-chip-list #fixedDivisorInput [disabled]="maxDividend < 100">
+    <mat-chip *ngFor="let fixedDivisor of fixedDivisors" (removed)="removeFixedDivisor(fixedDivisor)">
+      {{fixedDivisor}}
+      <button matChipRemove>
+        <fa-icon icon="times"></fa-icon>
+      </button>
+    </mat-chip>
+    <input placeholder="einzugrenzender Divisor..."
+           i18n-placeholder
+           type="number"
+           matTooltip="Zahl eingeben und mit Enter oder Komma bestätigen"
+           i18n-matTooltip
+           [matChipInputFor]="fixedDivisorInput"
+           [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+           [matChipInputAddOnBlur]="addOnBlur"
+           (matChipInputTokenEnd)="addFixedDivisor($event)">
+  </mat-chip-list>
+</mat-form-field>

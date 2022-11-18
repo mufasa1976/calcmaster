@@ -1,0 +1,10 @@
+server:
+  address: localhost
+
+spring:
+  thymeleaf:
+    prefix: "file:frontend/src/"
+
+logging:
+  level:
+    io.github.mufasa1976.calcmaster: debug

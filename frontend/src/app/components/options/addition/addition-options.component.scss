@@ -1,0 +1,32 @@
+mat-form-field.minSum {
+  width: 90px;
+  @media (max-width: 469px) {
+    width: 230px;
+  }
+}
+
+mat-form-field.maxSum {
+  width: 110px;
+  padding-left: 20px;
+  @media (max-width: 469px) {
+    width: 230px;
+    padding-left: 0;
+  }
+}
+
+mat-form-field.secondAddendRounding {
+  width: 240px;
+  padding-left: 20px;
+  @media (max-width: 469px) {
+    width: 230px;
+    padding-left: 0;
+  }
+}
+
+mat-slide-toggle.includeZeroOnOperand {
+  padding-left: 20px;
+  @media (max-width: 991px) {
+    padding-left: 0;
+    padding-bottom: 10px;
+  }
+}

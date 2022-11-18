@@ -1,0 +1,36 @@
+mat-form-field.maxDividend {
+  width: 110px;
+  @media (max-width: 469px) {
+    width: 200px;
+  }
+}
+
+mat-form-field.maxRemainder {
+  width: 100px;
+  padding-left: 20px;
+  @media (max-width: 469px) {
+    width: 200px;
+    padding-left: 0;
+  }
+}
+
+mat-form-field.excludedNumbers,
+mat-form-field.fixedDivisors {
+  width: 210px;
+  padding-left: 20px;
+
+  @media (max-width: 469px) {
+    width: 230px;
+    padding-left: 0;
+  }
+
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  input[type=number] {
+    -moz-appearance: textfield;
+  }
+}

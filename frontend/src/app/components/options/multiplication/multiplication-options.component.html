@@ -1,0 +1,58 @@
+<mat-form-field class="maxProduct">
+  <mat-label i18n>maximales Produkt</mat-label>
+  <mat-select [(value)]="maxProduct">
+    <mat-option [value]="20" i18n>bis 20</mat-option>
+    <mat-option [value]="30" i18n>bis 30</mat-option>
+    <mat-option [value]="40" i18n>bis 40</mat-option>
+    <mat-option [value]="50" i18n>bis 50</mat-option>
+    <mat-option [value]="60" i18n>bis 60</mat-option>
+    <mat-option [value]="70" i18n>bis 70</mat-option>
+    <mat-option [value]="80" i18n>bis 80</mat-option>
+    <mat-option [value]="90" i18n>bis 90</mat-option>
+    <mat-option [value]="100" i18n>bis 100</mat-option>
+    <mat-option [value]="1000" i18n>bis 1.000</mat-option>
+    <mat-option [value]="10000" i18n>bis 10.000</mat-option>
+    <mat-option [value]="100000" i18n>bis 100.000</mat-option>
+    <mat-option [value]="1000000" i18n>bis 1.000.000</mat-option>
+  </mat-select>
+</mat-form-field>
+<mat-form-field class="excludedNumbers">
+  <mat-label i18n>Auszuschließende Zahlen</mat-label>
+  <mat-chip-list #excludedNumberInput>
+    <mat-chip *ngFor="let excludedNumber of exclusions" (removed)="removeExclusion(excludedNumber)">
+      {{excludedNumber}}
+      <button matChipRemove>
+        <fa-icon icon="times"></fa-icon>
+      </button>
+    </mat-chip>
+    <input placeholder="auszuschließende Zahl..."
+           i18n-placeholder
+           type="number"
+           matTooltip="Zahl eingeben und mit Enter oder Komma bestätigen"
+           i18n-matTooltip
+           [matChipInputFor]="excludedNumberInput"
+           [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+           [matChipInputAddOnBlur]="addOnBlur"
+           (matChipInputTokenEnd)="addExclusion($event)">
+  </mat-chip-list>
+</mat-form-field>
+<mat-form-field class="fixedMultiplicands">
+  <mat-label i18n>Multiplikand eingrenzen auf</mat-label>
+  <mat-chip-list #fixedMultiplicandInput [disabled]="maxProduct < 100">
+    <mat-chip *ngFor="let fixedMultiplicand of fixedMultiplicands" (removed)="removeFixedMultiplicand(fixedMultiplicand)">
+      {{fixedMultiplicand}}
+      <button matChipRemove>
+        <fa-icon icon="times"></fa-icon>
+      </button>
+    </mat-chip>
+    <input placeholder="einzugrenzender Faktor..."
+           i18n-placeholder
+           type="number"
+           matTooltip="Zahl eingeben und mit Enter oder Komma bestätigen"
+           i18n-matTooltip
+           [matChipInputFor]="fixedMultiplicandInput"
+           [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+           [matChipInputAddOnBlur]="addOnBlur"
+           (matChipInputTokenEnd)="addFixedMultiplicand($event)">
+  </mat-chip-list>
+</mat-form-field>

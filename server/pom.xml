@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>io.github.mufasa1976</groupId>
+    <artifactId>calcmaster</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <relativePath>../pom.xml</relativePath>
+  </parent>
+
+  <artifactId>calcmaster-server</artifactId>
+
+  <dependencies>
+    <!-- Compile Dependencies -->
+
+    <!-- Spring Boot -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-validation</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-thymeleaf</artifactId>
+    </dependency>
+
+    <!-- Apache Commons -->
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-lang3</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-collections4</artifactId>
+    </dependency>
+
+    <!-- Generated Annotations -->
+    <dependency>
+      <groupId>javax.annotation</groupId>
+      <artifactId>javax.annotation-api</artifactId>
+    </dependency>
+
+    <!-- Actuator -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-actuator</artifactId>
+    </dependency>
+
+    <!-- Jasper Reports -->
+    <dependency>
+      <groupId>net.sf.jasperreports</groupId>
+      <artifactId>jasperreports</artifactId>
+    </dependency>
+
+    <!-- Provided Dependencies -->
+
+    <!-- Project Lombok -->
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <scope>provided</scope>
+    </dependency>
+
+    <!-- Spring Boot Configuration Processor -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-configuration-processor</artifactId>
+      <scope>provided</scope>
+    </dependency>
+
+    <!-- Runtime Dependencies -->
+
+    <!-- Spring Boot Devtools -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-devtools</artifactId>
+      <scope>runtime</scope>
+    </dependency>
+
+    <!-- Jasper Reports -->
+    <dependency>
+      <groupId>net.sf.jasperreports</groupId>
+      <artifactId>jasperreports-fonts</artifactId>
+      <scope>runtime</scope>
+    </dependency>
+    <dependency>
+      <groupId>net.sf.jasperreports</groupId>
+      <artifactId>jasperreports-functions</artifactId>
+      <scope>runtime</scope>
+    </dependency>
+
+    <!-- Test Dependencies -->
+
+    <!-- JUnit 5 Runner -->
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter</artifactId>
+      <scope>test</scope>
+    </dependency>
+
+    <!-- Spring Test -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-test</artifactId>
+      <scope>test</scope>
+      <exclusions>
+        <exclusion>
+          <groupId>org.junit.vintage</groupId>
+          <artifactId>junit-vintage-engine</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <artifactId>maven-jar-plugin</artifactId>
+        <configuration>
+          <excludes>
+            <exclude>application-local.yml</exclude>
+          </excludes>
+          <archive>
+            <manifest>
+              <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+              <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+            </manifest>
+          </archive>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <goals>
+              <goal>build-info</goal>
+              <goal>repackage</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
+        <groupId>pl.project13.maven</groupId>
+        <artifactId>git-commit-id-plugin</artifactId>
+      </plugin>
+
+      <plugin>
+        <groupId>io.fabric8</groupId>
+        <artifactId>docker-maven-plugin</artifactId>
+        <configuration>
+          <images>
+            <image>
+              <name>${docker.image}</name>
+              <build>
+                <from>${docker.base-image}</from>
+                <tags>
+                  <tag>${project.version}</tag>
+                </tags>
+                <optimise>true</optimise>
+                <runCmds>
+                  <runCmd>apt update</runCmd>
+                  <runCmd>apt install fonts-liberation -y</runCmd>
+                  <runCmd>mkdir -p /opt/config</runCmd>
+                  <runCmd>useradd -d /opt ${docker.app.user}</runCmd>
+                  <runCmd>chown -R ${docker.app.user}. /opt</runCmd>
+                  <runCmd>mkdir -p /var/log/app</runCmd>
+                  <runCmd>chown ${docker.app.user}. /var/log/app</runCmd>
+                </runCmds>
+                <workdir>/opt</workdir>
+                <user>${docker.app.user}</user>
+                <assembly>
+                  <targetDir>/opt</targetDir>
+                  <descriptorRef>artifact</descriptorRef>
+                </assembly>
+                <env>
+                  <MANAGEMENT_SERVER_PORT>9090</MANAGEMENT_SERVER_PORT>
+                </env>
+                <healthCheck>
+                  <interval>5m</interval>
+                  <timeout>5s</timeout>
+                  <startPeriod>3m</startPeriod>
+                  <retries>3</retries>
+                  <cmd>curl -f http://localhost:9090/actuator/health || exit 1</cmd>
+                </healthCheck>
+                <volumes>
+                  <volume>/tmp</volume>
+                  <volume>/opt/config</volume>
+                </volumes>
+                <ports>
+                  <port>8080</port>
+                  <port>9090</port>
+                </ports>
+                <entryPoint>
+                  <arg>java</arg>
+                  <arg>--add-opens</arg>
+                  <arg>java.base/java.lang=ALL-UNNAMED</arg>
+                  <arg>-Djava.security.egd=file:/dev/urandom</arg>
+                  <arg>-jar</arg>
+                  <arg>/opt/${project.build.finalName}.${project.packaging}</arg>
+                </entryPoint>
+              </build>
+            </image>
+          </images>
+        </configuration>
+        <executions>
+          <execution>
+            <id>build docker image</id>
+            <phase>install</phase>
+            <goals>
+              <goal>build</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>push docker image</id>
+            <phase>deploy</phase>
+            <goals>
+              <goal>push</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+
+  <profiles>
+    <profile>
+      <id>with Frontend</id>
+
+      <activation>
+        <property>
+          <name>!skipFrontend</name>
+        </property>
+      </activation>
+
+      <dependencies>
+        <dependency>
+          <groupId>${project.groupId}</groupId>
+          <artifactId>calcmaster-frontend</artifactId>
+          <version>${project.version}</version>
+        </dependency>
+      </dependencies>
+    </profile>
+  </profiles>
+</project>

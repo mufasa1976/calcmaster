@@ -1,0 +1,33 @@
+server:
+  forward-headers-strategy: framework
+
+spring:
+  aop:
+    proxy-target-class: false
+  jackson:
+    default-property-inclusion: NON_NULL
+    generator:
+      write-bigdecimal-as-plain: true
+    serialization:
+      write-dates-as-timestamps: false
+  thymeleaf:
+    prefix: "classpath:/META-INF/resources/frontend/"
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+          - health
+          - info
+  endpoint:
+    health:
+      show-details: WHEN_AUTHORIZED
+
+application:
+  max-number-of-calculations: 90
+  max-tries-to-find-sum-of-addition-not-equal-to-second-addend: 10
+  max-tries-to-get-distinct-operation-tuples: 10
+  task-executor:
+    core-pool-size: 5
+    max-pool-size: 30

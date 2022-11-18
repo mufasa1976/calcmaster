@@ -1,0 +1,43 @@
+<mat-form-field class="minSum">
+  <mat-label i18n>minimale Summe</mat-label>
+  <mat-select [(value)]="minSum">
+    <mat-option [value]="0">0</mat-option>
+    <mat-option [value]="10" [disabled]="maxSum < 20">10</mat-option>
+  </mat-select>
+</mat-form-field>
+<mat-form-field class="maxSum">
+  <mat-label i18n>maximale Summe</mat-label>
+  <mat-select [(value)]="maxSum">
+    <mat-option [value]="5" i18n>bis 5</mat-option>
+    <mat-option [value]="10" i18n>bis 10</mat-option>
+    <mat-option [value]="20" i18n>bis 20</mat-option>
+    <mat-option [value]="30" i18n>bis 30</mat-option>
+    <mat-option [value]="40" i18n>bis 40</mat-option>
+    <mat-option [value]="50" i18n>bis 50</mat-option>
+    <mat-option [value]="60" i18n>bis 60</mat-option>
+    <mat-option [value]="70" i18n>bis 70</mat-option>
+    <mat-option [value]="80" i18n>bis 80</mat-option>
+    <mat-option [value]="90" i18n>bis 90</mat-option>
+    <mat-option [value]="100" i18n>bis 100</mat-option>
+    <mat-option [value]="1000" i18n>bis 1.000</mat-option>
+    <mat-option [value]="10000" i18n>bis 10.000</mat-option>
+    <mat-option [value]="100000" i18n>bis 100.000</mat-option>
+    <mat-option [value]="1000000" i18n>bis 1.000.000</mat-option>
+  </mat-select>
+</mat-form-field>
+<mat-form-field class="secondAddendRounding">
+  <mat-label i18n>Addend 2 gerundet auf</mat-label>
+  <mat-select [(value)]="secondAddendRounding">
+    <mat-option [value]="1" i18n>ganze Zahlen</mat-option>
+    <mat-option [value]="10" [disabled]="maxSum <= 20" i18n>ganze Zehner (10, 20, ...)</mat-option>
+    <mat-option [value]="100" [disabled]="maxSum <= 100" i18n>ganze Hunderter (100, 200, ...)</mat-option>
+    <mat-option [value]="1000" [disabled]="maxSum <= 1000" i18n>ganze Tausender (1.000, 2.000, ...)</mat-option>
+  </mat-select>
+</mat-form-field>
+<mat-slide-toggle class="includeZeroOnOperand"
+                  [checked]="includeZeroOnOperand"
+                  [disabled]="secondAddendRounding > 1"
+                  (change)="toggleIncludeZeroOnOperand($event)"
+                  i18n>
+  0 als Operand zulassen?
+</mat-slide-toggle>
