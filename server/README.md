@@ -107,7 +107,7 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
                                                  .map(resource -> "/" + offeredLanguage + resource)
                                                  .toArray(String[]::new);
       registry.addResourceHandler(relativeAngularResources)
-              .addResourceLocations(prefix + offeredLanguage + SLASH);
+              .addResourceLocations(prefix + offeredLanguage + "/");
 
       final var fixedAngularResources = Stream.of(ANGULAR_RESOURCES)
                                               .filter(resource -> !StringUtils.contains(resource, "*"))
