@@ -1,13 +1,13 @@
-import {Component, OnInit} from '@angular/core';
-import {ThemeService} from "../services/theme.service";
-import {Observable} from "rxjs";
-import {Theme, ThemeName} from "../../shared/theme";
-import {MatButtonToggleChange} from "@angular/material/button-toggle";
-import {CalculationProperties} from "../../shared/calculationProperties";
-import {CalculationService} from "../services/calculation.service";
+import { Component, OnInit } from '@angular/core';
+import { ThemeService } from "../services/theme.service";
+import { Observable } from "rxjs";
+import { Theme, ThemeName } from "../../shared/theme";
+import { MatButtonToggleChange } from "@angular/material/button-toggle";
+import { CalculationProperties } from "../../shared/calculationProperties";
+import { CalculationService } from "../services/calculation.service";
 import * as _ from "lodash";
-import {saveAs} from "file-saver";
-import {Title} from "@angular/platform-browser";
+import { saveAs } from "file-saver";
+import { Title } from "@angular/platform-browser";
 
 @Component({
   selector: 'app-root',
@@ -61,7 +61,8 @@ export class AppComponent implements OnInit {
     private readonly _themeService: ThemeService,
     private readonly _calculationService: CalculationService) {
     this.themes$ = _themeService.getThemes();
-    this._titleService.setTitle($localize`${this.title}`);
+    this._title = $localize `Arbeitsblätter Mathematik`;
+    this._titleService.setTitle(this.title);
   }
 
   ngOnInit(): void {

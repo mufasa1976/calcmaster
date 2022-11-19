@@ -60,7 +60,7 @@
       </trans-unit>
       <trans-unit id="9037368691717240476" datatype="html">
         <source> Addition/Subtraktion untereinander darstellen </source>
-        <target>print Addition/Subtraction vertically</target>
+        <target> view Addition/Subtraction vertically </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/app.component.html</context>
           <context context-type="linenumber">58,59</context>
@@ -90,9 +90,9 @@
           <context context-type="linenumber">90,91</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="1737753151350322492" datatype="html">
-        <source><x id="PH" equiv-text="this.title"/></source>
-        <target><x id="PH" equiv-text="Mathematics Exercises"/></target>
+      <trans-unit id="9199998427972314361" datatype="html">
+        <source>Arbeitsblätter Mathematik</source>
+        <target>Mathematics Exercise Sheets</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/app.component.ts</context>
           <context context-type="linenumber">64</context>
@@ -400,7 +400,7 @@
       </trans-unit>
       <trans-unit id="1995175148645275413" datatype="html">
         <source>Addend 2 gerundet auf</source>
-        <target>Addend 2 rounded to</target>
+        <target>second Addend rounded up to</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/options/addition/addition-options.component.html</context>
           <context context-type="linenumber">29</context>
@@ -425,12 +425,20 @@
           <context context-type="sourcefile">src/app/components/options/addition/addition-options.component.html</context>
           <context context-type="linenumber">32</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/options/subtraction/subtraction-options.component.html</context>
+          <context context-type="linenumber">32</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="1664895424037820569" datatype="html">
         <source>ganze Hunderter (100, 200, ...)</source>
         <target>whole Hundreds (100, 200, ...)</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/options/addition/addition-options.component.html</context>
+          <context context-type="linenumber">33</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/options/subtraction/subtraction-options.component.html</context>
           <context context-type="linenumber">33</context>
         </context-group>
       </trans-unit>
@@ -478,7 +486,7 @@
       </trans-unit>
       <trans-unit id="967407269554902520" datatype="html">
         <source>Auszuschließende Zahlen</source>
-        <target>except Numbers</target>
+        <target>excluded Numbers</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/options/division/division-options.component.html</context>
           <context context-type="linenumber">28</context>
@@ -490,7 +498,7 @@
       </trans-unit>
       <trans-unit id="4042765734268284764" datatype="html">
         <source>auszuschließende Zahl...</source>
-        <target>except Number...</target>
+        <target>excluded Number...</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/options/division/division-options.component.html</context>
           <context context-type="linenumber">36</context>
@@ -502,7 +510,7 @@
       </trans-unit>
       <trans-unit id="3980017698059239740" datatype="html">
         <source>Zahl eingeben und mit Enter oder Komma bestätigen</source>
-        <target>Enter Digit and hit Enter or Comma</target>
+        <target>enter Digit and hit Enter or Comma</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/options/division/division-options.component.html</context>
           <context context-type="linenumber">39</context>
@@ -522,7 +530,7 @@
       </trans-unit>
       <trans-unit id="7741628329283734284" datatype="html">
         <source>Divisor eingrenzen auf</source>
-        <target>allowed Digits as Divisor</target>
+        <target>Divisor only includes</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/options/division/division-options.component.html</context>
           <context context-type="linenumber">48</context>
@@ -530,7 +538,7 @@
       </trans-unit>
       <trans-unit id="5277921081225637927" datatype="html">
         <source>einzugrenzender Divisor...</source>
-        <target>Divisor ...</target>
+        <target>included Divisor...</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/options/division/division-options.component.html</context>
           <context context-type="linenumber">56</context>
@@ -546,15 +554,15 @@
       </trans-unit>
       <trans-unit id="337824142327938040" datatype="html">
         <source>Multiplikand eingrenzen auf</source>
-        <target>allowed Multiplicands</target>
+        <target>Multiplicand only includes</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/options/multiplication/multiplication-options.component.html</context>
           <context context-type="linenumber">40</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="734138723895212424" datatype="html">
-        <source>einzugrenzender Faktor...</source>
-        <target>allowed Factor...</target>
+      <trans-unit id="8435768042947259899" datatype="html">
+        <source>einzugrenzender Multiplikand...</source>
+        <target>included Multiplicand...</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/options/multiplication/multiplication-options.component.html</context>
           <context context-type="linenumber">48</context>
@@ -578,26 +586,10 @@
       </trans-unit>
       <trans-unit id="1547057986932580394" datatype="html">
         <source>Subtrahend gerundet auf</source>
-        <target>Subtrahend rounded to</target>
+        <target>Subtrahend rounded up to</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/options/subtraction/subtraction-options.component.html</context>
           <context context-type="linenumber">29</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="1297254527541447886" datatype="html">
-        <source>auf ganze Zehner (10, 20, ...)</source>
-        <target>whole Tens (10, 20, ...)</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/components/options/subtraction/subtraction-options.component.html</context>
-          <context context-type="linenumber">32</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="1206386323603004158" datatype="html">
-        <source>auf ganze Hunderter (100, 200, ...)</source>
-        <target>whole Hundreds (100, 200, ...)</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/components/options/subtraction/subtraction-options.component.html</context>
-          <context context-type="linenumber">33</context>
         </context-group>
       </trans-unit>
     </body>
