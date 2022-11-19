@@ -86,8 +86,8 @@
               <filesToInclude>index.html</filesToInclude>
               <replacements>
                 <replacement>
-                  <token>th:href="@{/}"</token>
-                  <value>th:href="@{/de/}"</value>
+                  <token><![CDATA[<base href="/de/" th:href="@{/}">]]></token>
+                  <value><![CDATA[<base href="/de/" th:href="@{/de/}">]]></value>
                 </replacement>
               </replacements>
             </configuration>
@@ -103,8 +103,8 @@
               <filesToInclude>index.html</filesToInclude>
               <replacements>
                 <replacement>
-                  <token>th:href="@{/}"</token>
-                  <value>th:href="@{/en/}"</value>
+                  <token><![CDATA[<base href="/en/" th:href="@{/}">]]></token>
+                  <value><![CDATA[<base href="/en/" th:href="@{/en/}">]]></value>
                 </replacement>
               </replacements>
             </configuration>
