@@ -125,7 +125,7 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
   public void addViewControllers(ViewControllerRegistry registry) {
     registry.setOrder(2);
     for (String offeredLanguage : OFFERED_ANGULAR_LANGUAGES) {
-      registry.addViewController(SLASH + offeredLanguage + "/**").setViewName(offeredLanguage + "/index");
+      registry.addViewController("/" + offeredLanguage + "/**").setViewName(offeredLanguage + "/index");
     }
   }
 }
