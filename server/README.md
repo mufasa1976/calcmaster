@@ -61,7 +61,7 @@ server:
   forward-headers-strategy: framework
 ```
 
-### WebMvcConfiguration
+### WebMvcConfiguration for multilingual Angular Application
 
 Angular Application are bookmarkable. That means, that any missing Link (HTTP 404) must return the Index-Page so that the Angular
 Application will handle the HTTP 404 correctly. \
@@ -138,6 +138,57 @@ Here you have several Aspects to recognize:
 3. the Resources must be distinguished between relative Resources (with `*`) or fixed Resources (without `*`)
 4. all Languages, which will be provided by the Frontend Application must be available on `OFFERED_ANGULAR_LANGUAGES`
 
+### WebMvcConfiguration for uni-lingual Angular Application
+
+If you don't have a multilingual Angular Application the `WebMvcConfiguration` would be a bit easier:
+
+```java
+
+@Configuration
+@EnableWebMvc
+public class WebMvcConfiguration implements WebMvcConfigurer {
+  private static final String[] ANGULAR_RESOURCES = {
+      "/favicon.ico",
+      "/main.*.js",
+      "/main-*.*.js",
+      "/polyfills.*.js",
+      "/polyfills-*.*.js",
+      "/runtime.*.js",
+      "/runtime-*.*.js",
+      "/styles.*.css",
+      "/deeppurple-amber.css",
+      "/indigo-pink.css",
+      "/pink-bluegrey.css",
+      "/purple-green.css",
+      "/3rdpartylicenses.txt"
+  };
+
+  private final String prefix;
+
+  public WebMvcConfiguration(@Value("${spring.thymeleaf.prefix:" + ThymeleafProperties.DEFAULT_PREFIX + "}") String prefix) {
+    this.prefix = StringUtils.appendIfMissing(prefix, "/");
+  }
+
+  @Override
+  public void addResourceHandlers(ResourceHandlerRegistry registry) {
+    registry.setOrder(1);
+    registry.addResourceHandler("/webjars/**")
+            .addResourceLocations("classpath:/META-INF/resources/webjars/")
+            .resourceChain(true);
+    registry.addResourceHandler(ANGULAR_RESOURCES)
+            .addResourceLocations(prefix);
+    registry.addResourceHandler("/assets/**")
+            .addResourceLocations(prefix + "assets/");
+  }
+
+  @Override
+  public void addViewControllers(ViewControllerRegistry registry) {
+    registry.setOrder(2);
+    registry.addViewController("/**").setViewName("index");
+  }
+}
+```
+
 ### Landing Page
 
 The Frontend Application will be provided with the Language as a Path-Prefix. For Example [the german Version](https://calcmaster.coolstuff.software/de) or
@@ -162,4 +213,5 @@ public class LandingPageController {
   }
 }
 ```
+
 If the Default-Locale of the Browser isn't a supported Version one will be redirected to the english Version of the Frontend Application.
