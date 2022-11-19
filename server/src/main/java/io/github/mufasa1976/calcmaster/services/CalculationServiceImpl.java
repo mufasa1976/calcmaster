@@ -59,7 +59,7 @@ public class CalculationServiceImpl implements CalculationService {
   public StreamingResponseBody printCalculations(Calculations calculations, Locale locale, OutputFormat outputFormat) {
     return outputStream -> {
       final Map<String, Object> parameters = new HashMap<>();
-      parameters.put(JRParameter.REPORT_LOCALE, Locale.GERMAN);
+      parameters.put(JRParameter.REPORT_LOCALE, locale);
       parameters.put(JRParameter.REPORT_RESOURCE_BUNDLE, new MessageSourceResourceBundle(messageSource, locale));
       parameters.put(PARAMETER_SUBHEADER, calculations.subheader().orElse(EMPTY_STRING));
       parameters.put(PARAMETER_VERTICAL_DISPLAY, calculations.verticalDisplay());

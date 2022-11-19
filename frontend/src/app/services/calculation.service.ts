@@ -13,10 +13,7 @@ export class CalculationService {
   generate(calculationProperties: CalculationProperties, fileEnding: string = "pdf"): Observable<HttpResponse<Blob>> {
     return this._httpClient.post(`api/v1/calculation.${fileEnding}`, calculationProperties, {
       observe: "response",
-      responseType: "blob",
-      headers: {
-        "Accept": "application/octet-stream"
-      }
+      responseType: "blob"
     }).pipe(
       catchError((error: HttpErrorResponse) => {
         console.error(error);

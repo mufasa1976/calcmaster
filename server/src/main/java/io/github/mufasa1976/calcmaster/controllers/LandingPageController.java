@@ -8,7 +8,7 @@ import java.util.Arrays;
 import java.util.Locale;
 
 @Controller
-public class IndexController {
+public class LandingPageController {
   private static final String DEFAULT_REDIRECT = "redirect:/en";
 
   @GetMapping
