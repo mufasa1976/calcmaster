@@ -262,3 +262,13 @@ as a multilingual Page by using the [maven-replacer-plugin](https://code.google.
 The Replacement of the `baseHref` must be executed for every supported Language (in this case for `de` and `en`). \
 Be aware that the trailing Slash (`/de/` or `/en/`) is necessary so that the Browser can append the Base HREF to any relative
 URL of the Angular Application.
+
+### API-URLs
+
+Be aware that you have to use **relative URLs** when you communicate with the Backend via `httpClient`.
+Using absolute URLs will not use the `baseHref` and won't work when deployed with a Context-Path others than `/`.
+
+It is also a good common Practice to use [`APP_BASE_HREF`](https://angular.io/api/common/APP_BASE_HREF) and the
+[LocationService](https://angular.io/api/common/Location) of Angular. \
+With the LocationService one can prepare external
+URLs which uses the correct `baseHref`.
