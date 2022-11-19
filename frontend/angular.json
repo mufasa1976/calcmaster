@@ -43,7 +43,7 @@
         "locales": {
           "en": {
             "translation": "src/locales/messages.en.xlf",
-            "baseHref": "en"
+            "baseHref": "/en/"
           }
         }
       },
@@ -51,7 +51,9 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "target/frontend/META-INF/resources/frontend",
+            "outputPath": "target/classes/META-INF/resources/frontend",
+            "baseHref": "/de/",
+            "deployUrl": "/de/",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -126,6 +128,9 @@
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "servePath": "/de/"
+          },
           "configurations": {
             "production": {
               "browserTarget": "calcmaster:build:production"

@@ -69,9 +69,52 @@
       </plugin>
 
       <plugin>
+        <groupId>com.google.code.maven-replacer-plugin</groupId>
+        <artifactId>maven-replacer-plugin</artifactId>
+        <configuration>
+          <regex>false</regex>
+        </configuration>
+        <executions>
+          <execution>
+            <id>replace /de</id>
+            <phase>process-resources</phase>
+            <goals>
+              <goal>replace</goal>
+            </goals>
+            <configuration>
+              <basedir>${project.build.outputDirectory}/META-INF/resources/frontend/de</basedir>
+              <filesToInclude>index.html</filesToInclude>
+              <replacements>
+                <replacement>
+                  <token>th:href="@{/}"</token>
+                  <value>th:href="@{/de/}"</value>
+                </replacement>
+              </replacements>
+            </configuration>
+          </execution>
+          <execution>
+            <id>replace /en</id>
+            <phase>process-resources</phase>
+            <goals>
+              <goal>replace</goal>
+            </goals>
+            <configuration>
+              <basedir>${project.build.outputDirectory}/META-INF/resources/frontend/en</basedir>
+              <filesToInclude>index.html</filesToInclude>
+              <replacements>
+                <replacement>
+                  <token>th:href="@{/}"</token>
+                  <value>th:href="@{/en/}"</value>
+                </replacement>
+              </replacements>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
         <artifactId>maven-jar-plugin</artifactId>
         <configuration>
-          <classesDirectory>target/frontend</classesDirectory>
           <skipIfEmpty>true</skipIfEmpty>
         </configuration>
       </plugin>

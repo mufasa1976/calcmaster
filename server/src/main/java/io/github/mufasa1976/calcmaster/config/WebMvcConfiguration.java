@@ -1,5 +1,6 @@
 package io.github.mufasa1976.calcmaster.config;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.thymeleaf.ThymeleafProperties;
 import org.springframework.context.annotation.Configuration;
@@ -17,7 +18,6 @@ import static org.springframework.http.MediaType.APPLICATION_JSON;
 @EnableWebMvc
 public class WebMvcConfiguration implements WebMvcConfigurer {
   private static final String[] ANGULAR_RESOURCES = {
-      "/index.html",
       "/favicon.ico",
       "/main.*.js",
       "/main-*.*.js",
@@ -42,7 +42,7 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
       @Value("${spring.thymeleaf.prefix:" + ThymeleafProperties.DEFAULT_PREFIX + "}") String prefix,
       Collection<HttpMessageConverter<?>> messageConverters,
       AsyncTaskExecutor asyncTaskExecutor) {
-    this.prefix = prefix;
+    this.prefix = StringUtils.appendIfMissing(prefix, "/");
     this.messageConverters = messageConverters;
     this.asyncTaskExecutor = asyncTaskExecutor;
   }
@@ -58,7 +58,7 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
                                          .map(resource -> "/" + offeredLanguage + resource)
                                          .toArray(String[]::new);
       registry.addResourceHandler(angularResources)
-              .addResourceLocations(prefix);
+              .addResourceLocations(prefix + offeredLanguage + "/");
       registry.addResourceHandler("/" + offeredLanguage + "/assets/**")
               .addResourceLocations(prefix + offeredLanguage + "/assets/");
     }
