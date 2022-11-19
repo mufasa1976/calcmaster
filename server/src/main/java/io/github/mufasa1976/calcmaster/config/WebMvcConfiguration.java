@@ -17,6 +17,8 @@ import static org.springframework.http.MediaType.APPLICATION_JSON;
 @Configuration
 @EnableWebMvc
 public class WebMvcConfiguration implements WebMvcConfigurer {
+  private static final String SLASH = "/";
+  private static final String ASTERISK = "*";
   private static final String[] ANGULAR_RESOURCES = {
       "/favicon.ico",
       "/main.*.js",
@@ -54,11 +56,20 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
             .addResourceLocations("classpath:/META-INF/resources/webjars/")
             .resourceChain(true);
     for (String offeredLanguage : OFFERED_ANGULAR_LANGUAGES) {
-      final var angularResources = Stream.of(ANGULAR_RESOURCES)
-                                         .map(resource -> "/" + offeredLanguage + resource)
-                                         .toArray(String[]::new);
-      registry.addResourceHandler(angularResources)
-              .addResourceLocations(prefix + offeredLanguage + "/");
+      final var relativeAngularResources = Stream.of(ANGULAR_RESOURCES)
+                                                 .filter(resource -> StringUtils.contains(resource, ASTERISK))
+                                                 .map(resource -> SLASH + offeredLanguage + resource)
+                                                 .toArray(String[]::new);
+      registry.addResourceHandler(relativeAngularResources)
+              .addResourceLocations(prefix + offeredLanguage + SLASH);
+
+      final var fixedAngularResources = Stream.of(ANGULAR_RESOURCES)
+                                              .filter(resource -> !StringUtils.contains(resource, ASTERISK))
+                                              .map(resource -> SLASH + offeredLanguage + resource)
+                                              .toArray(String[]::new);
+      registry.addResourceHandler(fixedAngularResources)
+              .addResourceLocations(prefix);
+
       registry.addResourceHandler("/" + offeredLanguage + "/assets/**")
               .addResourceLocations(prefix + offeredLanguage + "/assets/");
     }
