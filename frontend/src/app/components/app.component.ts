@@ -21,6 +21,7 @@ export class AppComponent implements OnInit {
   readonly SUBTRACT = "SUBTRACT";
   readonly MULTIPLY = "MULTIPLY";
   readonly DIVIDE = "DIVIDE";
+  readonly ROUND = "ROUND";
 
   private _title = "Arbeitsblätter Mathematik";
   private _operators = new Set<string>();
@@ -50,6 +51,7 @@ export class AppComponent implements OnInit {
       exclusions: [],
       fixedDivisors: []
     },
+    roundingProperties: {},
     toggleHide: true,
     numberOfCalculations: 15,
     verticalDisplay: false
@@ -61,7 +63,7 @@ export class AppComponent implements OnInit {
     private readonly _themeService: ThemeService,
     private readonly _calculationService: CalculationService) {
     this.themes$ = _themeService.getThemes();
-    this._title = $localize `Arbeitsblätter Mathematik`;
+    this._title = $localize`Arbeitsblätter Mathematik`;
     this._titleService.setTitle(this.title);
   }
 
@@ -116,15 +118,5 @@ export class AppComponent implements OnInit {
       }
       subscription.unsubscribe();
     });
-  }
-
-  private getFormattedCurrentTimestamp() {
-    const now = new Date();
-    const month = now.getMonth() < 10 ? `0${now.getMonth()}` : now.getMonth();
-    const day = now.getDay() < 10 ? `0${now.getDay()}` : now.getDay();
-    const hours = now.getHours() < 10 ? `0${now.getHours()}` : now.getHours();
-    const minutes = now.getMinutes() < 10 ? `0${now.getMinutes()}` : now.getMinutes();
-    const seconds = now.getSeconds() < 10 ? `0${now.getSeconds()}` : now.getSeconds();
-    return `${now.getFullYear()}${month}${day}${hours}${minutes}${seconds}`;
   }
 }

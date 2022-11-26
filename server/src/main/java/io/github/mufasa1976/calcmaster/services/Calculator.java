@@ -30,15 +30,16 @@ public class Calculator {
         calculationProperties.operators()
                              .stream()
                              .map(operator -> switch (operator) {
-                               case ADD ->
-                                   new AdditionSupplier(random, calculationProperties.toggleHide(), applicationProperties.getMaxTriesToGetDistinctOperationTuples(),
-                                       calculationProperties.additionProperties(), applicationProperties.getMaxTriesToFindSumOfAdditionNotEqualToSecondAddend());
+                               case ADD -> new AdditionSupplier(random, calculationProperties.toggleHide(), applicationProperties.getMaxTriesToGetDistinctOperationTuples(),
+                                   calculationProperties.additionProperties(), applicationProperties.getMaxTriesToFindSumOfAdditionNotEqualToSecondAddend());
                                case SUBTRACT -> new SubtractionSupplier(random, calculationProperties.toggleHide(),
                                    applicationProperties.getMaxTriesToGetDistinctOperationTuples(), calculationProperties.subtractionProperties());
                                case MULTIPLY -> new MultiplicationSupplier(random, calculationProperties.toggleHide(),
                                    applicationProperties.getMaxTriesToGetDistinctOperationTuples(), calculationProperties.multiplicationProperties());
                                case DIVIDE -> new DivisionSupplier(random, calculationProperties.toggleHide(),
                                    applicationProperties.getMaxTriesToGetDistinctOperationTuples(), calculationProperties.divisionProperties());
+                               case ROUND -> new RoundingSupplier(random, calculationProperties.toggleHide(), applicationProperties.getMaxTriesToGetDistinctOperationTuples(),
+                                   calculationProperties.roundingProperties());
                              })
                              .peek(CalculationSupplier::init)
                              .collect(Collectors.toList());

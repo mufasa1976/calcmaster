@@ -18,38 +18,41 @@
       <div>
         <mat-button-toggle [value]="ADD" (change)="toggleButton($event)" i18n>Addition</mat-button-toggle>
       </div>
-      <app-addition-options [hidden]="notChecked(ADD)"
-                            [(properties)]="calculationProperties.additionProperties"></app-addition-options>
+      <app-addition-options [hidden]="notChecked(ADD)" [(properties)]="calculationProperties.additionProperties"></app-addition-options>
     </div>
 
     <div class="operator">
       <div>
         <mat-button-toggle [value]="SUBTRACT" (change)="toggleButton($event)" i18n>Subtraktion</mat-button-toggle>
       </div>
-      <app-subtraction-options [hidden]="notChecked(SUBTRACT)"
-                               [(properties)]="calculationProperties.subtractionProperties"></app-subtraction-options>
+      <app-subtraction-options [hidden]="notChecked(SUBTRACT)" [(properties)]="calculationProperties.subtractionProperties"></app-subtraction-options>
     </div>
 
     <div class="operator">
       <div>
         <mat-button-toggle [value]="MULTIPLY" (change)="toggleButton($event)" i18n>Multiplikation</mat-button-toggle>
       </div>
-      <app-multiplication-options [hidden]="notChecked(MULTIPLY)"
-                                  [(properties)]="calculationProperties.multiplicationProperties"></app-multiplication-options>
+      <app-multiplication-options [hidden]="notChecked(MULTIPLY)" [(properties)]="calculationProperties.multiplicationProperties"></app-multiplication-options>
     </div>
 
     <div class="operator">
       <div>
         <mat-button-toggle [value]="DIVIDE" (change)="toggleButton($event)" i18n>Division</mat-button-toggle>
       </div>
-      <app-division-options [hidden]="notChecked(DIVIDE)"
-                            [(properties)]="calculationProperties.divisionProperties"></app-division-options>
+      <app-division-options [hidden]="notChecked(DIVIDE)" [(properties)]="calculationProperties.divisionProperties"></app-division-options>
+    </div>
+
+    <div class="operator">
+      <div>
+        <mat-button-toggle [value]="ROUND" (change)="toggleButton($event)" i18n>Rundung</mat-button-toggle>
+      </div>
+      <app-rounding-options [hidden]="notChecked(ROUND)" [(properties)]="calculationProperties.roundingProperties"></app-rounding-options>
     </div>
 
     <div style="padding-top: 20px">
       <mat-slide-toggle [(ngModel)]="calculationProperties.toggleHide">
-        <span i18n>zufällig Operand2 und Resultat ausblenden</span>
-        <span class="exceptionToggle" i18n>(ausgenommen Division)</span>
+        <span i18n>zufällig Operand2 oder Resultat ausblenden</span>
+        <span class="exceptionToggle" i18n>(ausgenommen Division und Rundung)</span>
       </mat-slide-toggle>
     </div>
 
