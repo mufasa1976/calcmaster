@@ -51,7 +51,10 @@ export class AppComponent implements OnInit {
       exclusions: [],
       fixedDivisors: []
     },
-    roundingProperties: {},
+    roundingProperties: {
+      maxPower: 2,
+      minPower: 1
+    },
     toggleHide: true,
     numberOfCalculations: 15,
     verticalDisplay: false

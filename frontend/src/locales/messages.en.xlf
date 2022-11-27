@@ -42,7 +42,7 @@
           <context context-type="linenumber">40</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="1372877290863569362" datatype="html">
+      <trans-unit id="1742416124648955107" datatype="html">
         <source>Rundung</source>
         <target>Rounding</target>
         <context-group purpose="location">
@@ -103,7 +103,7 @@
         <target>Mathematics Exercise Sheets</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/app.component.ts</context>
-          <context context-type="linenumber">68</context>
+          <context context-type="linenumber">69</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1041061111592663374" datatype="html">
@@ -322,6 +322,10 @@
           <context context-type="linenumber">12</context>
         </context-group>
         <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/options/rounding/rounding-options/rounding-options.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+        <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/options/subtraction/subtraction-options.component.html</context>
           <context context-type="linenumber">21</context>
         </context-group>
@@ -340,6 +344,10 @@
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/options/multiplication/multiplication-options.component.html</context>
           <context context-type="linenumber">13</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/options/rounding/rounding-options/rounding-options.component.html</context>
+          <context context-type="linenumber">5</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/options/subtraction/subtraction-options.component.html</context>
@@ -362,6 +370,10 @@
           <context context-type="linenumber">14</context>
         </context-group>
         <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/options/rounding/rounding-options/rounding-options.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+        <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/options/subtraction/subtraction-options.component.html</context>
           <context context-type="linenumber">23</context>
         </context-group>
@@ -382,6 +394,10 @@
           <context context-type="linenumber">15</context>
         </context-group>
         <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/options/rounding/rounding-options/rounding-options.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+        <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/options/subtraction/subtraction-options.component.html</context>
           <context context-type="linenumber">24</context>
         </context-group>
@@ -400,6 +416,10 @@
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/options/multiplication/multiplication-options.component.html</context>
           <context context-type="linenumber">16</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/options/rounding/rounding-options/rounding-options.component.html</context>
+          <context context-type="linenumber">8</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/options/subtraction/subtraction-options.component.html</context>
@@ -574,6 +594,62 @@
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/options/multiplication/multiplication-options.component.html</context>
           <context context-type="linenumber">48</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6696458678904888092" datatype="html">
+        <source>Zahlenraum</source>
+        <target>max Number</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/options/rounding/rounding-options/rounding-options.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5930538452657030734" datatype="html">
+        <source>mindeste Rundung</source>
+        <target>min Rounding</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/options/rounding/rounding-options/rounding-options.component.html</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8143428278828329217" datatype="html">
+        <source>auf nächste 10er Stelle</source>
+        <target>up to next 10</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/options/rounding/rounding-options/rounding-options.component.html</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5133547641915156298" datatype="html">
+        <source>auf nächste 100er Stelle</source>
+        <target>up to next 100</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/options/rounding/rounding-options/rounding-options.component.html</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="387405578797089568" datatype="html">
+        <source>auf nächste 1.000er Stelle</source>
+        <target>up to next 1,000</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/options/rounding/rounding-options/rounding-options.component.html</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4739155828149144148" datatype="html">
+        <source>auf nächste 10.000er Stelle</source>
+        <target>up to next 10,000</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/options/rounding/rounding-options/rounding-options.component.html</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4013403638632501752" datatype="html">
+        <source>auf nächste 100.000er Stelle</source>
+        <target>up to next 100,000</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/options/rounding/rounding-options/rounding-options.component.html</context>
+          <context context-type="linenumber">18</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6791018251343016295" datatype="html">

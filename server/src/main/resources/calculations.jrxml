@@ -19,6 +19,7 @@
 	<field name="result" class="java.lang.Integer"/>
 	<field name="remainder" class="java.lang.Integer"/>
 	<field name="hiddenField" class="io.github.mufasa1976.calcmaster.enums.HiddenField"/>
+	<field name="textExercise" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -53,13 +54,26 @@
 	<detail>
 		<band height="140" splitType="Stretch">
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<textField textAdjust="ScaleFont">
+				<reportElement x="5" y="0" width="150" height="20" uuid="6e17040d-aa85-43e5-922f-6ff2ec2e3fd7">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<printWhenExpression><![CDATA[$F{textExercise} != null && !$F{textExercise}.isBlank()]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{textExercise}]]></textFieldExpression>
+			</textField>
 			<textField pattern="#,###,##0;-#,###,##0">
 				<reportElement x="5" y="0" width="50" height="20" uuid="ec7e882b-084d-49df-a0b1-eb7bcdc4f75c">
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
-					<printWhenExpression><![CDATA[!$P{VERTICAL_DISPLAY} || !("+".equals($F{operator}) || "-".equals($F{operator}))]]></printWhenExpression>
+					<printWhenExpression><![CDATA[($F{textExercise} == null || $F{textExercise}.isBlank()) && (!$P{VERTICAL_DISPLAY} || !("+".equals($F{operator}) || "-".equals($F{operator})))]]></printWhenExpression>
 				</reportElement>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="12"/>
@@ -72,7 +86,7 @@
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
-					<printWhenExpression><![CDATA[!$P{VERTICAL_DISPLAY} || !("+".equals($F{operator}) || "-".equals($F{operator}))]]></printWhenExpression>
+					<printWhenExpression><![CDATA[($F{textExercise} == null || $F{textExercise}.isBlank()) && (!$P{VERTICAL_DISPLAY} || !("+".equals($F{operator}) || "-".equals($F{operator})))]]></printWhenExpression>
 				</reportElement>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -91,7 +105,7 @@
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
-					<printWhenExpression><![CDATA[(!$P{VERTICAL_DISPLAY} || !("+".equals($F{operator}) || "-".equals($F{operator}))) && $F{hiddenField} != io.github.mufasa1976.calcmaster.enums.HiddenField.OPERAND2]]></printWhenExpression>
+					<printWhenExpression><![CDATA[($F{textExercise} == null || $F{textExercise}.isBlank()) && (!$P{VERTICAL_DISPLAY} || !("+".equals($F{operator}) || "-".equals($F{operator}))) && $F{hiddenField} != io.github.mufasa1976.calcmaster.enums.HiddenField.OPERAND2]]></printWhenExpression>
 				</reportElement>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="12"/>
@@ -104,7 +118,7 @@
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
-					<printWhenExpression><![CDATA[(!$P{VERTICAL_DISPLAY} || !("+".equals($F{operator}) || "-".equals($F{operator}))) && $F{hiddenField} != io.github.mufasa1976.calcmaster.enums.HiddenField.RESULT]]></printWhenExpression>
+					<printWhenExpression><![CDATA[($F{textExercise} == null || $F{textExercise}.isBlank()) && (!$P{VERTICAL_DISPLAY} || !("+".equals($F{operator}) || "-".equals($F{operator}))) && $F{hiddenField} != io.github.mufasa1976.calcmaster.enums.HiddenField.RESULT]]></printWhenExpression>
 				</reportElement>
 			</line>
 			<staticText>
@@ -113,7 +127,7 @@
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
-					<printWhenExpression><![CDATA[!$P{VERTICAL_DISPLAY} || !("+".equals($F{operator}) || "-".equals($F{operator}))]]></printWhenExpression>
+					<printWhenExpression><![CDATA[($F{textExercise} == null || $F{textExercise}.isBlank()) && (!$P{VERTICAL_DISPLAY} || !("+".equals($F{operator}) || "-".equals($F{operator})))]]></printWhenExpression>
 				</reportElement>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -132,7 +146,7 @@
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
-					<printWhenExpression><![CDATA[(!$P{VERTICAL_DISPLAY} || !("+".equals($F{operator}) || "-".equals($F{operator}))) && $F{hiddenField} != io.github.mufasa1976.calcmaster.enums.HiddenField.RESULT]]></printWhenExpression>
+					<printWhenExpression><![CDATA[($F{textExercise} == null || $F{textExercise}.isBlank()) && (!$P{VERTICAL_DISPLAY} || !("+".equals($F{operator}) || "-".equals($F{operator}))) && $F{hiddenField} != io.github.mufasa1976.calcmaster.enums.HiddenField.RESULT]]></printWhenExpression>
 				</reportElement>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="12"/>
@@ -145,7 +159,7 @@
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
-					<printWhenExpression><![CDATA[(!$P{VERTICAL_DISPLAY} || !("+".equals($F{operator}) || "-".equals($F{operator}))) && $F{hiddenField} != io.github.mufasa1976.calcmaster.enums.HiddenField.OPERAND2]]></printWhenExpression>
+					<printWhenExpression><![CDATA[($F{textExercise} == null || $F{textExercise}.isBlank()) && (!$P{VERTICAL_DISPLAY} || !("+".equals($F{operator}) || "-".equals($F{operator}))) && $F{hiddenField} != io.github.mufasa1976.calcmaster.enums.HiddenField.OPERAND2]]></printWhenExpression>
 				</reportElement>
 			</line>
 			<textField pattern="#,###,##0;-#,###,##0">
@@ -154,7 +168,7 @@
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
-					<printWhenExpression><![CDATA[$P{VERTICAL_DISPLAY} && ("+".equals($F{operator}) || "-".equals($F{operator}))]]></printWhenExpression>
+					<printWhenExpression><![CDATA[($F{textExercise} == null || $F{textExercise}.isBlank()) && $P{VERTICAL_DISPLAY} && ("+".equals($F{operator}) || "-".equals($F{operator}))]]></printWhenExpression>
 				</reportElement>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="12"/>
@@ -167,7 +181,7 @@
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-					<printWhenExpression><![CDATA[$P{VERTICAL_DISPLAY} && ("+".equals($F{operator}) || "-".equals($F{operator}))]]></printWhenExpression>
+					<printWhenExpression><![CDATA[($F{textExercise} == null || $F{textExercise}.isBlank()) && $P{VERTICAL_DISPLAY} && ("+".equals($F{operator}) || "-".equals($F{operator}))]]></printWhenExpression>
 				</reportElement>
 				<box bottomPadding="0">
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -186,7 +200,7 @@
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-					<printWhenExpression><![CDATA[($P{VERTICAL_DISPLAY} && ("+".equals($F{operator}) || "-".equals($F{operator}))) && $F{hiddenField} != io.github.mufasa1976.calcmaster.enums.HiddenField.OPERAND2]]></printWhenExpression>
+					<printWhenExpression><![CDATA[($F{textExercise} == null || $F{textExercise}.isBlank()) && ($P{VERTICAL_DISPLAY} && ("+".equals($F{operator}) || "-".equals($F{operator}))) && $F{hiddenField} != io.github.mufasa1976.calcmaster.enums.HiddenField.OPERAND2]]></printWhenExpression>
 				</reportElement>
 				<box bottomPadding="0">
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -205,7 +219,7 @@
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
-					<printWhenExpression><![CDATA[$P{VERTICAL_DISPLAY} && ("+".equals($F{operator}) || "-".equals($F{operator}))]]></printWhenExpression>
+					<printWhenExpression><![CDATA[($F{textExercise} == null || $F{textExercise}.isBlank()) && $P{VERTICAL_DISPLAY} && ("+".equals($F{operator}) || "-".equals($F{operator}))]]></printWhenExpression>
 				</reportElement>
 			</line>
 			<textField pattern="#,###,##0;-#,###,##0">
@@ -214,7 +228,7 @@
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
-					<printWhenExpression><![CDATA[($P{VERTICAL_DISPLAY} && ("+".equals($F{operator}) || "-".equals($F{operator}))) && $F{hiddenField} != io.github.mufasa1976.calcmaster.enums.HiddenField.RESULT]]></printWhenExpression>
+					<printWhenExpression><![CDATA[($F{textExercise} == null || $F{textExercise}.isBlank()) && ($P{VERTICAL_DISPLAY} && ("+".equals($F{operator}) || "-".equals($F{operator}))) && $F{hiddenField} != io.github.mufasa1976.calcmaster.enums.HiddenField.RESULT]]></printWhenExpression>
 				</reportElement>
 				<box topPadding="0">
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>

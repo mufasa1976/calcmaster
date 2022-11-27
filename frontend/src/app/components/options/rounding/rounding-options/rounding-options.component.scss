@@ -1,0 +1,15 @@
+mat-form-field.maxPower{
+  width: 110px;
+  @media (max-width: 469px) {
+    width: 150px;
+  }
+}
+
+mat-form-field.minPower {
+  width: 200px;
+  padding-left: 20px;
+  @media (max-width: 469px) {
+    width: 200px;
+    padding-left: 0;
+  }
+}

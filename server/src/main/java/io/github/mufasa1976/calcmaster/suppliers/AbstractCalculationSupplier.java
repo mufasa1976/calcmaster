@@ -1,9 +1,9 @@
 package io.github.mufasa1976.calcmaster.suppliers;
 
+import io.github.mufasa1976.calcmaster.dtos.Calculation;
+import io.github.mufasa1976.calcmaster.enums.HiddenField;
 import lombok.RequiredArgsConstructor;
 import lombok.Value;
-import io.github.mufasa1976.calcmaster.enums.HiddenField;
-import io.github.mufasa1976.calcmaster.dtos.Calculation;
 
 import java.util.HashSet;
 import java.util.Random;
@@ -16,6 +16,9 @@ public abstract class AbstractCalculationSupplier implements CalculationSupplier
   protected final int maxTriesToGetDistinctOperationTuples;
 
   protected Set<Operation> operationTuples = new HashSet<>();
+
+  @Override
+  public void init() {}
 
   @Override
   public final Calculation get() {

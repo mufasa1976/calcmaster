@@ -1,9 +1,9 @@
 package io.github.mufasa1976.calcmaster.dtos;
 
+import io.github.mufasa1976.calcmaster.enums.HiddenField;
 import lombok.Builder;
 import lombok.Value;
 import org.apache.commons.lang3.StringUtils;
-import io.github.mufasa1976.calcmaster.enums.HiddenField;
 
 @Value
 @Builder
@@ -14,9 +14,16 @@ public class Calculation implements Comparable<Calculation> {
   int result;
   Integer remainder;
   HiddenField hiddenField;
+  String textExercise;
+  String textSolution;
 
   @Override
   public String toString() {
+    if (StringUtils.isNotBlank(textSolution)) {
+      return textSolution;
+    } else if (StringUtils.isNotBlank(textExercise)) {
+      return textExercise;
+    }
     return String.format("%d %s %d = %d", operand1, operator, operand2, result);
   }
 

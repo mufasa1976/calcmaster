@@ -16,9 +16,6 @@ public class SubtractionSupplier extends AbstractCalculationSupplier {
   }
 
   @Override
-  public void init() {}
-
-  @Override
   public Calculation getInternal() {
     final var lowerBoundSubtrahend = properties.subtrahendRounding() > 1 ? properties.subtrahendRounding() : properties.includeZeroOnOperand() ? 0 : 1;
     var subtrahend = (random.nextInt(lowerBoundSubtrahend, properties.maxDifference()) / properties.subtrahendRounding()) * properties.subtrahendRounding();

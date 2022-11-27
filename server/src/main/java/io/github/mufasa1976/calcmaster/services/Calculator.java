@@ -6,8 +6,10 @@ import io.github.mufasa1976.calcmaster.records.CalculationProperties;
 import io.github.mufasa1976.calcmaster.records.Calculations;
 import io.github.mufasa1976.calcmaster.suppliers.*;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.MessageSource;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 import java.util.Random;
 import java.util.function.Supplier;
@@ -21,7 +23,7 @@ public class Calculator {
   private final Random random;
   private final List<CalculationSupplier> calculationSuppliers;
 
-  public Calculator(CalculationProperties calculationProperties, ApplicationProperties applicationProperties) {
+  public Calculator(CalculationProperties calculationProperties, ApplicationProperties applicationProperties, MessageSource messageSource, Locale locale) {
     this.calculationProperties = calculationProperties;
     this.applicationProperties = applicationProperties;
 
@@ -39,7 +41,7 @@ public class Calculator {
                                case DIVIDE -> new DivisionSupplier(random, calculationProperties.toggleHide(),
                                    applicationProperties.getMaxTriesToGetDistinctOperationTuples(), calculationProperties.divisionProperties());
                                case ROUND -> new RoundingSupplier(random, calculationProperties.toggleHide(), applicationProperties.getMaxTriesToGetDistinctOperationTuples(),
-                                   calculationProperties.roundingProperties());
+                                   messageSource, locale, calculationProperties.roundingProperties());
                              })
                              .peek(CalculationSupplier::init)
                              .collect(Collectors.toList());
