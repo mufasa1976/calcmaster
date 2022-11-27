@@ -1,5 +1,8 @@
 package io.github.mufasa1976.calcmaster.services;
 
+import io.github.mufasa1976.calcmaster.ApplicationProperties;
+import io.github.mufasa1976.calcmaster.records.CalculationProperties;
+import io.github.mufasa1976.calcmaster.records.Calculations;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.sf.jasperreports.engine.*;
@@ -13,9 +16,6 @@ import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBody;
-import io.github.mufasa1976.calcmaster.ApplicationProperties;
-import io.github.mufasa1976.calcmaster.records.CalculationProperties;
-import io.github.mufasa1976.calcmaster.records.Calculations;
 
 import javax.annotation.PostConstruct;
 import java.io.IOException;
@@ -51,8 +51,8 @@ public class CalculationServiceImpl implements CalculationService {
   }
 
   @Override
-  public Optional<Calculations> createCalculations(CalculationProperties calculationProperties) {
-    return new Calculator(calculationProperties, applicationProperties).calculate();
+  public Optional<Calculations> createCalculations(CalculationProperties calculationProperties, Locale locale) {
+    return new Calculator(calculationProperties, applicationProperties, messageSource, locale).calculate();
   }
 
   @Override

@@ -18,9 +18,6 @@ public class AdditionSupplier extends AbstractCalculationSupplier {
   }
 
   @Override
-  public void init() {}
-
-  @Override
   public Calculation getInternal() {
     final var lowerBoundSecondAddend = properties.secondAddendRounding() > 1 ? properties.secondAddendRounding() : properties.includeZeroOnOperand() ? 0 : 1;
     var secondAddend = (random.nextInt(lowerBoundSecondAddend, properties.maxSum() + 1) / properties.secondAddendRounding()) * properties.secondAddendRounding();

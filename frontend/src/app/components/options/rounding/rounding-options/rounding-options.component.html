@@ -1,0 +1,20 @@
+<mat-form-field class="maxPower">
+  <mat-label i18n>Zahlenraum</mat-label>
+  <mat-select [(value)]="maxPower">
+    <mat-option [value]="2" i18n>bis 100</mat-option>
+    <mat-option [value]="3" i18n>bis 1.000</mat-option>
+    <mat-option [value]="4" i18n>bis 10.000</mat-option>
+    <mat-option [value]="5" i18n>bis 100.000</mat-option>
+    <mat-option [value]="6" i18n>bis 1.000.000</mat-option>
+  </mat-select>
+</mat-form-field>
+<mat-form-field class="minPower">
+  <mat-label i18n>mindeste Rundung</mat-label>
+  <mat-select [(value)]="minPower">
+    <mat-option [value]="1" i18n>auf nächste 10er Stelle</mat-option>
+    <mat-option [value]="2" [disabled]="maxPower <= 2" i18n>auf nächste 100er Stelle</mat-option>
+    <mat-option [value]="3" [disabled]="maxPower <= 3" i18n>auf nächste 1.000er Stelle</mat-option>
+    <mat-option [value]="4" [disabled]="maxPower <= 4" i18n>auf nächste 10.000er Stelle</mat-option>
+    <mat-option [value]="5" [disabled]="maxPower <= 5" i18n>auf nächste 100.000er Stelle</mat-option>
+  </mat-select>
+</mat-form-field>

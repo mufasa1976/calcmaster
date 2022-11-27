@@ -26,6 +26,7 @@ import { FormsModule } from "@angular/forms";
 import { ToastrModule } from "ngx-toastr";
 import { XRequestedWithInterceptor } from "./interceptors/x-requested-with.interceptor";
 import { ApiPathInterceptor } from "./interceptors/api-path.interceptor";
+import { RoundingOptionsComponent } from './components/options/rounding/rounding-options/rounding-options.component';
 
 const HTTP_INTERCEPTOR_PROVIDERS: Provider[] = [
   { provide: HTTP_INTERCEPTORS, useClass: XRequestedWithInterceptor, multi: true },
@@ -40,6 +41,7 @@ const HTTP_INTERCEPTOR_PROVIDERS: Provider[] = [
     SubtractionOptionsComponent,
     MultiplicationOptionsComponent,
     DivisionOptionsComponent,
+    RoundingOptionsComponent,
   ],
   imports: [
     BrowserModule,
