@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { RoundingProperties } from "../../../../../shared/roundingProperties";
+import { initialRoundingProperties, RoundingProperties } from "../../../../../shared/roundingProperties";
 
 @Component({
   selector: 'app-rounding-options',
@@ -7,10 +7,7 @@ import { RoundingProperties } from "../../../../../shared/roundingProperties";
   styleUrls: ['./rounding-options.component.scss']
 })
 export class RoundingOptionsComponent {
-  @Input("properties") properties: RoundingProperties = {
-    maxPower: 2,
-    minPower: 1
-  };
+  @Input("properties") properties: RoundingProperties = { ...initialRoundingProperties };
   @Output("propertiesChange") private _propertiesEmitter = new EventEmitter<RoundingProperties>();
 
   constructor() { }

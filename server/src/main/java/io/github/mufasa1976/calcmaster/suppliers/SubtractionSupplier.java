@@ -21,7 +21,7 @@ public class SubtractionSupplier extends AbstractCalculationSupplier {
     var subtrahend = (random.nextInt(lowerBoundSubtrahend, properties.maxDifference()) / properties.subtrahendRounding()) * properties.subtrahendRounding();
     var minuend = random.nextInt(subtrahend, properties.maxDifference() + 1);
     if (properties.minDifference() > 0) {
-      subtrahend = (random.nextInt(lowerBoundSubtrahend, properties.minDifference()) / properties.subtrahendRounding()) * properties.subtrahendRounding();
+      subtrahend = (random.nextInt(lowerBoundSubtrahend, properties.maxDifference() - properties.minDifference()) / properties.subtrahendRounding()) * properties.subtrahendRounding();
       minuend = random.nextInt(subtrahend + properties.minDifference(), properties.maxDifference() + 1);
     }
     final var difference = minuend - subtrahend;

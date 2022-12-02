@@ -27,6 +27,8 @@ public class RoundingSupplier extends AbstractCalculationSupplier {
     return Calculation.builder()
                       .textExercise(messageSource.getMessage("rounding.exercise", new Object[] {randomValue, power}, locale))
                       .textSolution(messageSource.getMessage("rounding.solution", new Object[] {randomValue, power, result}, locale))
+                      .operand1(randomValue)
+                      .operand2(power)
                       .result(result)
                       .build();
   }

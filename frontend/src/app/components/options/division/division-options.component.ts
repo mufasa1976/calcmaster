@@ -1,8 +1,8 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {DivisionProperties} from "../../../../shared/divisionProperties";
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { DivisionProperties, initialDivisionProperties } from "../../../../shared/divisionProperties";
 import * as _ from "lodash";
-import {MatChipInputEvent} from "@angular/material/chips";
-import {COMMA, ENTER} from "@angular/cdk/keycodes";
+import { MatChipInputEvent } from "@angular/material/chips";
+import { COMMA, ENTER } from "@angular/cdk/keycodes";
 
 @Component({
   selector: 'app-division-options',
@@ -10,12 +10,7 @@ import {COMMA, ENTER} from "@angular/cdk/keycodes";
   styleUrls: ['./division-options.component.scss']
 })
 export class DivisionOptionsComponent {
-  @Input("properties") properties: DivisionProperties = {
-    maxDividend: 100,
-    maxRemainder: 0,
-    exclusions: [],
-    fixedDivisors: []
-  }
+  @Input("properties") properties: DivisionProperties = { ...initialDivisionProperties };
   @Output("propertiesChange") private _propertiesEmitter = new EventEmitter<DivisionProperties>();
 
   addOnBlur = true;

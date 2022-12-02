@@ -3,7 +3,7 @@ import { ThemeService } from "../services/theme.service";
 import { Observable } from "rxjs";
 import { Theme, ThemeName } from "../../shared/theme";
 import { MatButtonToggleChange } from "@angular/material/button-toggle";
-import { CalculationProperties } from "../../shared/calculationProperties";
+import { CalculationProperties, initialCalculationProperties } from "../../shared/calculationProperties";
 import { CalculationService } from "../services/calculation.service";
 import * as _ from "lodash";
 import { saveAs } from "file-saver";
@@ -26,40 +26,8 @@ export class AppComponent implements OnInit {
   private _title = "Arbeitsblätter Mathematik";
   private _operators = new Set<string>();
 
-  calculationProperties: CalculationProperties = {
-    operators: [],
-    additionProperties: {
-      minSum: 0,
-      maxSum: 10,
-      secondAddendRounding: 1,
-      includeZeroOnOperand: true,
-    },
-    subtractionProperties: {
-      minDifference: 0,
-      maxDifference: 10,
-      subtrahendRounding: 1,
-      includeZeroOnOperand: true,
-    },
-    multiplicationProperties: {
-      maxProduct: 100,
-      exclusions: [],
-      fixedMultiplicands: []
-    },
-    divisionProperties: {
-      maxDividend: 100,
-      maxRemainder: 0,
-      exclusions: [],
-      fixedDivisors: []
-    },
-    roundingProperties: {
-      maxPower: 2,
-      minPower: 1
-    },
-    toggleHide: true,
-    numberOfCalculations: 15,
-    verticalDisplay: false
-  }
-  fileEnding: string = "pdf"
+  calculationProperties: CalculationProperties = { ...initialCalculationProperties };
+  fileEnding: string = "pdf";
 
   constructor(
     private readonly _titleService: Title,

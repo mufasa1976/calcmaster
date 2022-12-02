@@ -4,3 +4,10 @@ export interface DivisionProperties {
   exclusions: number[];
   fixedDivisors: number[];
 }
+
+export const initialDivisionProperties = {
+  maxDividend: 100,
+  maxRemainder: 0,
+  exclusions: [],
+  fixedDivisors: []
+} as DivisionProperties;

@@ -1,8 +1,8 @@
-import {AdditionProperties} from "./additionProperties";
-import {SubtractionProperties} from "./subtractionProperties";
-import {MultiplicationProperties} from "./multiplicationProperties";
-import {DivisionProperties} from "./divisionProperties";
-import { RoundingProperties } from "./roundingProperties";
+import { AdditionProperties, initialAdditionProperties } from "./additionProperties";
+import { initialSubtractionProperties, SubtractionProperties } from "./subtractionProperties";
+import { initialMultiplicationProperties, MultiplicationProperties } from "./multiplicationProperties";
+import { DivisionProperties, initialDivisionProperties } from "./divisionProperties";
+import { initialRoundingProperties, RoundingProperties } from "./roundingProperties";
 
 export interface CalculationProperties {
   operators: string[];
@@ -16,3 +16,15 @@ export interface CalculationProperties {
   numberOfCalculations: number;
   verticalDisplay: boolean;
 }
+
+export const initialCalculationProperties = {
+  operators: [],
+  additionProperties: initialAdditionProperties,
+  subtractionProperties: initialSubtractionProperties,
+  multiplicationProperties: initialMultiplicationProperties,
+  divisionProperties: initialDivisionProperties,
+  roundingProperties: initialRoundingProperties,
+  toggleHide: true,
+  numberOfCalculations: 15,
+  verticalDisplay: false
+} as CalculationProperties;
