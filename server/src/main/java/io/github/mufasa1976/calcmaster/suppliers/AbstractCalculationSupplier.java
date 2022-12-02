@@ -23,14 +23,20 @@ public abstract class AbstractCalculationSupplier implements CalculationSupplier
   @Override
   public final Calculation get() {
     Calculation calculation = getInternal();
-    for (int i = 0; existsOperationTuple(calculation.getOperand1(), calculation.getOperand2()) && i <= 10; i++) {
-      calculation = getInternal();
+    if (isCheckDuplicates()) {
+      for (int i = 0; existsOperationTuple(calculation.getOperand1(), calculation.getOperand2()) && i <= 10; i++) {
+        calculation = getInternal();
+      }
+      addOperationTuple(calculation.getOperand1(), calculation.getOperand2());
     }
-    addOperationTuple(calculation.getOperand1(), calculation.getOperand2());
     return calculation;
   }
 
   protected abstract Calculation getInternal();
+
+  protected boolean isCheckDuplicates() {
+    return true;
+  }
 
   protected HiddenField getRandomHiddenField() {
     return toggleHide ? HiddenField.values()[random.nextInt(HiddenField.values().length)] : HiddenField.RESULT;
