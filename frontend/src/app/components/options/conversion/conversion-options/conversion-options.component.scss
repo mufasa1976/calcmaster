@@ -4,3 +4,11 @@ mat-form-field.unit {
     width: 230px;
   }
 }
+
+mat-slide-toggle.withKilometers {
+  padding-left: 20px;
+  @media (max-width: 991px) {
+    padding-left: 0;
+    padding-bottom: 10px;
+  }
+}

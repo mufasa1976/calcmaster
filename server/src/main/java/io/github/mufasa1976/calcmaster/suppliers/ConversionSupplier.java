@@ -88,7 +88,7 @@ public class ConversionSupplier extends AbstractCalculationSupplier {
   private Calculation getMatrixConversion(Unit unit) {
     final var toUnitPrefix = getRandomUnitPrefix(unit, highestUnitPrefix);
     final var lowestNumber = (long) (toUnitPrefix.getFactor() / lowestUnitPrefix.getFactor());
-    final var randomValue = (long) (random.nextDouble(lowestNumber, highestNumberForMatrixConversion) / lowestNumber) * lowestNumber;
+    final var randomValue = getRandomNumber(lowestNumber);
     final var result = randomValue / lowestNumber;
     final var decomposedRandomValue = decomposeNumber(randomValue, unit);
     return Calculation.builder()
@@ -99,6 +99,16 @@ public class ConversionSupplier extends AbstractCalculationSupplier {
                       .result(result)
                       .resultUnit(toUnitPrefix.getPrefixSymbol() + unit.getUnitSymbol())
                       .build();
+  }
+
+  private long getRandomNumber(long lowestNumber) {
+    if (random.nextInt(0, 5) == 0) {
+      final var randomMultiplicand = (int) Math.pow(10, random.nextInt(1, 2));
+      if (lowestNumber * randomMultiplicand < highestNumberForMatrixConversion) {
+        return (long) (random.nextDouble(lowestNumber * randomMultiplicand, highestNumberForMatrixConversion) / (lowestNumber * randomMultiplicand)) * (lowestNumber * randomMultiplicand);
+      }
+    }
+    return (long) (random.nextDouble(lowestNumber, highestNumberForMatrixConversion) / lowestNumber) * lowestNumber;
   }
 
   private String decomposeNumber(long randomValue, Unit unit) {

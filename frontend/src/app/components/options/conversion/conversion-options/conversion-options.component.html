@@ -7,3 +7,10 @@
     <mat-option [value]="unitEnum.SECOND" i18n>Sekunde</mat-option>
   </mat-select>
 </mat-form-field>
+<mat-slide-toggle class="withKilometers"
+                  *ngIf="unit == unitEnum.METER"
+                  [checked]="withKilometers"
+                  (change)="toggleWithKilometers($event)"
+                  i18n>
+  mit Kilometer?
+</mat-slide-toggle>

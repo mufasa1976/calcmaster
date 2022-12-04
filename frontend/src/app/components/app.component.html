@@ -49,6 +49,13 @@
       <app-rounding-options [hidden]="notChecked(ROUND)" [(properties)]="calculationProperties.roundingProperties"></app-rounding-options>
     </div>
 
+    <div class="operator">
+      <div>
+        <mat-button-toggle [value]="CONVERT" (change)="toggleButton($event)" i18n>Konvertierung</mat-button-toggle>
+      </div>
+      <app-conversion-options [hidden]="notChecked(CONVERT)" [(properties)]="calculationProperties.conversionProperties"></app-conversion-options>
+    </div>
+
     <div style="padding-top: 20px">
       <mat-slide-toggle [(ngModel)]="calculationProperties.toggleHide">
         <span i18n>zufällig Operand2 oder Resultat ausblenden</span>

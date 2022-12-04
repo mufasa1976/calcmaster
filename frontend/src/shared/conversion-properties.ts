@@ -7,8 +7,10 @@ export enum Unit {
 
 export interface ConversionProperties {
   unit: Unit;
+  withKilometers: boolean;
 }
 
 export const initialConversionProperties = {
-  unit: Unit.METER
+  unit: Unit.METER,
+  withKilometers: false
 } as ConversionProperties;

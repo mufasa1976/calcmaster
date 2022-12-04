@@ -22,6 +22,7 @@ export class AppComponent implements OnInit {
   readonly MULTIPLY = "MULTIPLY";
   readonly DIVIDE = "DIVIDE";
   readonly ROUND = "ROUND";
+  readonly CONVERT = "CONVERT";
 
   private _title = "Arbeitsblätter Mathematik";
   private _operators = new Set<string>();

@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ConversionProperties, initialConversionProperties, Unit } from "../../../../../shared/conversion-properties";
+import { MatSlideToggleChange } from "@angular/material/slide-toggle";
 
 @Component({
   selector: 'app-conversion-options',
@@ -21,7 +22,19 @@ export class ConversionOptionsComponent {
   set unit(unit: Unit) {
     this._propertiesEmitter.emit({
       ...this.properties,
-      unit: unit
+      unit: unit,
+      withKilometers: unit == Unit.METER ? this.properties.withKilometers : false
+    })
+  }
+
+  get withKilometers() {
+    return this.properties.withKilometers;
+  }
+
+  toggleWithKilometers(event: MatSlideToggleChange) {
+    this._propertiesEmitter.emit({
+      ...this.properties,
+      withKilometers: this.properties.unit == Unit.METER ? event.checked : false
     })
   }
 }
