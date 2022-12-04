@@ -23,10 +23,10 @@ import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@SpringBootTest(properties = {"spring.main.banner-mode=off", "logging.level.io.github.mufasa1976.calcmaster=debug"})
+@SpringBootTest(properties = {"spring.main.banner-mode=off", "application.max-number-of-calculations=1000000", "logging.level.io.github.mufasa1976.calcmaster=debug"})
 @Slf4j
 public class ConversionExercisesTest {
-  private static final int NUMBER_OF_EXERCISES = 15;
+  private static final int NUMBER_OF_EXERCISES = 1_000_000;
 
   @Autowired
   private CalculationService calculationService;
@@ -51,20 +51,11 @@ public class ConversionExercisesTest {
     // THEN
     assertThat(calculationsCandidate).isPresent();
     final var calculations = calculationsCandidate.orElseThrow();
-    calculations.calculations().forEach(this::logConversion);
     assertThat(calculations).extracting(Calculations::subheader, Calculations::verticalDisplay).contains(null, false);
     assertThat(calculations.calculations())
         .hasSize(NUMBER_OF_EXERCISES)
         .allMatch(calculation -> calculation.getType() == Calculation.Type.CONVERSION)
         .allSatisfy(satisfyConversion(Unit.METER));
-  }
-
-  private void logConversion(Calculation calculation) {
-    if (StringUtils.isNotEmpty(calculation.getTextExercise())) {
-      log.debug("{} = {}{}", calculation.getTextExercise(), calculation.getResult(), calculation.getResultUnit());
-    } else {
-      log.debug("{}{} = {}{}", calculation.getOperand1(), calculation.getOperand1Unit(), calculation.getResult(), calculation.getResultUnit());
-    }
   }
 
   private Consumer<Calculation> satisfyConversion(Unit unit) {
@@ -130,7 +121,6 @@ public class ConversionExercisesTest {
     // THEN
     assertThat(calculationsCandidate).isPresent();
     final var calculations = calculationsCandidate.orElseThrow();
-    calculations.calculations().forEach(this::logConversion);
     assertThat(calculations).extracting(Calculations::subheader, Calculations::verticalDisplay).contains(null, false);
     assertThat(calculations.calculations())
         .hasSize(NUMBER_OF_EXERCISES)
@@ -158,7 +148,6 @@ public class ConversionExercisesTest {
     // THEN
     assertThat(calculationsCandidate).isPresent();
     final var calculations = calculationsCandidate.orElseThrow();
-    calculations.calculations().forEach(this::logConversion);
     assertThat(calculations).extracting(Calculations::subheader, Calculations::verticalDisplay).contains(null, false);
     assertThat(calculations.calculations())
         .hasSize(NUMBER_OF_EXERCISES)
@@ -186,7 +175,6 @@ public class ConversionExercisesTest {
     // THEN
     assertThat(calculationsCandidate).isPresent();
     final var calculations = calculationsCandidate.orElseThrow();
-    calculations.calculations().forEach(this::logConversion);
     assertThat(calculations).extracting(Calculations::subheader, Calculations::verticalDisplay).contains(null, false);
     assertThat(calculations.calculations())
         .hasSize(NUMBER_OF_EXERCISES)
@@ -214,7 +202,6 @@ public class ConversionExercisesTest {
     // THEN
     assertThat(calculationsCandidate).isPresent();
     final var calculations = calculationsCandidate.orElseThrow();
-    calculations.calculations().forEach(this::logConversion);
     assertThat(calculations).extracting(Calculations::subheader, Calculations::verticalDisplay).contains(null, false);
     assertThat(calculations.calculations())
         .hasSize(NUMBER_OF_EXERCISES)
