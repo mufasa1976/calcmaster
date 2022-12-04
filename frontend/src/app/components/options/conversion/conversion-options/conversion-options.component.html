@@ -1,0 +1,16 @@
+<mat-form-field class="unit">
+  <mat-label i18n>Einheit</mat-label>
+  <mat-select [(value)]="unit">
+    <mat-option [value]="unitEnum.GRAM" i18n>Gramm</mat-option>
+    <mat-option [value]="unitEnum.LITRE" i18n>Liter</mat-option>
+    <mat-option [value]="unitEnum.METER" i18n>Meter</mat-option>
+    <mat-option [value]="unitEnum.SECOND" i18n>Sekunde</mat-option>
+  </mat-select>
+</mat-form-field>
+<mat-slide-toggle class="withKilometers"
+                  *ngIf="unit == unitEnum.METER"
+                  [checked]="withKilometers"
+                  (change)="toggleWithKilometers($event)"
+                  i18n>
+  mit Kilometer?
+</mat-slide-toggle>

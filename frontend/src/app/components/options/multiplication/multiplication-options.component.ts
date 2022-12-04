@@ -1,8 +1,8 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {MultiplicationProperties} from "../../../../shared/multiplicationProperties";
-import {COMMA, ENTER} from "@angular/cdk/keycodes";
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { initialMultiplicationProperties, MultiplicationProperties } from "../../../../shared/multiplication-properties";
+import { COMMA, ENTER } from "@angular/cdk/keycodes";
 import * as _ from "lodash";
-import {MatChipInputEvent} from "@angular/material/chips";
+import { MatChipInputEvent } from "@angular/material/chips";
 
 @Component({
   selector: 'app-multiplication-options',
@@ -10,11 +10,7 @@ import {MatChipInputEvent} from "@angular/material/chips";
   styleUrls: ['./multiplication-options.component.scss']
 })
 export class MultiplicationOptionsComponent {
-  @Input("properties") properties: MultiplicationProperties = {
-    maxProduct: 100,
-    exclusions: [],
-    fixedMultiplicands: []
-  }
+  @Input("properties") properties: MultiplicationProperties = { ...initialMultiplicationProperties };
   @Output("propertiesChange") private _propertiesEmitter = new EventEmitter<MultiplicationProperties>();
 
   addOnBlur = true;

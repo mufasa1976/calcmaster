@@ -27,6 +27,7 @@ import { ToastrModule } from "ngx-toastr";
 import { XRequestedWithInterceptor } from "./interceptors/x-requested-with.interceptor";
 import { ApiPathInterceptor } from "./interceptors/api-path.interceptor";
 import { RoundingOptionsComponent } from './components/options/rounding/rounding-options/rounding-options.component';
+import { ConversionOptionsComponent } from './components/options/conversion/conversion-options/conversion-options.component';
 
 const HTTP_INTERCEPTOR_PROVIDERS: Provider[] = [
   { provide: HTTP_INTERCEPTORS, useClass: XRequestedWithInterceptor, multi: true },
@@ -42,6 +43,7 @@ const HTTP_INTERCEPTOR_PROVIDERS: Provider[] = [
     MultiplicationOptionsComponent,
     DivisionOptionsComponent,
     RoundingOptionsComponent,
+    ConversionOptionsComponent,
   ],
   imports: [
     BrowserModule,

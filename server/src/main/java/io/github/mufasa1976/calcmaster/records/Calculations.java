@@ -7,5 +7,4 @@ import java.util.List;
 import java.util.Optional;
 
 @Builder
-public record Calculations(Optional<String> subheader, List<Calculation> calculations, boolean verticalDisplay) {
-}
+public record Calculations(Optional<String> subheader, List<Calculation> calculations, boolean verticalDisplay) {}

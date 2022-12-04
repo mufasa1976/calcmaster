@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpErrorResponse, HttpResponse } from "@angular/common/http";
-import { CalculationProperties } from "../../shared/calculationProperties";
+import { CalculationProperties } from "../../shared/calculation-properties";
 import { catchError, Observable, throwError } from "rxjs";
 import { ToastrService } from "ngx-toastr";
 

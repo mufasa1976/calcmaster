@@ -1,6 +1,6 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {AdditionProperties} from "../../../../shared/additionProperties";
-import {MatSlideToggleChange} from "@angular/material/slide-toggle";
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { AdditionProperties, initialAdditionProperties } from "../../../../shared/addition-properties";
+import { MatSlideToggleChange } from "@angular/material/slide-toggle";
 
 @Component({
   selector: 'app-addition-options',
@@ -8,12 +8,7 @@ import {MatSlideToggleChange} from "@angular/material/slide-toggle";
   styleUrls: ['./addition-options.component.scss']
 })
 export class AdditionOptionsComponent {
-  @Input("properties") properties: AdditionProperties = {
-    minSum: 0,
-    maxSum: 10,
-    secondAddendRounding: 1,
-    includeZeroOnOperand: true,
-  };
+  @Input("properties") properties: AdditionProperties = { ...initialAdditionProperties };
   @Output("propertiesChange") private _propertiesEmitter = new EventEmitter<AdditionProperties>();
 
   constructor() {}

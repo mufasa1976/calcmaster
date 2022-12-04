@@ -1,6 +1,6 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {SubtractionProperties} from "../../../../shared/subtractionProperties";
-import {MatSlideToggleChange} from "@angular/material/slide-toggle";
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { initialSubtractionProperties, SubtractionProperties } from "../../../../shared/subtraction-properties";
+import { MatSlideToggleChange } from "@angular/material/slide-toggle";
 
 @Component({
   selector: 'app-subtraction-options',
@@ -8,12 +8,7 @@ import {MatSlideToggleChange} from "@angular/material/slide-toggle";
   styleUrls: ['./subtraction-options.component.scss']
 })
 export class SubtractionOptionsComponent {
-  @Input("properties") properties: SubtractionProperties = {
-    minDifference: 0,
-    maxDifference: 10,
-    subtrahendRounding: 1,
-    includeZeroOnOperand: true,
-  };
+  @Input("properties") properties: SubtractionProperties = { ...initialSubtractionProperties };
   @Output("propertiesChange") private _propertiesEmitter = new EventEmitter<SubtractionProperties>();
 
   constructor() {

@@ -40,8 +40,9 @@ public class Calculator {
                                    applicationProperties.getMaxTriesToGetDistinctOperationTuples(), calculationProperties.multiplicationProperties());
                                case DIVIDE -> new DivisionSupplier(random, calculationProperties.toggleHide(),
                                    applicationProperties.getMaxTriesToGetDistinctOperationTuples(), calculationProperties.divisionProperties());
-                               case ROUND -> new RoundingSupplier(random, calculationProperties.toggleHide(), applicationProperties.getMaxTriesToGetDistinctOperationTuples(),
-                                   messageSource, locale, calculationProperties.roundingProperties());
+                               case ROUND -> new RoundingSupplier(random, calculationProperties.toggleHide(), 0, messageSource, locale, calculationProperties.roundingProperties());
+                               case CONVERT -> new ConversionSupplier(random, calculationProperties.toggleHide(), calculationProperties.conversionProperties(),
+                                   applicationProperties.getMaxTriesToGetDistinctOperationTuples());
                              })
                              .peek(CalculationSupplier::init)
                              .collect(Collectors.toList());

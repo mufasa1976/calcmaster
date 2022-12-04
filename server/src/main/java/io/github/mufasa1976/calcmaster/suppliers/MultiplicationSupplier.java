@@ -1,8 +1,8 @@
 package io.github.mufasa1976.calcmaster.suppliers;
 
-import org.apache.commons.collections4.CollectionUtils;
 import io.github.mufasa1976.calcmaster.dtos.Calculation;
 import io.github.mufasa1976.calcmaster.records.MultiplicationProperties;
+import org.apache.commons.collections4.CollectionUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +33,7 @@ public class MultiplicationSupplier extends AbstractCalculationSupplier {
 
       final int maxMultiplier = multiplicands.stream()
                                              .max(Integer::compare)
-                                             .map(maxMultiplicand -> properties.maxProduct() / maxMultiplicand)
+                                             .map(maxMultiplicand -> properties.maxProduct() / maxMultiplicand == 0 ? properties.maxProduct() : Math.min(maxMultiplicand, properties.maxProduct()))
                                              .orElse(Double.valueOf(Math.round(Math.sqrt(properties.maxProduct()))).intValue());
       IntStream.rangeClosed(0, maxMultiplier)
                .filter(canBeIncluded(properties.exclusions()))
@@ -67,6 +67,7 @@ public class MultiplicationSupplier extends AbstractCalculationSupplier {
       multiplicand = oldMultiplier;
     }
     return Calculation.builder()
+                      .type(Calculation.Type.CALCULATION)
                       .operand1(multiplier)
                       .operator(OPERATOR)
                       .operand2(multiplicand)
