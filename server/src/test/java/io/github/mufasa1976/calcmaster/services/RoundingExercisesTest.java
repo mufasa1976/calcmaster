@@ -46,12 +46,16 @@ public class RoundingExercisesTest {
     assertThat(calculations).extracting(Calculations::subheader, Calculations::verticalDisplay).contains(null, false);
     assertThat(calculations.calculations())
         .hasSize(NUMBER_OF_EXERCISES)
-        .allMatch(calculation -> calculation.getType() == Calculation.Type.CALCULATION)
-        .allMatch(calculation -> (Math.round(Long.valueOf(calculation.getOperand1()).doubleValue() / calculation.getOperand2()) * calculation.getOperand2()) == calculation.getResult())
+        .allMatch(calculation -> calculation.getType() == Calculation.Type.ROUNDING)
+        .allMatch(this::isRoundedCorrectly)
         .noneMatch(calculation -> calculation.getOperand1() < 10)   // 10¹
         .noneMatch(calculation -> calculation.getOperand2() < 10)   // 10¹
         .noneMatch(calculation -> calculation.getOperand1() > 100)  // 10²
         .noneMatch(calculation -> calculation.getOperand2() > 100); // 10²
+  }
+
+  private boolean isRoundedCorrectly(Calculation calculation) {
+    return Math.round(Long.valueOf(calculation.getOperand1()).doubleValue() / calculation.getOperand2()) * calculation.getOperand2() == calculation.getResult();
   }
 
   @Test
@@ -78,8 +82,8 @@ public class RoundingExercisesTest {
     assertThat(calculations).extracting(Calculations::subheader, Calculations::verticalDisplay).contains(null, false);
     assertThat(calculations.calculations())
         .hasSize(NUMBER_OF_EXERCISES)
-        .allMatch(calculation -> calculation.getType() == Calculation.Type.CALCULATION)
-        .allMatch(calculation -> (Math.round(Long.valueOf(calculation.getOperand1()).doubleValue() / calculation.getOperand2()) * calculation.getOperand2()) == calculation.getResult())
+        .allMatch(calculation -> calculation.getType() == Calculation.Type.ROUNDING)
+        .allMatch(this::isRoundedCorrectly)
         .noneMatch(calculation -> calculation.getOperand1() < 1_000)   // 10³
         .noneMatch(calculation -> calculation.getOperand2() < 1_000)   // 10³
         .noneMatch(calculation -> calculation.getOperand1() > 1_000_000_000)  // 10⁹

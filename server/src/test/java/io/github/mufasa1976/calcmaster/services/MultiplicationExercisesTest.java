@@ -45,7 +45,7 @@ public class MultiplicationExercisesTest {
     assertThat(calculations).extracting(Calculations::subheader, Calculations::verticalDisplay).contains(null, false);
     assertThat(calculations.calculations())
         .hasSize(NUMBER_OF_EXERCISES)
-        .allMatch(calculation -> calculation.getType() == Calculation.Type.ROUNDING)
+        .allMatch(calculation -> calculation.getType() == Calculation.Type.CALCULATION)
         .allMatch(calculation -> calculation.getOperand1() * calculation.getOperand2() == calculation.getResult())
         .noneMatch(calculation -> calculation.getResult() > 100);
   }
@@ -77,10 +77,10 @@ public class MultiplicationExercisesTest {
     assertThat(calculations).extracting(Calculations::subheader, Calculations::verticalDisplay).contains(null, false);
     assertThat(calculations.calculations())
         .hasSize(NUMBER_OF_EXERCISES)
-        .allMatch(calculation -> calculation.getType() == Calculation.Type.ROUNDING)
+        .allMatch(calculation -> calculation.getType() == Calculation.Type.CALCULATION)
         .allMatch(calculation -> calculation.getOperand1() * calculation.getOperand2() == calculation.getResult())
         .noneMatch(calculation -> calculation.getResult() > 1_000)
-        .allMatch(calculation -> fixedMultiplicands.contains(calculation.getOperand2()))
-        .noneMatch(calculation -> exclusions.contains(calculation.getOperand1()));
+        .allMatch(calculation -> fixedMultiplicands.contains((int) calculation.getOperand2()))
+        .noneMatch(calculation -> exclusions.contains((int) calculation.getOperand1()));
   }
 }

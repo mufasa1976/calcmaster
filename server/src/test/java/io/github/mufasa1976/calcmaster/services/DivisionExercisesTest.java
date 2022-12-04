@@ -86,7 +86,7 @@ public class DivisionExercisesTest {
         .allMatch(calculation -> calculation.getOperand1() % calculation.getOperand2() == calculation.getRemainder())
         .noneMatch(calculation -> calculation.getOperand1() % calculation.getOperand2() > 10)
         .noneMatch(calculation -> calculation.getResult() > 1_000)
-        .allMatch(calculation -> fixedDivisors.contains(calculation.getOperand2()))
-        .noneMatch(calculation -> exclusions.contains(calculation.getOperand1()));
+        .allMatch(calculation -> fixedDivisors.contains((int) calculation.getOperand2()))
+        .noneMatch(calculation -> exclusions.contains((int) calculation.getOperand1()));
   }
 }

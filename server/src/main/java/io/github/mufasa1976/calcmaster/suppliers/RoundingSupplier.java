@@ -25,6 +25,7 @@ public class RoundingSupplier extends AbstractCalculationSupplier {
     final var power = (int) Math.pow(10, random.nextInt(Math.min(getLength(randomValue), roundingProperties.minPower()), roundingProperties.maxPower()));
     final var result = (int) Math.round(Integer.valueOf(randomValue).doubleValue() / power) * power;
     return Calculation.builder()
+                      .type(Calculation.Type.ROUNDING)
                       .textExercise(messageSource.getMessage("rounding.exercise", new Object[] {randomValue, power}, locale))
                       .textSolution(messageSource.getMessage("rounding.solution", new Object[] {randomValue, power, result}, locale))
                       .operand1(randomValue)
