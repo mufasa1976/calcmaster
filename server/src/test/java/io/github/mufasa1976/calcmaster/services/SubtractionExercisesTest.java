@@ -1,5 +1,6 @@
 package io.github.mufasa1976.calcmaster.services;
 
+import io.github.mufasa1976.calcmaster.dtos.Calculation;
 import io.github.mufasa1976.calcmaster.enums.Operator;
 import io.github.mufasa1976.calcmaster.records.CalculationProperties;
 import io.github.mufasa1976.calcmaster.records.Calculations;
@@ -47,6 +48,7 @@ public class SubtractionExercisesTest {
     assertThat(calculations).extracting(Calculations::subheader, Calculations::verticalDisplay).contains(null, false);
     assertThat(calculations.calculations())
         .hasSize(NUMBER_OF_EXERCISES)
+        .allMatch(calculation -> calculation.getType() == Calculation.Type.CALCULATION)
         .allMatch(calculation -> calculation.getOperand1() - calculation.getOperand2() == calculation.getResult())
         .noneMatch(calculation -> calculation.getResult() > 10);
   }
@@ -78,6 +80,7 @@ public class SubtractionExercisesTest {
     assertThat(calculations).extracting(Calculations::subheader, Calculations::verticalDisplay).contains(null, true);
     assertThat(calculations.calculations())
         .hasSize(NUMBER_OF_EXERCISES)
+        .allMatch(calculation -> calculation.getType() == Calculation.Type.CALCULATION)
         .allMatch(calculation -> calculation.getOperand1() - calculation.getOperand2() == calculation.getResult())
         .noneMatch(calculation -> calculation.getResult() < 10)
         .noneMatch(calculation -> calculation.getResult() > 100)
@@ -111,6 +114,7 @@ public class SubtractionExercisesTest {
     assertThat(calculations).extracting(Calculations::subheader, Calculations::verticalDisplay).contains(null, false);
     assertThat(calculations.calculations())
         .hasSize(NUMBER_OF_EXERCISES)
+        .allMatch(calculation -> calculation.getType() == Calculation.Type.CALCULATION)
         .allMatch(calculation -> calculation.getOperand1() - calculation.getOperand2() == calculation.getResult())
         .noneMatch(calculation -> calculation.getResult() > 1_000_000)
         .allMatch(calculation -> calculation.getOperand2() % 100 == 0);

@@ -1,5 +1,6 @@
 package io.github.mufasa1976.calcmaster.services;
 
+import io.github.mufasa1976.calcmaster.dtos.Calculation;
 import io.github.mufasa1976.calcmaster.enums.Operator;
 import io.github.mufasa1976.calcmaster.records.CalculationProperties;
 import io.github.mufasa1976.calcmaster.records.Calculations;
@@ -45,7 +46,8 @@ public class RoundingExercisesTest {
     assertThat(calculations).extracting(Calculations::subheader, Calculations::verticalDisplay).contains(null, false);
     assertThat(calculations.calculations())
         .hasSize(NUMBER_OF_EXERCISES)
-        .allMatch(calculation -> (Math.round(Integer.valueOf(calculation.getOperand1()).doubleValue() / calculation.getOperand2()) * calculation.getOperand2()) == calculation.getResult())
+        .allMatch(calculation -> calculation.getType() == Calculation.Type.CALCULATION)
+        .allMatch(calculation -> (Math.round(Long.valueOf(calculation.getOperand1()).doubleValue() / calculation.getOperand2()) * calculation.getOperand2()) == calculation.getResult())
         .noneMatch(calculation -> calculation.getOperand1() < 10)   // 10¹
         .noneMatch(calculation -> calculation.getOperand2() < 10)   // 10¹
         .noneMatch(calculation -> calculation.getOperand1() > 100)  // 10²
@@ -76,7 +78,8 @@ public class RoundingExercisesTest {
     assertThat(calculations).extracting(Calculations::subheader, Calculations::verticalDisplay).contains(null, false);
     assertThat(calculations.calculations())
         .hasSize(NUMBER_OF_EXERCISES)
-        .allMatch(calculation -> (Math.round(Integer.valueOf(calculation.getOperand1()).doubleValue() / calculation.getOperand2()) * calculation.getOperand2()) == calculation.getResult())
+        .allMatch(calculation -> calculation.getType() == Calculation.Type.CALCULATION)
+        .allMatch(calculation -> (Math.round(Long.valueOf(calculation.getOperand1()).doubleValue() / calculation.getOperand2()) * calculation.getOperand2()) == calculation.getResult())
         .noneMatch(calculation -> calculation.getOperand1() < 1_000)   // 10³
         .noneMatch(calculation -> calculation.getOperand2() < 1_000)   // 10³
         .noneMatch(calculation -> calculation.getOperand1() > 1_000_000_000)  // 10⁹

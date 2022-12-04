@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { initialRoundingProperties, RoundingProperties } from "../../../../../shared/roundingProperties";
+import { initialRoundingProperties, RoundingProperties } from "../../../../../shared/rounding-properties";
 
 @Component({
   selector: 'app-rounding-options',

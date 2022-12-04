@@ -40,9 +40,4 @@ public class RoundingSupplier extends AbstractCalculationSupplier {
     }
     return length;
   }
-
-  @Override
-  protected boolean isCheckDuplicates() {
-    return false;
-  }
 }

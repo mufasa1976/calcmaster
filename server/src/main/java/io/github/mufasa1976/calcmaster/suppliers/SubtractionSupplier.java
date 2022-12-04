@@ -26,6 +26,7 @@ public class SubtractionSupplier extends AbstractCalculationSupplier {
     }
     final var difference = minuend - subtrahend;
     return Calculation.builder()
+                      .type(Calculation.Type.CALCULATION)
                       .operand1(minuend)
                       .operator(OPERATOR)
                       .operand2(subtrahend)

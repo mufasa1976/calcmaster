@@ -3,7 +3,7 @@ import { ThemeService } from "../services/theme.service";
 import { Observable } from "rxjs";
 import { Theme, ThemeName } from "../../shared/theme";
 import { MatButtonToggleChange } from "@angular/material/button-toggle";
-import { CalculationProperties, initialCalculationProperties } from "../../shared/calculationProperties";
+import { CalculationProperties, initialCalculationProperties } from "../../shared/calculation-properties";
 import { CalculationService } from "../services/calculation.service";
 import * as _ from "lodash";
 import { saveAs } from "file-saver";

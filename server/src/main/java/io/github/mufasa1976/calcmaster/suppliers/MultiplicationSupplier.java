@@ -67,6 +67,7 @@ public class MultiplicationSupplier extends AbstractCalculationSupplier {
       multiplicand = oldMultiplier;
     }
     return Calculation.builder()
+                      .type(Calculation.Type.CALCULATION)
                       .operand1(multiplier)
                       .operator(OPERATOR)
                       .operand2(multiplicand)

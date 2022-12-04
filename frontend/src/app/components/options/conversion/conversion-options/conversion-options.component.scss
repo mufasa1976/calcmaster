@@ -1,0 +1,6 @@
+mat-form-field.unit {
+  width: 90px;
+  @media (max-width: 469px) {
+    width: 230px;
+  }
+}

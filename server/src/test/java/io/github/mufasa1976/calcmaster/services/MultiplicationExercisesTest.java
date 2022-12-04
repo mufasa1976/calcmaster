@@ -1,5 +1,6 @@
 package io.github.mufasa1976.calcmaster.services;
 
+import io.github.mufasa1976.calcmaster.dtos.Calculation;
 import io.github.mufasa1976.calcmaster.enums.Operator;
 import io.github.mufasa1976.calcmaster.records.CalculationProperties;
 import io.github.mufasa1976.calcmaster.records.Calculations;
@@ -44,6 +45,7 @@ public class MultiplicationExercisesTest {
     assertThat(calculations).extracting(Calculations::subheader, Calculations::verticalDisplay).contains(null, false);
     assertThat(calculations.calculations())
         .hasSize(NUMBER_OF_EXERCISES)
+        .allMatch(calculation -> calculation.getType() == Calculation.Type.ROUNDING)
         .allMatch(calculation -> calculation.getOperand1() * calculation.getOperand2() == calculation.getResult())
         .noneMatch(calculation -> calculation.getResult() > 100);
   }
@@ -75,6 +77,7 @@ public class MultiplicationExercisesTest {
     assertThat(calculations).extracting(Calculations::subheader, Calculations::verticalDisplay).contains(null, false);
     assertThat(calculations.calculations())
         .hasSize(NUMBER_OF_EXERCISES)
+        .allMatch(calculation -> calculation.getType() == Calculation.Type.ROUNDING)
         .allMatch(calculation -> calculation.getOperand1() * calculation.getOperand2() == calculation.getResult())
         .noneMatch(calculation -> calculation.getResult() > 1_000)
         .allMatch(calculation -> fixedMultiplicands.contains(calculation.getOperand2()))

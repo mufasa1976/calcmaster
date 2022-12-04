@@ -12,7 +12,8 @@ public enum Operator {
   SUBTRACT(SubtractionSupplier.class),
   MULTIPLY(MultiplicationSupplier.class),
   DIVIDE(DivisionSupplier.class),
-  ROUND(RoundingSupplier.class);
+  ROUND(RoundingSupplier.class),
+  CONVERT(ConversionSupplier.class);
 
   private final Class<? extends Supplier<Calculation>> calculationSupplier;
 }

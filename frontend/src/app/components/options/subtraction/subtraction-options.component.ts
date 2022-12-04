@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { initialSubtractionProperties, SubtractionProperties } from "../../../../shared/subtractionProperties";
+import { initialSubtractionProperties, SubtractionProperties } from "../../../../shared/subtraction-properties";
 import { MatSlideToggleChange } from "@angular/material/slide-toggle";
 
 @Component({

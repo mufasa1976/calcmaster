@@ -84,11 +84,12 @@ public class DivisionSupplier extends AbstractCalculationSupplier {
     }
 
     return Calculation.builder()
+                      .type(Calculation.Type.CALCULATION)
                       .operand1(dividend)
                       .operator(OPERATOR)
                       .operand2(divisor)
                       .result(dividend / divisor)
-                      .remainder(dividend % divisor)
+                      .remainder((long) dividend % divisor)
                       .hiddenField(HiddenField.RESULT)
                       .build();
   }

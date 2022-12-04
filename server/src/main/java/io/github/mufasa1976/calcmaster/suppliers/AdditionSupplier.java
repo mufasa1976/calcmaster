@@ -32,6 +32,7 @@ public class AdditionSupplier extends AbstractCalculationSupplier {
       secondAddend = sum - firstAddend;
     }
     return Calculation.builder()
+                      .type(Calculation.Type.CALCULATION)
                       .operand1(firstAddend)
                       .operator(OPERATOR)
                       .operand2(secondAddend)

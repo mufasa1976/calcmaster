@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { DivisionProperties, initialDivisionProperties } from "../../../../shared/divisionProperties";
+import { DivisionProperties, initialDivisionProperties } from "../../../../shared/division-properties";
 import * as _ from "lodash";
 import { MatChipInputEvent } from "@angular/material/chips";
 import { COMMA, ENTER } from "@angular/cdk/keycodes";

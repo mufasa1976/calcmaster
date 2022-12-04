@@ -14,6 +14,7 @@ public record CalculationProperties(
     MultiplicationProperties multiplicationProperties,
     DivisionProperties divisionProperties,
     RoundingProperties roundingProperties,
+    ConversionProperties conversionProperties,
     Optional<String> subheader,
     boolean toggleHide,
     int numberOfCalculations,

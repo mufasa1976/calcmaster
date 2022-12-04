@@ -1,5 +1,6 @@
 package io.github.mufasa1976.calcmaster.services;
 
+import io.github.mufasa1976.calcmaster.dtos.Calculation;
 import io.github.mufasa1976.calcmaster.enums.Operator;
 import io.github.mufasa1976.calcmaster.records.CalculationProperties;
 import io.github.mufasa1976.calcmaster.records.Calculations;
@@ -45,6 +46,7 @@ public class DivisionExercisesTest {
     assertThat(calculations).extracting(Calculations::subheader, Calculations::verticalDisplay).contains(null, false);
     assertThat(calculations.calculations())
         .hasSize(NUMBER_OF_EXERCISES)
+        .allMatch(calculation -> calculation.getType() == Calculation.Type.CALCULATION)
         .allMatch(calculation -> calculation.getOperand1() / calculation.getOperand2() == calculation.getResult())
         .allMatch(calculation -> calculation.getOperand1() % calculation.getOperand2() == calculation.getRemainder())
         .noneMatch(calculation -> calculation.getOperand1() % calculation.getOperand2() > 0)
@@ -79,6 +81,7 @@ public class DivisionExercisesTest {
     assertThat(calculations).extracting(Calculations::subheader, Calculations::verticalDisplay).contains(null, false);
     assertThat(calculations.calculations())
         .hasSize(NUMBER_OF_EXERCISES)
+        .allMatch(calculation -> calculation.getType() == Calculation.Type.CALCULATION)
         .allMatch(calculation -> calculation.getOperand1() / calculation.getOperand2() == calculation.getResult())
         .allMatch(calculation -> calculation.getOperand1() % calculation.getOperand2() == calculation.getRemainder())
         .noneMatch(calculation -> calculation.getOperand1() % calculation.getOperand2() > 10)

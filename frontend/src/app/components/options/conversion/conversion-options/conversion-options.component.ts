@@ -1,0 +1,27 @@
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { ConversionProperties, initialConversionProperties, Unit } from "../../../../../shared/conversion-properties";
+
+@Component({
+  selector: 'app-conversion-options',
+  templateUrl: './conversion-options.component.html',
+  styleUrls: ['./conversion-options.component.scss']
+})
+export class ConversionOptionsComponent {
+  @Input("properties") properties: ConversionProperties = { ...initialConversionProperties };
+  @Output("propertiesChange") private _propertiesEmitter = new EventEmitter<ConversionProperties>();
+
+  readonly unitEnum: typeof Unit = Unit;
+
+  constructor() { }
+
+  get unit() {
+    return this.properties.unit;
+  }
+
+  set unit(unit: Unit) {
+    this._propertiesEmitter.emit({
+      ...this.properties,
+      unit: unit
+    })
+  }
+}
