@@ -3,16 +3,24 @@ package io.github.mufasa1976.calcmaster.config;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.thymeleaf.ThymeleafProperties;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.task.AsyncTaskExecutor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.web.servlet.config.annotation.*;
+import org.springframework.web.servlet.function.RouterFunction;
+import org.springframework.web.servlet.function.ServerRequest;
+import org.springframework.web.servlet.function.ServerResponse;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Stream;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON;
+import static org.springframework.web.servlet.function.RequestPredicates.GET;
+import static org.springframework.web.servlet.function.RouterFunctions.route;
 
 @Configuration
 @EnableWebMvc
@@ -34,7 +42,8 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
       "/purple-green.css",
       "/3rdpartylicenses.txt"
   };
-  public static final String[] OFFERED_ANGULAR_LANGUAGES = {"de", "en"};
+  private static final String[] OFFERED_ANGULAR_LANGUAGES = {"de", "en"};
+  private static final String DEFAULT_REDIRECT = "redirect:/en";
 
   private final String prefix;
   private final Collection<HttpMessageConverter<?>> messageConverters;
@@ -73,6 +82,19 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
       registry.addResourceHandler(SLASH + offeredLanguage + "/assets/**")
               .addResourceLocations(prefix + offeredLanguage + "/assets/");
     }
+  }
+
+  @Bean
+  public RouterFunction<ServerResponse> routerFunction() {
+    return route(GET("/"), this::defaultLandingPage);
+  }
+
+  private ServerResponse defaultLandingPage(ServerRequest request) {
+    final var locale = request.servletRequest().getLocale();
+    if (Arrays.asList(OFFERED_ANGULAR_LANGUAGES).contains(locale.getLanguage())) {
+      return ServerResponse.status(HttpStatus.TEMPORARY_REDIRECT).render("redirect:/" + locale.getLanguage());
+    }
+    return ServerResponse.status(HttpStatus.TEMPORARY_REDIRECT).render(DEFAULT_REDIRECT);
   }
 
   @Override
