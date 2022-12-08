@@ -18,13 +18,13 @@
 </mat-form-field>
 <mat-form-field class="excludedNumbers">
   <mat-label i18n>Auszuschließende Zahlen</mat-label>
-  <mat-chip-list #excludedNumberInput>
-    <mat-chip *ngFor="let excludedNumber of exclusions" (removed)="removeExclusion(excludedNumber)">
+  <mat-chip-grid #excludedNumberInput>
+    <mat-chip-row *ngFor="let excludedNumber of exclusions" (removed)="removeExclusion(excludedNumber)">
       {{excludedNumber}}
       <button matChipRemove>
         <fa-icon icon="times"></fa-icon>
       </button>
-    </mat-chip>
+    </mat-chip-row>
     <input placeholder="auszuschließende Zahl..."
            i18n-placeholder
            type="number"
@@ -34,17 +34,17 @@
            [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
            [matChipInputAddOnBlur]="addOnBlur"
            (matChipInputTokenEnd)="addExclusion($event)">
-  </mat-chip-list>
+  </mat-chip-grid>
 </mat-form-field>
 <mat-form-field class="fixedMultiplicands">
   <mat-label i18n>Multiplikand eingrenzen auf</mat-label>
-  <mat-chip-list #fixedMultiplicandInput [disabled]="maxProduct < 100">
-    <mat-chip *ngFor="let fixedMultiplicand of fixedMultiplicands" (removed)="removeFixedMultiplicand(fixedMultiplicand)">
+  <mat-chip-grid #fixedMultiplicandInput [disabled]="maxProduct < 100">
+    <mat-chip-row *ngFor="let fixedMultiplicand of fixedMultiplicands" (removed)="removeFixedMultiplicand(fixedMultiplicand)">
       {{fixedMultiplicand}}
       <button matChipRemove>
         <fa-icon icon="times"></fa-icon>
       </button>
-    </mat-chip>
+    </mat-chip-row>
     <input placeholder="einzugrenzender Multiplikand..."
            i18n-placeholder
            type="number"
@@ -54,5 +54,5 @@
            [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
            [matChipInputAddOnBlur]="addOnBlur"
            (matChipInputTokenEnd)="addFixedMultiplicand($event)">
-  </mat-chip-list>
+  </mat-chip-grid>
 </mat-form-field>
