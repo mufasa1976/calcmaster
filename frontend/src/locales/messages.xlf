@@ -44,53 +44,60 @@
           <context context-type="linenumber">47</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="6823142082851771071" datatype="html">
+        <source>Konvertierung</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/app.component.html</context>
+          <context context-type="linenumber">54</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="2279643000254834468" datatype="html">
         <source>zufällig Operand2 oder Resultat ausblenden</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/app.component.html</context>
-          <context context-type="linenumber">54,55</context>
+          <context context-type="linenumber">61,62</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="5265048678262106178" datatype="html">
-        <source>(ausgenommen Division und Rundung)</source>
+      <trans-unit id="5321676509681693051" datatype="html">
+        <source>(gilt nur für Addition, Subtraktion &amp; Multiplikation)</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/app.component.html</context>
-          <context context-type="linenumber">55,56</context>
+          <context context-type="linenumber">62,63</context>
         </context-group>
       </trans-unit>
       <trans-unit id="9037368691717240476" datatype="html">
         <source> Addition/Subtraktion untereinander darstellen </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/app.component.html</context>
-          <context context-type="linenumber">61,62</context>
+          <context context-type="linenumber">68,69</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3105118889040470091" datatype="html">
         <source>Anzahl an Aufgaben</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/app.component.html</context>
-          <context context-type="linenumber">66</context>
+          <context context-type="linenumber">73</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6525583106874020108" datatype="html">
         <source>Ausgabeformat</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/app.component.html</context>
-          <context context-type="linenumber">84</context>
+          <context context-type="linenumber">91</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4673462559639802160" datatype="html">
         <source> Generieren </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/app.component.html</context>
-          <context context-type="linenumber">93,94</context>
+          <context context-type="linenumber">100,101</context>
         </context-group>
       </trans-unit>
       <trans-unit id="9199998427972314361" datatype="html">
         <source>Arbeitsblätter Mathematik</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/app.component.ts</context>
-          <context context-type="linenumber">69</context>
+          <context context-type="linenumber">38</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1041061111592663374" datatype="html">
@@ -457,6 +464,49 @@
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/options/subtraction/subtraction-options.component.html</context>
           <context context-type="linenumber">41,43</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="56228327617948862" datatype="html">
+        <source>Einheit</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/options/conversion/conversion-options/conversion-options.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="519386736565493960" datatype="html">
+        <source>Gramm</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/options/conversion/conversion-options/conversion-options.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6467666789900103185" datatype="html">
+        <source>Liter</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/options/conversion/conversion-options/conversion-options.component.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="25828651503109440" datatype="html">
+        <source>Meter</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/options/conversion/conversion-options/conversion-options.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="241728502218646515" datatype="html">
+        <source>Sekunde</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/options/conversion/conversion-options/conversion-options.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4718987819029849814" datatype="html">
+        <source> mit Kilometer?
+</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/options/conversion/conversion-options/conversion-options.component.html</context>
+          <context context-type="linenumber">14,16</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1016553402191814289" datatype="html">
