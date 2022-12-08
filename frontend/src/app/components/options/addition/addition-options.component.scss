@@ -1,12 +1,12 @@
 mat-form-field.minSum {
-  width: 90px;
+  width: 160px;
   @media (max-width: 469px) {
     width: 230px;
   }
 }
 
 mat-form-field.maxSum {
-  width: 110px;
+  width: 160px;
   padding-left: 20px;
   @media (max-width: 469px) {
     width: 230px;
@@ -15,10 +15,9 @@ mat-form-field.maxSum {
 }
 
 mat-form-field.secondAddendRounding {
-  width: 240px;
+  width: 230px;
   padding-left: 20px;
   @media (max-width: 469px) {
-    width: 230px;
     padding-left: 0;
   }
 }

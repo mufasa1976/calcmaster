@@ -26,13 +26,13 @@
 </mat-form-field>
 <mat-form-field class="excludedNumbers">
   <mat-label i18n>Auszuschließende Zahlen</mat-label>
-  <mat-chip-list #excludedNumberInput>
-    <mat-chip *ngFor="let excludedNumber of exclusions" (removed)="removeExclusion(excludedNumber)">
+  <mat-chip-grid #excludedNumberInput>
+    <mat-chip-row *ngFor="let excludedNumber of exclusions" (removed)="removeExclusion(excludedNumber)">
       {{excludedNumber}}
       <button matChipRemove>
         <fa-icon icon="times"></fa-icon>
       </button>
-    </mat-chip>
+    </mat-chip-row>
     <input placeholder="auszuschließende Zahl..."
            i18n-placeholder
            type="number"
@@ -42,17 +42,17 @@
            [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
            [matChipInputAddOnBlur]="addOnBlur"
            (matChipInputTokenEnd)="addExclusion($event)">
-  </mat-chip-list>
+  </mat-chip-grid>
 </mat-form-field>
 <mat-form-field class="fixedDivisors">
   <mat-label i18n>Divisor eingrenzen auf</mat-label>
-  <mat-chip-list #fixedDivisorInput [disabled]="maxDividend < 100">
-    <mat-chip *ngFor="let fixedDivisor of fixedDivisors" (removed)="removeFixedDivisor(fixedDivisor)">
+  <mat-chip-grid #fixedDivisorInput [disabled]="maxDividend < 100">
+    <mat-chip-row *ngFor="let fixedDivisor of fixedDivisors" (removed)="removeFixedDivisor(fixedDivisor)">
       {{fixedDivisor}}
       <button matChipRemove>
         <fa-icon icon="times"></fa-icon>
       </button>
-    </mat-chip>
+    </mat-chip-row>
     <input placeholder="einzugrenzender Divisor..."
            i18n-placeholder
            type="number"
@@ -62,5 +62,5 @@
            [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
            [matChipInputAddOnBlur]="addOnBlur"
            (matChipInputTokenEnd)="addFixedDivisor($event)">
-  </mat-chip-list>
+  </mat-chip-grid>
 </mat-form-field>

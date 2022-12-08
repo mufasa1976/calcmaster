@@ -1,12 +1,12 @@
 mat-form-field.maxDividend {
-  width: 110px;
+  width: 170px;
   @media (max-width: 469px) {
     width: 200px;
   }
 }
 
 mat-form-field.maxRemainder {
-  width: 100px;
+  width: 120px;
   padding-left: 20px;
   @media (max-width: 469px) {
     width: 200px;
@@ -16,11 +16,10 @@ mat-form-field.maxRemainder {
 
 mat-form-field.excludedNumbers,
 mat-form-field.fixedDivisors {
-  width: 210px;
+  width: 230px;
   padding-left: 20px;
 
   @media (max-width: 469px) {
-    width: 230px;
     padding-left: 0;
   }
 
