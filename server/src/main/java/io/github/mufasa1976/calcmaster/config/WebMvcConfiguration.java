@@ -13,9 +13,10 @@ import org.springframework.web.servlet.function.RouterFunction;
 import org.springframework.web.servlet.function.ServerRequest;
 import org.springframework.web.servlet.function.ServerResponse;
 
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
+import java.util.Locale;
+import java.util.Optional;
 import java.util.stream.Stream;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON;
@@ -25,8 +26,6 @@ import static org.springframework.web.servlet.function.RouterFunctions.route;
 @Configuration
 @EnableWebMvc
 public class WebMvcConfiguration implements WebMvcConfigurer {
-  private static final String SLASH = "/";
-  private static final String ASTERISK = "*";
   private static final String[] ANGULAR_RESOURCES = {
       "/favicon.ico",
       "/main.*.js",
@@ -42,8 +41,8 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
       "/purple-green.css",
       "/3rdpartylicenses.txt"
   };
-  private static final String[] OFFERED_ANGULAR_LANGUAGES = {"de", "en"};
-  private static final String DEFAULT_REDIRECT = "redirect:/en";
+  private static final List<Locale> SUPPORTED_LANGUAGES = List.of(Locale.GERMAN, Locale.ENGLISH);
+  private static final Locale DEFAULT_LOCALE = Locale.ENGLISH;
 
   private final String prefix;
   private final Collection<HttpMessageConverter<?>> messageConverters;
@@ -64,23 +63,31 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
     registry.addResourceHandler("/webjars/**")
             .addResourceLocations("classpath:/META-INF/resources/webjars/")
             .resourceChain(true);
-    for (String offeredLanguage : OFFERED_ANGULAR_LANGUAGES) {
+    for (Locale language : SUPPORTED_LANGUAGES) {
       final var relativeAngularResources = Stream.of(ANGULAR_RESOURCES)
-                                                 .filter(resource -> StringUtils.contains(resource, ASTERISK))
-                                                 .map(resource -> SLASH + offeredLanguage + resource)
+                                                 .filter(resource -> StringUtils.contains(resource, "*"))
+                                                 .map(resource -> "/" + language.getLanguage() + resource)
                                                  .toArray(String[]::new);
       registry.addResourceHandler(relativeAngularResources)
-              .addResourceLocations(prefix + offeredLanguage + SLASH);
+              .addResourceLocations(prefix + language.getLanguage() + "/");
 
       final var fixedAngularResources = Stream.of(ANGULAR_RESOURCES)
-                                              .filter(resource -> !StringUtils.contains(resource, ASTERISK))
-                                              .map(resource -> SLASH + offeredLanguage + resource)
+                                              .filter(resource -> !StringUtils.contains(resource, "*"))
+                                              .map(resource -> "/" + language.getLanguage() + resource)
                                               .toArray(String[]::new);
       registry.addResourceHandler(fixedAngularResources)
               .addResourceLocations(prefix);
 
-      registry.addResourceHandler(SLASH + offeredLanguage + "/assets/**")
-              .addResourceLocations(prefix + offeredLanguage + "/assets/");
+      registry.addResourceHandler("/" + language.getLanguage() + "/assets/**")
+              .addResourceLocations(prefix + language.getLanguage() + "/assets/");
+    }
+  }
+
+  @Override
+  public void addViewControllers(ViewControllerRegistry registry) {
+    registry.setOrder(2);
+    for (Locale language : SUPPORTED_LANGUAGES) {
+      registry.addViewController("/" + language.getLanguage() + "/**").setViewName(language.getLanguage() + "/index");
     }
   }
 
@@ -90,19 +97,9 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
   }
 
   private ServerResponse defaultLandingPage(ServerRequest request) {
-    final var locale = request.servletRequest().getLocale();
-    if (Arrays.asList(OFFERED_ANGULAR_LANGUAGES).contains(locale.getLanguage())) {
-      return ServerResponse.status(HttpStatus.TEMPORARY_REDIRECT).render("redirect:/" + locale.getLanguage());
-    }
-    return ServerResponse.status(HttpStatus.TEMPORARY_REDIRECT).render(DEFAULT_REDIRECT);
-  }
-
-  @Override
-  public void addViewControllers(ViewControllerRegistry registry) {
-    registry.setOrder(2);
-    for (String offeredLanguage : OFFERED_ANGULAR_LANGUAGES) {
-      registry.addViewController(SLASH + offeredLanguage + "/**").setViewName(offeredLanguage + "/index");
-    }
+    final var locale = Optional.ofNullable(Locale.lookup(request.headers().acceptLanguage(), SUPPORTED_LANGUAGES))
+                               .orElse(DEFAULT_LOCALE);
+    return ServerResponse.status(HttpStatus.TEMPORARY_REDIRECT).render("redirect:/" + locale.getLanguage());
   }
 
   @Override
