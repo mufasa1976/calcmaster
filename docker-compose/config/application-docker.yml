@@ -1,0 +1,5 @@
+debug: true
+logging:
+  level:
+#    _org.springframework.web.servlet.HandlerMapping.Mappings: debug
+    org.springframework.web.servlet.handler.SimpleUrlHandlerMapping: trace

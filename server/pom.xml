@@ -196,11 +196,13 @@
                   <volume>/opt/config</volume>
                 </volumes>
                 <ports>
+                  <port>5005</port>
                   <port>8080</port>
                   <port>9090</port>
                 </ports>
                 <entryPoint>
                   <arg>java</arg>
+                  <arg>-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005</arg>
                   <arg>--add-opens</arg>
                   <arg>java.base/java.lang=ALL-UNNAMED</arg>
                   <arg>-Djava.security.egd=file:/dev/urandom</arg>

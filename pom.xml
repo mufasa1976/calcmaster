@@ -23,7 +23,7 @@
     <node.version>v18.12.1</node.version>
     <npm.version>9.1.2</npm.version>
 
-    <docker.base-image>openjdk:${java.version}-bullseye</docker.base-image>
+    <docker.base-image>eclipse-temurin:${java.version}-jdk</docker.base-image>
     <docker.image>mufasa1976/calcmaster</docker.image>
     <docker.app.user>app</docker.app.user>
 
