@@ -2,8 +2,6 @@ package io.github.mufasa1976.calcmaster.controllers;
 
 import io.github.mufasa1976.calcmaster.records.CalculationProperties;
 import io.github.mufasa1976.calcmaster.services.CalculationService;
-import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -16,6 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBody;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
