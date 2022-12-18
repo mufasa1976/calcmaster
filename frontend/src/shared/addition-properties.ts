@@ -3,6 +3,7 @@ export interface AdditionProperties {
   maxSum: number;
   secondAddendRounding: number;
   includeZeroOnOperand: boolean;
+  transgression: number;
 }
 
 export const initialAdditionProperties = {
@@ -10,4 +11,5 @@ export const initialAdditionProperties = {
   maxSum: 10,
   secondAddendRounding: 1,
   includeZeroOnOperand: true,
+  transgression: -1
 } as AdditionProperties;

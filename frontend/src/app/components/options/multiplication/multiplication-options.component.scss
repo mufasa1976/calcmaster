@@ -21,3 +21,11 @@ mat-form-field.fixedMultiplicands {
     -moz-appearance: textfield;
   }
 }
+
+mat-form-field.transgression {
+  width: 250px;
+  padding-left: 20px;
+  @media (max-width: 469px) {
+    padding-left: 0;
+  }
+}

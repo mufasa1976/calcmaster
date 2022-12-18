@@ -30,14 +30,31 @@ export class AdditionOptionsComponent {
 
   set maxSum(maxSum: number) {
     let secondAddendRounding = this.secondAddendRounding;
+    let transgression = this.transgression;
+    if (maxSum <= 10 && transgression > -1) {
+      transgression = -1;
+    }
     if (maxSum <= 20) {
       secondAddendRounding = 1;
     }
-    if (maxSum <= 100 && secondAddendRounding === 100) {
-      secondAddendRounding = 10;
+    if (maxSum <= 100) {
+      if (secondAddendRounding > 10) {
+        secondAddendRounding = 10;
+      }
+      if (transgression > 2) {
+        transgression = 2;
+      }
     }
-    if (maxSum <= 1000 && secondAddendRounding === 1000) {
-      secondAddendRounding = 100;
+    if (maxSum <= 1000) {
+      if (secondAddendRounding > 100) {
+        secondAddendRounding = 100;
+      }
+      if (transgression > 6) {
+        transgression = 6;
+      }
+    }
+    if (secondAddendRounding > 1 || maxSum > 10000) {
+      transgression = -1;
     }
 
     let minSum = this.minSum;
@@ -49,7 +66,8 @@ export class AdditionOptionsComponent {
       ...this.properties,
       minSum: minSum,
       maxSum: maxSum,
-      secondAddendRounding: secondAddendRounding
+      secondAddendRounding: secondAddendRounding,
+      transgression: transgression
     })
   }
 
@@ -59,13 +77,16 @@ export class AdditionOptionsComponent {
 
   set secondAddendRounding(secondAddendRounding: number) {
     let includeZeroOnOperand = this.properties.includeZeroOnOperand;
+    let transgression = this.properties.transgression;
     if (secondAddendRounding > 1) {
       includeZeroOnOperand = false;
+      transgression = -1;
     }
     this._propertiesEmitter.emit({
       ...this.properties,
       secondAddendRounding: secondAddendRounding,
-      includeZeroOnOperand: includeZeroOnOperand
+      includeZeroOnOperand: includeZeroOnOperand,
+      transgression: transgression
     })
   }
 
@@ -77,6 +98,17 @@ export class AdditionOptionsComponent {
     this._propertiesEmitter.emit({
       ...this.properties,
       includeZeroOnOperand: event.checked
+    })
+  }
+
+  get transgression() {
+    return this.properties.transgression;
+  }
+
+  set transgression(transgression: number) {
+    this._propertiesEmitter.emit({
+      ...this.properties,
+      transgression: transgression
     })
   }
 }

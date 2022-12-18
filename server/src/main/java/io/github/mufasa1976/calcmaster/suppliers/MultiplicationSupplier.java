@@ -33,7 +33,7 @@ public class MultiplicationSupplier extends AbstractCalculationSupplier {
 
       final int maxMultiplier = multiplicands.stream()
                                              .max(Integer::compare)
-                                             .map(maxMultiplicand -> properties.maxProduct() / maxMultiplicand == 0 ? properties.maxProduct() : Math.min(maxMultiplicand, properties.maxProduct()))
+                                             .map(maxMultiplicand -> properties.maxProduct() / maxMultiplicand == 0 ? properties.maxProduct() : properties.maxProduct() / maxMultiplicand)
                                              .orElse(Double.valueOf(Math.round(Math.sqrt(properties.maxProduct()))).intValue());
       IntStream.rangeClosed(0, maxMultiplier)
                .filter(canBeIncluded(properties.exclusions()))

@@ -26,16 +26,27 @@ export class MultiplicationOptionsComponent {
   set maxProduct(maxProduct: number) {
     const fixedMultiplicand = maxProduct / 10;
     let fixedMultiplicands = this.properties.fixedMultiplicands;
+    let transgression = this.properties.transgression;
     if (maxProduct < 100) {
       fixedMultiplicands = [fixedMultiplicand];
     } else if (this.properties.maxProduct < 100) {
       fixedMultiplicands = [];
     }
+    if (maxProduct < 100 && transgression > -1) {
+      transgression = -1;
+    } else if (maxProduct <= 100 && transgression > 2) {
+      transgression = 2;
+    } else if (maxProduct <= 1000 && transgression > 6) {
+      transgression = 6;
+    } else if (maxProduct > 10000) {
+      transgression = -1;
+    }
     this._propertiesEmitter.emit({
       ...this.properties,
       maxProduct: maxProduct,
       exclusions: _.remove(this.properties.exclusions, value => value !== fixedMultiplicand),
-      fixedMultiplicands: fixedMultiplicands
+      fixedMultiplicands: fixedMultiplicands,
+      transgression: transgression
     });
   }
 
@@ -87,5 +98,16 @@ export class MultiplicationOptionsComponent {
     }
 
     event.chipInput!.clear();
+  }
+
+  get transgression() {
+    return this.properties.transgression;
+  }
+
+  set transgression(transgression: number) {
+    this._propertiesEmitter.emit({
+      ...this.properties,
+      transgression: transgression
+    })
   }
 }

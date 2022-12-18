@@ -1,7 +1,7 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { Observable, Subscription } from "rxjs";
-import { Theme, ThemeName } from "../../shared/theme";
+import { DEFAULT_THEME, Theme, ThemeName } from "../../shared/theme";
 import { StyleManagerService } from "./style-manager.service";
 import { Location } from "@angular/common";
 
@@ -10,7 +10,7 @@ export class ThemeService implements OnDestroy {
   private readonly themeSubscription: Subscription;
 
   private _logos: { [name: string]: string } = {};
-  private _currentTheme: ThemeName = ThemeName.INDIGO_PINK;
+  private _currentTheme: ThemeName = DEFAULT_THEME;
 
   constructor(private _location: Location,
               private _httpClient: HttpClient,

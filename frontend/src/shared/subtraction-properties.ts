@@ -3,6 +3,7 @@ export interface SubtractionProperties {
   maxDifference: number;
   subtrahendRounding: number;
   includeZeroOnOperand: boolean;
+  transgression: number;
 }
 
 export const initialSubtractionProperties = {
@@ -10,4 +11,5 @@ export const initialSubtractionProperties = {
   maxDifference: 10,
   subtrahendRounding: 1,
   includeZeroOnOperand: true,
+  transgression: -1
 } as SubtractionProperties;
