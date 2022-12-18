@@ -29,11 +29,8 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
   private static final String[] ANGULAR_RESOURCES = {
       "/favicon.ico",
       "/main.*.js",
-      "/main-*.*.js",
       "/polyfills.*.js",
-      "/polyfills-*.*.js",
       "/runtime.*.js",
-      "/runtime-*.*.js",
       "/styles.*.css",
       "/deeppurple-amber.css",
       "/indigo-pink.css",
