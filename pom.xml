@@ -23,11 +23,10 @@
     <node.version>v18.12.1</node.version>
     <npm.version>9.1.2</npm.version>
 
-    <docker.base-image>eclipse-temurin:${java.version}-jdk</docker.base-image>
-    <docker.image>mufasa1976/calcmaster</docker.image>
-    <docker.app.user>app</docker.app.user>
+    <docker.image>mufasa1976/calcmaster-native</docker.image>
 
     <spring-boot.version>3.0.0</spring-boot.version>
+    <spring-framework.version>6.0.4-SNAPSHOT</spring-framework.version>
     <thymeleaf.version>3.1.1.RELEASE</thymeleaf.version>
     <commons-lang3.version>3.12.0</commons-lang3.version>
     <commons-collections4.version>4.4</commons-collections4.version>
@@ -37,7 +36,16 @@
     <git-commit-id-plugin.version>4.9.10</git-commit-id-plugin.version>
     <docker-plugin.version>0.40.2</docker-plugin.version>
     <maven-replacer-plugin.version>1.4.1</maven-replacer-plugin.version>
+    <native-build-tools-plugin.version>0.9.19</native-build-tools-plugin.version>
   </properties>
+
+  <repositories>
+    <repository>
+      <id>repository.spring.snapshots</id>
+      <name>Spring Snapshot Repository</name>
+      <url>https://repo.spring.io/snapshot</url>
+    </repository>
+  </repositories>
 
   <dependencyManagement>
     <dependencies>
@@ -48,6 +56,20 @@
         <version>${spring-boot.version}</version>
         <type>pom</type>
         <scope>import</scope>
+      </dependency>
+
+      <!-- Spring Web -->
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-web</artifactId>
+        <version>${spring-framework.version}</version>
+      </dependency>
+
+      <!-- Spring Web MVC -->
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-webmvc</artifactId>
+        <version>${spring-framework.version}</version>
       </dependency>
 
       <!-- Thymeleaf -->
@@ -185,6 +207,17 @@
           <groupId>com.google.code.maven-replacer-plugin</groupId>
           <artifactId>maven-replacer-plugin</artifactId>
           <version>${maven-replacer-plugin.version}</version>
+        </plugin>
+
+        <!-- GraalVM Build Tools -->
+        <plugin>
+          <groupId>org.graalvm.buildtools</groupId>
+          <artifactId>native-maven-plugin</artifactId>
+          <version>${native-build-tools-plugin.version}</version>
+          <extensions>true</extensions>
+          <configuration>
+            <skipNativeTests>true</skipNativeTests>
+          </configuration>
         </plugin>
       </plugins>
     </pluginManagement>
