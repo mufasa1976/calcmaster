@@ -24,7 +24,7 @@
     <npm.version>9.1.2</npm.version>
 
     <docker.base-image>eclipse-temurin:${java.version}</docker.base-image>
-    <docker.image>mufasa1976/calcmaster</docker.image>
+    <docker.image>mufasa1976/calcmaster-reactive</docker.image>
     <docker.app.user>app</docker.app.user>
 
     <spring-boot.version>2.7.6</spring-boot.version>
