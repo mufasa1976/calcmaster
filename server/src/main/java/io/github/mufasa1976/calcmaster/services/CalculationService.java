@@ -4,8 +4,11 @@ import io.github.mufasa1976.calcmaster.records.CalculationProperties;
 import io.github.mufasa1976.calcmaster.records.Calculations;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import org.springframework.core.io.buffer.DataBuffer;
+import org.springframework.core.io.buffer.DataBufferFactory;
 import org.springframework.http.MediaType;
-import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBody;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 import java.util.Locale;
 import java.util.Optional;
@@ -31,7 +34,7 @@ public interface CalculationService {
     }
   }
 
-  Optional<Calculations> createCalculations(final CalculationProperties calculationProperties, final Locale locale);
+  Mono<Calculations> createCalculations(final CalculationProperties calculationProperties, final Locale locale);
 
-  StreamingResponseBody printCalculations(Calculations calculations, Locale locale, OutputFormat outputFormat);
+  Flux<DataBuffer> printCalculations(Calculations calculations, Locale locale, OutputFormat outputFormat, DataBufferFactory dataBufferFactory);
 }

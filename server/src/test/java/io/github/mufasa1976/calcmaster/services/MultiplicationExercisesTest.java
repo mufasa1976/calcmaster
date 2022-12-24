@@ -40,8 +40,8 @@ public class MultiplicationExercisesTest {
     final var calculationsCandidate = calculationService.createCalculations(calculationProperties, Locale.ENGLISH);
 
     // THEN
-    assertThat(calculationsCandidate).isPresent();
-    final var calculations = calculationsCandidate.orElseThrow();
+    assertThat(calculationsCandidate).isNotNull();
+    final var calculations = calculationsCandidate.blockOptional().orElseThrow();
     assertThat(calculations).extracting(Calculations::subheader, Calculations::verticalDisplay).contains(null, false);
     assertThat(calculations.calculations())
         .hasSize(NUMBER_OF_EXERCISES)
@@ -72,8 +72,8 @@ public class MultiplicationExercisesTest {
     final var calculationsCandidate = calculationService.createCalculations(calculationProperties, Locale.ENGLISH);
 
     // THEN
-    assertThat(calculationsCandidate).isPresent();
-    final var calculations = calculationsCandidate.orElseThrow();
+    assertThat(calculationsCandidate).isNotNull();
+    final var calculations = calculationsCandidate.blockOptional().orElseThrow();
     assertThat(calculations).extracting(Calculations::subheader, Calculations::verticalDisplay).contains(null, false);
     assertThat(calculations.calculations())
         .hasSize(NUMBER_OF_EXERCISES)

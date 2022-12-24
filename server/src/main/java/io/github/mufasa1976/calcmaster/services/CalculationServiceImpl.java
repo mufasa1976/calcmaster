@@ -14,13 +14,18 @@ import org.springframework.context.MessageSource;
 import org.springframework.context.support.MessageSourceResourceBundle;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
+import org.springframework.core.io.buffer.DataBuffer;
+import org.springframework.core.io.buffer.DataBufferFactory;
 import org.springframework.stereotype.Service;
-import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBody;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 import javax.annotation.PostConstruct;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.*;
+import java.io.*;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -51,37 +56,37 @@ public class CalculationServiceImpl implements CalculationService {
   }
 
   @Override
-  public Optional<Calculations> createCalculations(CalculationProperties calculationProperties, Locale locale) {
-    return new Calculator(calculationProperties, applicationProperties, messageSource, locale).calculate();
+  public Mono<Calculations> createCalculations(CalculationProperties calculationProperties, Locale locale) {
+    return Mono.justOrEmpty(new Calculator(calculationProperties, applicationProperties, messageSource, locale).calculate());
   }
 
   @Override
-  public StreamingResponseBody printCalculations(Calculations calculations, Locale locale, OutputFormat outputFormat) {
-    return outputStream -> {
-      final Map<String, Object> parameters = new HashMap<>();
-      parameters.put(JRParameter.REPORT_LOCALE, locale);
-      parameters.put(JRParameter.REPORT_RESOURCE_BUNDLE, new MessageSourceResourceBundle(messageSource, locale));
-      parameters.put(PARAMETER_SUBHEADER, calculations.subheader().orElse(EMPTY_STRING));
-      parameters.put(PARAMETER_VERTICAL_DISPLAY, calculations.verticalDisplay());
+  public Flux<DataBuffer> printCalculations(Calculations calculations, Locale locale, OutputFormat outputFormat, DataBufferFactory dataBufferFactory) {
+    final Map<String, Object> parameters = new HashMap<>();
+    parameters.put(JRParameter.REPORT_LOCALE, locale);
+    parameters.put(JRParameter.REPORT_RESOURCE_BUNDLE, new MessageSourceResourceBundle(messageSource, locale));
+    parameters.put(PARAMETER_SUBHEADER, calculations.subheader().orElse(EMPTY_STRING));
+    parameters.put(PARAMETER_VERTICAL_DISPLAY, calculations.verticalDisplay());
 
-      try {
-        final JRDataSource calculationsDataSource = new JRBeanCollectionDataSource(calculations.calculations());
-        final JasperPrint calculationReport = JasperFillManager.fillReport(this.calculationReport, parameters, calculationsDataSource);
+    try (final ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+         final OutputStream outputStream = new BufferedOutputStream(byteArrayOutputStream)) {
+      final JRDataSource calculationsDataSource = new JRBeanCollectionDataSource(calculations.calculations());
+      final JasperPrint calculationReport = JasperFillManager.fillReport(this.calculationReport, parameters, calculationsDataSource);
 
-        final JRDataSource solutionsDataSource = new JRBeanCollectionDataSource(calculations.calculations());
-        final JasperPrint solutionsReport = JasperFillManager.fillReport(this.solutionsReport, parameters, solutionsDataSource);
+      final JRDataSource solutionsDataSource = new JRBeanCollectionDataSource(calculations.calculations());
+      final JasperPrint solutionsReport = JasperFillManager.fillReport(this.solutionsReport, parameters, solutionsDataSource);
 
-        final var exporter = switch (outputFormat) {
-          case PDF -> createPdfExporter(calculationReport, solutionsReport);
-          case DOCX -> createDocxExporter(calculationReport, solutionsReport);
-        };
-        exporter.setExporterOutput(new SimpleOutputStreamExporterOutput(outputStream));
-        exporter.exportReport();
-      } catch (JRException e) {
-        log.error("Error while generating Calculation Report", e);
-        throw new RuntimeException("Error while generating Calculation Report", e);
-      }
-    };
+      final var exporter = switch (outputFormat) {
+        case PDF -> createPdfExporter(calculationReport, solutionsReport);
+        case DOCX -> createDocxExporter(calculationReport, solutionsReport);
+      };
+      exporter.setExporterOutput(new SimpleOutputStreamExporterOutput(outputStream));
+      exporter.exportReport();
+      return Flux.just(dataBufferFactory.wrap(byteArrayOutputStream.toByteArray()));
+    } catch (IOException | JRException e) {
+      log.error("Error while generating Calculation Report", e);
+      return Flux.error(e);
+    }
   }
 
   private Exporter<ExporterInput, PdfReportConfiguration, PdfExporterConfiguration, OutputStreamExporterOutput> createPdfExporter(JasperPrint... reports) {
