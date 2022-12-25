@@ -25,11 +25,8 @@
 
     <docker.image>mufasa1976/calcmaster-native</docker.image>
 
-    <spring-boot.version>3.0.0</spring-boot.version>
+    <spring-boot.version>3.0.1</spring-boot.version>
     <spring-framework.version>6.0.4-SNAPSHOT</spring-framework.version>
-    <thymeleaf.version>3.1.1.RELEASE</thymeleaf.version>
-    <commons-lang3.version>3.12.0</commons-lang3.version>
-    <commons-collections4.version>4.4</commons-collections4.version>
     <jasper-reports.version>6.20.0</jasper-reports.version>
 
     <frontend-plugin.version>1.12.1</frontend-plugin.version>
@@ -70,30 +67,6 @@
         <groupId>org.springframework</groupId>
         <artifactId>spring-webmvc</artifactId>
         <version>${spring-framework.version}</version>
-      </dependency>
-
-      <!-- Thymeleaf -->
-      <dependency>
-        <groupId>org.thymeleaf</groupId>
-        <artifactId>thymeleaf</artifactId>
-        <version>${thymeleaf.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.thymeleaf</groupId>
-        <artifactId>thymeleaf-spring6</artifactId>
-        <version>${thymeleaf.version}</version>
-      </dependency>
-
-      <!-- Apache Commons -->
-      <dependency>
-        <groupId>org.apache.commons</groupId>
-        <artifactId>commons-lang3</artifactId>
-        <version>${commons-lang3.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.commons</groupId>
-        <artifactId>commons-collections4</artifactId>
-        <version>${commons-collections4.version}</version>
       </dependency>
 
       <!-- Jasper Reports -->
@@ -216,7 +189,11 @@
           <version>${native-build-tools-plugin.version}</version>
           <extensions>true</extensions>
           <configuration>
-            <skipNativeTests>true</skipNativeTests>
+            <classesDirectory>${project.build.outputDirectory}</classesDirectory>
+            <metadataRepository>
+              <enabled>true</enabled>
+            </metadataRepository>
+            <requiredVersion>22.3</requiredVersion>
           </configuration>
         </plugin>
       </plugins>
