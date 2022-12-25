@@ -11,7 +11,7 @@ import org.springframework.web.reactive.config.ResourceHandlerRegistry;
 import org.springframework.web.reactive.config.ViewResolverRegistry;
 import org.springframework.web.reactive.config.WebFluxConfigurer;
 import org.springframework.web.reactive.function.server.*;
-import org.thymeleaf.spring5.view.reactive.ThymeleafReactiveViewResolver;
+import org.thymeleaf.spring6.view.reactive.ThymeleafReactiveViewResolver;
 import reactor.core.publisher.Mono;
 
 import java.util.List;
@@ -26,13 +26,12 @@ import static org.springframework.web.reactive.function.server.RouterFunctions.r
 @Configuration
 @EnableWebFlux
 public class WebFluxConfiguration implements WebFluxConfigurer {
-  // ATTENTION: don't use /main.*.js because .* wont work with PathPatternParser
   private static final String[] ANGULAR_RESOURCES = {
       "/favicon.ico",
-      "/main*.js",
-      "/polyfills*.js",
-      "/runtime*.js",
-      "/styles*.css",
+      "/main.*.js",
+      "/polyfills.*.js",
+      "/runtime.*.js",
+      "/styles.*.css",
       "/deeppurple-amber.css",
       "/indigo-pink.css",
       "/pink-bluegrey.css",

@@ -3,6 +3,7 @@ package io.github.mufasa1976.calcmaster.services;
 import io.github.mufasa1976.calcmaster.ApplicationProperties;
 import io.github.mufasa1976.calcmaster.records.CalculationProperties;
 import io.github.mufasa1976.calcmaster.records.Calculations;
+import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.sf.jasperreports.engine.*;
@@ -20,7 +21,6 @@ import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-import javax.annotation.PostConstruct;
 import java.io.*;
 import java.util.Arrays;
 import java.util.HashMap;
