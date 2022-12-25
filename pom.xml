@@ -27,9 +27,7 @@
     <docker.image>mufasa1976/calcmaster</docker.image>
     <docker.app.user>app</docker.app.user>
 
-    <spring-boot.version>2.7.6</spring-boot.version>
-    <commons-lang3.version>3.12.0</commons-lang3.version>
-    <commons-collections4.version>4.4</commons-collections4.version>
+    <spring-boot.version>2.7.7</spring-boot.version>
     <jasper-reports.version>6.20.0</jasper-reports.version>
 
     <frontend-plugin.version>1.12.1</frontend-plugin.version>
@@ -47,18 +45,6 @@
         <version>${spring-boot.version}</version>
         <type>pom</type>
         <scope>import</scope>
-      </dependency>
-
-      <!-- Apache Commons -->
-      <dependency>
-        <groupId>org.apache.commons</groupId>
-        <artifactId>commons-lang3</artifactId>
-        <version>${commons-lang3.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.commons</groupId>
-        <artifactId>commons-collections4</artifactId>
-        <version>${commons-collections4.version}</version>
       </dependency>
 
       <!-- Jasper Reports -->
