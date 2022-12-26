@@ -3,4 +3,6 @@ package io.github.mufasa1976.calcmaster.records;
 import lombok.Builder;
 
 @Builder
-public record AdditionProperties(int minSum, int maxSum, int secondAddendRounding, boolean includeZeroOnOperand, int transgression) {}
+public record AdditionProperties(int minSum, int maxSum, int secondAddendRounding, boolean includeZeroOnOperand, int transgression) {
+  public static final int UNLIMITED_TRANSGRESSIONS = -1;
+}
