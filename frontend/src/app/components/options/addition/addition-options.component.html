@@ -1,6 +1,6 @@
 <mat-form-field class="minSum">
   <mat-label i18n>minimale Summe</mat-label>
-  <mat-select [(value)]="minSum">
+  <mat-select [(value)]="minSum" [disabled]="transgression > -1">
     <mat-option [value]="0">0</mat-option>
     <mat-option [value]="10" [disabled]="maxSum < 20">10</mat-option>
   </mat-select>
@@ -27,9 +27,9 @@
 </mat-form-field>
 <mat-form-field class="secondAddendRounding">
   <mat-label i18n>Addend 2 gerundet auf</mat-label>
-  <mat-select [(value)]="secondAddendRounding">
+  <mat-select [(value)]="secondAddendRounding" [disabled]="maxSum <= 20">
     <mat-option [value]="1" i18n>ganze Zahlen</mat-option>
-    <mat-option [value]="10" [disabled]="maxSum <= 20" i18n>ganze Zehner (10, 20, ...)</mat-option>
+    <mat-option [value]="10" i18n>ganze Zehner (10, 20, ...)</mat-option>
     <mat-option [value]="100" [disabled]="maxSum <= 100" i18n>ganze Hunderter (100, 200, ...)</mat-option>
     <mat-option [value]="1000" [disabled]="maxSum <= 1000" i18n>ganze Tausender (1.000, 2.000, ...)</mat-option>
   </mat-select>
@@ -41,3 +41,21 @@
                   i18n>
   0 als Operand zulassen?
 </mat-slide-toggle>
+<mat-form-field class="transgression">
+  <mat-label i18n>Überschreitung</mat-label>
+  <mat-select [(value)]="transgression" [disabled]="maxSum < 20 || maxSum > 10000 || secondAddendRounding > 1">
+    <mat-option [value]="-1" i18n>Überschreitungen an allen Stellen möglich</mat-option>
+    <mat-option [value]="0" [disabled]="maxSum < 20" i18n>ohne Überschreitungen</mat-option>
+    <mat-option [value]="2" [disabled]="maxSum < 100" i18n>mit Überschreitung der Zehnerstelle</mat-option>
+    <mat-option [value]="4" [disabled]="maxSum < 1000" i18n>mit Überschreitung der Hunderterstelle</mat-option>
+    <mat-option [value]="5" [disabled]="maxSum < 1000" i18n>mit Überschreitung der Hunderter- oder Einerstelle</mat-option>
+    <mat-option [value]="6" [disabled]="maxSum < 1000" i18n>mit Überschreitung der Hunderter- oder Zehnerstelle</mat-option>
+    <mat-option [value]="8" [disabled]="maxSum < 10000" i18n>mit Überschreitung der Tausenderstelle</mat-option>
+    <mat-option [value]="9" [disabled]="maxSum < 10000" i18n>mit Überschreitung der Tausender- oder Einerstelle</mat-option>
+    <mat-option [value]="10" [disabled]="maxSum < 10000" i18n>mit Überschreitung der Tausender- oder Zehnerstelle</mat-option>
+    <mat-option [value]="11" [disabled]="maxSum < 10000" i18n>mit Überschreitung der Tausender-, Zehner- oder Einerstelle</mat-option>
+    <mat-option [value]="12" [disabled]="maxSum < 10000" i18n>mit Überschreitung der Tausender- oder Hunderterstelle</mat-option>
+    <mat-option [value]="13" [disabled]="maxSum < 10000" i18n>mit Überschreitung der Tausender-, Hunderter- oder Einerstelle</mat-option>
+    <mat-option [value]="14" [disabled]="maxSum < 10000" i18n>mit Überschreitung der Tausender-, Hunderter- oder Zehnerstelle</mat-option>
+  </mat-select>
+</mat-form-field>

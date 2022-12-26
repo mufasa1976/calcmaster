@@ -3,6 +3,7 @@ import { initialMultiplicationProperties, MultiplicationProperties } from "../..
 import { COMMA, ENTER } from "@angular/cdk/keycodes";
 import * as _ from "lodash";
 import { MatChipInputEvent } from "@angular/material/chips";
+import { UNLIMITED_TRANSACTIONS } from "../../../../shared/calculation-properties";
 
 @Component({
   selector: 'app-multiplication-options',
@@ -26,16 +27,27 @@ export class MultiplicationOptionsComponent {
   set maxProduct(maxProduct: number) {
     const fixedMultiplicand = maxProduct / 10;
     let fixedMultiplicands = this.properties.fixedMultiplicands;
+    let transgression = this.properties.transgression;
     if (maxProduct < 100) {
       fixedMultiplicands = [fixedMultiplicand];
     } else if (this.properties.maxProduct < 100) {
       fixedMultiplicands = [];
     }
+    if (maxProduct < 100 && transgression > UNLIMITED_TRANSACTIONS) {
+      transgression = UNLIMITED_TRANSACTIONS;
+    } else if (maxProduct <= 100 && transgression > 2) {
+      transgression = 2;
+    } else if (maxProduct <= 1000 && transgression > 6) {
+      transgression = 6;
+    } else if (maxProduct > 10000) {
+      transgression = UNLIMITED_TRANSACTIONS;
+    }
     this._propertiesEmitter.emit({
       ...this.properties,
       maxProduct: maxProduct,
       exclusions: _.remove(this.properties.exclusions, value => value !== fixedMultiplicand),
-      fixedMultiplicands: fixedMultiplicands
+      fixedMultiplicands: fixedMultiplicands,
+      transgression: transgression
     });
   }
 
@@ -87,5 +99,16 @@ export class MultiplicationOptionsComponent {
     }
 
     event.chipInput!.clear();
+  }
+
+  get transgression() {
+    return this.properties.transgression;
+  }
+
+  set transgression(transgression: number) {
+    this._propertiesEmitter.emit({
+      ...this.properties,
+      transgression: transgression
+    })
   }
 }

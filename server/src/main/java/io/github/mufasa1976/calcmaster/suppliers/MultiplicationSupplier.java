@@ -33,7 +33,7 @@ public class MultiplicationSupplier extends AbstractCalculationSupplier {
 
       final int maxMultiplier = multiplicands.stream()
                                              .max(Integer::compare)
-                                             .map(maxMultiplicand -> properties.maxProduct() / maxMultiplicand == 0 ? properties.maxProduct() : Math.min(maxMultiplicand, properties.maxProduct()))
+                                             .map(maxMultiplicand -> properties.maxProduct() / maxMultiplicand == 0 ? properties.maxProduct() : properties.maxProduct() / maxMultiplicand)
                                              .orElse(Double.valueOf(Math.round(Math.sqrt(properties.maxProduct()))).intValue());
       IntStream.rangeClosed(0, maxMultiplier)
                .filter(canBeIncluded(properties.exclusions()))
@@ -59,6 +59,18 @@ public class MultiplicationSupplier extends AbstractCalculationSupplier {
 
   @Override
   public Calculation getInternal() {
+    final var operands = properties.transgression() < 0 ? getOperandsWithoutAnyTransgression() : getOperandsWithTransgression();
+    return Calculation.builder()
+                      .type(Calculation.Type.CALCULATION)
+                      .operand1(operands[0])
+                      .operator(OPERATOR)
+                      .operand2(operands[1])
+                      .result((long) operands[0] * operands[1])
+                      .hiddenField(getRandomHiddenField())
+                      .build();
+  }
+
+  private long[] getOperandsWithoutAnyTransgression() {
     int multiplier = multipliers.get(random.nextInt(multipliers.size()));
     int multiplicand = multiplicands.get(random.nextInt(multiplicands.size()));
     if (multiplier < multiplicand && CollectionUtils.isEmpty(properties.fixedMultiplicands())) {
@@ -66,13 +78,34 @@ public class MultiplicationSupplier extends AbstractCalculationSupplier {
       multiplier = multiplicand;
       multiplicand = oldMultiplier;
     }
-    return Calculation.builder()
-                      .type(Calculation.Type.CALCULATION)
-                      .operand1(multiplier)
-                      .operator(OPERATOR)
-                      .operand2(multiplicand)
-                      .result(multiplier * multiplicand)
-                      .hiddenField(getRandomHiddenField())
-                      .build();
+    return new long[] {multiplier, multiplicand};
+  }
+
+  private long[] getOperandsWithTransgression() {
+    final int digits = (int) Math.log10(properties.maxProduct());
+    if (digits < 1) {
+      return getOperandsWithoutAnyTransgression();
+    }
+
+    final int[] operand1 = new int[digits];
+    final int operand2 = random.nextInt(2, 10);
+    int digit = 0;
+    int remainderOfPreviousDigit = 0;
+    do {
+      boolean transgression = (properties.transgression() & (1 << digit)) != (1 << digit);
+      final int bound = switch (operand2) {
+        case 2 -> 4 - (remainderOfPreviousDigit / 2);
+        case 3 -> 3 - ((remainderOfPreviousDigit + 2) / 3);
+        case 4 -> 4 - ((remainderOfPreviousDigit + 10) / 4);
+        default -> remainderOfPreviousDigit + operand2 >= 10 || properties.maxProduct() <= Math.pow(10, digit + 1) ? 1 : 2;
+      };
+      if (transgression) {
+        operand1[operand1.length - digit - 1] = random.nextInt(bound);
+      } else {
+        operand1[operand1.length - digit - 1] = random.nextInt(properties.maxProduct() <= Math.pow(10, digit + 1) ? bound : 10);
+      }
+      remainderOfPreviousDigit = (operand1[operand1.length - digit - 1] * operand2) / 10;
+    } while (++digit < digits);
+    return new long[] {getValue(operand1), operand2};
   }
 }

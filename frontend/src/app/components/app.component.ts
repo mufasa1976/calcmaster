@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ThemeService } from "../services/theme.service";
 import { Observable } from "rxjs";
-import { Theme, ThemeName } from "../../shared/theme";
+import { DEFAULT_THEME, Theme, ThemeName } from "../../shared/theme";
 import { MatButtonToggleChange } from "@angular/material/button-toggle";
 import { CalculationProperties, initialCalculationProperties } from "../../shared/calculation-properties";
 import { CalculationService } from "../services/calculation.service";
@@ -40,7 +40,7 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this._themeService.setTheme(ThemeName.INDIGO_PINK);
+    this._themeService.setTheme(DEFAULT_THEME);
   }
 
   get title(): string {
