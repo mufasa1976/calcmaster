@@ -1,3 +1,5 @@
+import { UNLIMITED_TRANSACTIONS } from "./calculation-properties";
+
 export interface MultiplicationProperties {
   maxProduct: number;
   exclusions: number[];
@@ -9,5 +11,5 @@ export const initialMultiplicationProperties = {
   maxProduct: 100,
   exclusions: [],
   fixedMultiplicands: [],
-  transgression: -1
+  transgression: UNLIMITED_TRANSACTIONS
 } as MultiplicationProperties;

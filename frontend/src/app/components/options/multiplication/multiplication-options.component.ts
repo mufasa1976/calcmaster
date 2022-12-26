@@ -3,6 +3,7 @@ import { initialMultiplicationProperties, MultiplicationProperties } from "../..
 import { COMMA, ENTER } from "@angular/cdk/keycodes";
 import * as _ from "lodash";
 import { MatChipInputEvent } from "@angular/material/chips";
+import { UNLIMITED_TRANSACTIONS } from "../../../../shared/calculation-properties";
 
 @Component({
   selector: 'app-multiplication-options',
@@ -32,14 +33,14 @@ export class MultiplicationOptionsComponent {
     } else if (this.properties.maxProduct < 100) {
       fixedMultiplicands = [];
     }
-    if (maxProduct < 100 && transgression > -1) {
-      transgression = -1;
+    if (maxProduct < 100 && transgression > UNLIMITED_TRANSACTIONS) {
+      transgression = UNLIMITED_TRANSACTIONS;
     } else if (maxProduct <= 100 && transgression > 2) {
       transgression = 2;
     } else if (maxProduct <= 1000 && transgression > 6) {
       transgression = 6;
     } else if (maxProduct > 10000) {
-      transgression = -1;
+      transgression = UNLIMITED_TRANSACTIONS;
     }
     this._propertiesEmitter.emit({
       ...this.properties,

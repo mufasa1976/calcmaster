@@ -1,6 +1,6 @@
 <mat-form-field class="minSum">
   <mat-label i18n>minimale Summe</mat-label>
-  <mat-select [(value)]="minSum">
+  <mat-select [(value)]="minSum" [disabled]="transgression > -1">
     <mat-option [value]="0">0</mat-option>
     <mat-option [value]="10" [disabled]="maxSum < 20">10</mat-option>
   </mat-select>

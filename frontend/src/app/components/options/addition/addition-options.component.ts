@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { AdditionProperties, initialAdditionProperties } from "../../../../shared/addition-properties";
 import { MatSlideToggleChange } from "@angular/material/slide-toggle";
+import { UNLIMITED_TRANSACTIONS } from "../../../../shared/calculation-properties";
 
 @Component({
   selector: 'app-addition-options',
@@ -29,10 +30,10 @@ export class AdditionOptionsComponent {
   }
 
   set maxSum(maxSum: number) {
-    let secondAddendRounding = this.secondAddendRounding;
-    let transgression = this.transgression;
-    if (maxSum <= 10 && transgression > -1) {
-      transgression = -1;
+    let secondAddendRounding = this.properties.secondAddendRounding;
+    let transgression = this.properties.transgression;
+    if (maxSum <= 10 && transgression > UNLIMITED_TRANSACTIONS) {
+      transgression = UNLIMITED_TRANSACTIONS;
     }
     if (maxSum <= 20) {
       secondAddendRounding = 1;
@@ -54,11 +55,11 @@ export class AdditionOptionsComponent {
       }
     }
     if (secondAddendRounding > 1 || maxSum > 10000) {
-      transgression = -1;
+      transgression = UNLIMITED_TRANSACTIONS;
     }
 
-    let minSum = this.minSum;
-    if (maxSum < 20) {
+    let minSum = this.properties.minSum;
+    if (maxSum < 20 || transgression > UNLIMITED_TRANSACTIONS) {
       minSum = 0;
     }
 
@@ -106,8 +107,13 @@ export class AdditionOptionsComponent {
   }
 
   set transgression(transgression: number) {
+    let minSum = this.properties.minSum;
+    if (transgression > -1) {
+      minSum = 0;
+    }
     this._propertiesEmitter.emit({
       ...this.properties,
+      minSum: minSum,
       transgression: transgression
     })
   }

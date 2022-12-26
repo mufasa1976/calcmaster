@@ -19,6 +19,7 @@ export interface CalculationProperties {
   verticalDisplay: boolean;
 }
 
+export const UNLIMITED_TRANSACTIONS = -1;
 export const initialCalculationProperties = {
   operators: [],
   additionProperties: initialAdditionProperties,

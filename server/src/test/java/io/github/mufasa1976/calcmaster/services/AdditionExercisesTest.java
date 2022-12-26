@@ -13,11 +13,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.util.List;
 import java.util.Locale;
 
-import static io.github.mufasa1976.calcmaster.records.AdditionProperties.UNLIMITED_TRANSGRESSIONS;
+import static io.github.mufasa1976.calcmaster.records.CalculationProperties.UNLIMITED_TRANSGRESSIONS;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest(properties = {"spring.main.banner-mode=off", "application.max-number-of-calculations=1000000"})
-class AdditionExercisesTest {
+class AdditionExercisesTest implements DigitTest {
   private static final int NUMBER_OF_EXERCISES = 1_000_000;
 
   @Autowired
@@ -161,7 +161,34 @@ class AdditionExercisesTest {
         .noneMatch(calculation -> getDigit(calculation.getOperand1(), 5) + getDigit(calculation.getOperand2(), 5) > 10);
   }
 
-  private int getDigit(long value, int digit) {
-    return (int) (value % (int) Math.pow(10, digit)) / (int) Math.pow(10, digit - 1);
+  @Test
+  @DisplayName("Addition Exercises with maxSum = 20 and transgression = 0 (1st Position should have no Transgression)")
+  void additionExercisesWithMaxSum20AndTransgression0() {
+    // GIVEN
+    final var calculationProperties =
+        CalculationProperties.builder()
+                             .operators(List.of(Operator.ADD))
+                             .numberOfCalculations(20)
+                             .additionProperties(
+                                 AdditionProperties.builder()
+                                                   .maxSum(20)
+                                                   .includeZeroOnOperand(false)
+                                                   .transgression(0) // 1st digit = 0
+                                                   .build())
+                             .build();
+
+    // WHEN
+    final var calculationsCandidate = calculationService.createCalculations(calculationProperties, Locale.ENGLISH);
+
+    // THEN
+    assertThat(calculationsCandidate).isPresent();
+    final var calculations = calculationsCandidate.orElseThrow();
+    assertThat(calculations).extracting(Calculations::subheader, Calculations::verticalDisplay).contains(null, false);
+    assertThat(calculations.calculations())
+        .hasSize(20)
+        .allMatch(calculation -> calculation.getType() == Calculation.Type.CALCULATION)
+        .allMatch(calculation -> calculation.getOperand1() + calculation.getOperand2() == calculation.getResult())
+        .noneMatch(calculation -> calculation.getResult() > 20)
+        .noneMatch(calculation -> getDigit(calculation.getOperand1(), 1) + getDigit(calculation.getOperand2(), 1) > 10);
   }
 }

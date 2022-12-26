@@ -75,18 +75,11 @@ public class AdditionSupplier extends AbstractCalculationSupplier {
       remainderOfPreviousDigit = (operand1[operand1.length - digit - 1] + operand2[operand2.length - digit - 1]) / 10;
     } while (++digit < digits);
 
-    final long[] result = new long[] {getValue(operand1), getValue(operand2)};
-    if (result[0] < result[1]) {
-      return new long[] {result[1], result[0]};
+    final long[] operands = new long[] {getValue(operand1), getValue(operand2)};
+    if (operands[0] < operands[1]) {
+      return new long[] {operands[1], operands[0]};
     }
-    return result;
+    return operands;
   }
 
-  private long getValue(int[] digits) {
-    long value = 0;
-    for (int digit = 0; digit < digits.length; digit++) {
-      value += Math.pow(10, digits.length - digit - 1) * digits[digit];
-    }
-    return value;
-  }
 }
