@@ -68,27 +68,27 @@
   <section [hidden]="transgression === -1">
     <ul class="transgression-choices">
       <li>
-        <mat-checkbox i18n [checked]="isTransgression(ONE)" (change)="setTransgression(ONE)">
+        <mat-checkbox [checked]="isTransgression(ONE)" (change)="setTransgression(ONE)" i18n>
           Einerstelle
         </mat-checkbox>
       </li>
       <li>
-        <mat-checkbox [disabled]="maxProduct < 100" i18n [checked]="isTransgression(TEN)" (change)="setTransgression(TEN)">
+        <mat-checkbox [disabled]="maxProduct < 100" [checked]="isTransgression(TEN)" (change)="setTransgression(TEN)" i18n>
           Zehnerstelle
         </mat-checkbox>
       </li>
       <li>
-        <mat-checkbox [disabled]="maxProduct < 1000" i18n [checked]="isTransgression(HUNDRED)" (change)="setTransgression(HUNDRED)">
+        <mat-checkbox [disabled]="maxProduct < 1000" [checked]="isTransgression(HUNDRED)" (change)="setTransgression(HUNDRED)" i18n>
           Hunderterstelle
         </mat-checkbox>
       </li>
       <li>
-        <mat-checkbox [disabled]="maxProduct < 10000" i18n [checked]="isTransgression(THOUSAND)" (change)="setTransgression(THOUSAND)">
+        <mat-checkbox [disabled]="maxProduct < 10000" [checked]="isTransgression(THOUSAND)" (change)="setTransgression(THOUSAND)" i18n>
           Tausenderstelle
         </mat-checkbox>
       </li>
       <li>
-        <mat-checkbox [disabled]="maxProduct < 100000" i18n [checked]="isTransgression(TENTHOUSAND)" (change)="setTransgression(TENTHOUSAND)">
+        <mat-checkbox [disabled]="maxProduct < 100000" [checked]="isTransgression(TENTHOUSAND)" (change)="setTransgression(TENTHOUSAND)" i18n>
           Zehntausenderstelle
         </mat-checkbox>
       </li>
