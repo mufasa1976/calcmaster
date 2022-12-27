@@ -44,12 +44,12 @@ public abstract class AbstractCalculationSupplier implements CalculationSupplier
     operationTuples.add(new Operation(operand1, operand2));
   }
 
-  protected int getLength(long value) {
-    int length = 0;
-    for (; value > 0; length++) {
-      value /= 10;
+  protected long getValue(int[] digits) {
+    long value = 0;
+    for (int digit = 0; digit < digits.length; digit++) {
+      value += Math.pow(10, digits.length - digit - 1) * digits[digit];
     }
-    return length;
+    return value;
   }
 
   @Value

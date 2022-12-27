@@ -1,8 +1,11 @@
+import { UNLIMITED_TRANSACTIONS } from "./constants";
+
 export interface AdditionProperties {
   minSum: number;
   maxSum: number;
   secondAddendRounding: number;
   includeZeroOnOperand: boolean;
+  transgression: number;
 }
 
 export const initialAdditionProperties = {
@@ -10,4 +13,5 @@ export const initialAdditionProperties = {
   maxSum: 10,
   secondAddendRounding: 1,
   includeZeroOnOperand: true,
+  transgression: UNLIMITED_TRANSACTIONS
 } as AdditionProperties;

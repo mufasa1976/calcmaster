@@ -17,6 +17,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
+import java.util.function.Consumer;
 import java.util.stream.Stream;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON;
@@ -29,11 +30,8 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
   private static final String[] ANGULAR_RESOURCES = {
       "/favicon.ico",
       "/main.*.js",
-      "/main-*.*.js",
       "/polyfills.*.js",
-      "/polyfills-*.*.js",
       "/runtime.*.js",
-      "/runtime-*.*.js",
       "/styles.*.css",
       "/deeppurple-amber.css",
       "/indigo-pink.css",
@@ -63,7 +61,11 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
     registry.addResourceHandler("/webjars/**")
             .addResourceLocations("classpath:/META-INF/resources/webjars/")
             .resourceChain(true);
-    for (Locale language : SUPPORTED_LANGUAGES) {
+    SUPPORTED_LANGUAGES.forEach(registerLocalizedAngularResourcesTo(registry));
+  }
+
+  private Consumer<Locale> registerLocalizedAngularResourcesTo(ResourceHandlerRegistry registry) {
+    return language -> {
       final var relativeAngularResources = Stream.of(ANGULAR_RESOURCES)
                                                  .filter(resource -> StringUtils.contains(resource, "*"))
                                                  .map(resource -> "/" + language.getLanguage() + resource)
@@ -80,15 +82,13 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
 
       registry.addResourceHandler("/" + language.getLanguage() + "/assets/**")
               .addResourceLocations(prefix + language.getLanguage() + "/assets/");
-    }
+    };
   }
 
   @Override
   public void addViewControllers(ViewControllerRegistry registry) {
     registry.setOrder(2);
-    for (Locale language : SUPPORTED_LANGUAGES) {
-      registry.addViewController("/" + language.getLanguage() + "/**").setViewName(language.getLanguage() + "/index");
-    }
+    SUPPORTED_LANGUAGES.forEach(language -> registry.addViewController("/" + language.getLanguage() + "/**").setViewName(language.getLanguage() + "/index"));
   }
 
   @Bean

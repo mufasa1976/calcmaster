@@ -28,6 +28,7 @@ import { XRequestedWithInterceptor } from "./interceptors/x-requested-with.inter
 import { ApiPathInterceptor } from "./interceptors/api-path.interceptor";
 import { RoundingOptionsComponent } from './components/options/rounding/rounding-options/rounding-options.component';
 import { ConversionOptionsComponent } from './components/options/conversion/conversion-options/conversion-options.component';
+import { MatCheckboxModule } from "@angular/material/checkbox";
 
 const HTTP_INTERCEPTOR_PROVIDERS: Provider[] = [
   { provide: HTTP_INTERCEPTORS, useClass: XRequestedWithInterceptor, multi: true },
@@ -61,7 +62,8 @@ const HTTP_INTERCEPTOR_PROVIDERS: Provider[] = [
     MatSelectModule,
     MatSlideToggleModule,
     MatChipsModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatCheckboxModule
   ],
   providers: [
     HTTP_INTERCEPTOR_PROVIDERS,
