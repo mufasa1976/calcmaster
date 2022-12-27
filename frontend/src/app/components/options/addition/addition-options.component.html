@@ -36,26 +36,42 @@
 </mat-form-field>
 <mat-slide-toggle class="includeZeroOnOperand"
                   [checked]="includeZeroOnOperand"
-                  [disabled]="secondAddendRounding > 1"
+                  [disabled]="secondAddendRounding > 1 || transgression > -1"
                   (change)="toggleIncludeZeroOnOperand($event)"
                   i18n>
   0 als Operand zulassen?
 </mat-slide-toggle>
-<mat-form-field class="transgression">
-  <mat-label i18n>Überschreitung</mat-label>
-  <mat-select [(value)]="transgression" [disabled]="maxSum < 20 || maxSum > 10000 || secondAddendRounding > 1">
-    <mat-option [value]="-1" i18n>Überschreitungen an allen Stellen möglich</mat-option>
-    <mat-option [value]="0" [disabled]="maxSum < 20" i18n>ohne Überschreitungen</mat-option>
-    <mat-option [value]="2" [disabled]="maxSum < 100" i18n>mit Überschreitung der Zehnerstelle</mat-option>
-    <mat-option [value]="4" [disabled]="maxSum < 1000" i18n>mit Überschreitung der Hunderterstelle</mat-option>
-    <mat-option [value]="5" [disabled]="maxSum < 1000" i18n>mit Überschreitung der Hunderter- oder Einerstelle</mat-option>
-    <mat-option [value]="6" [disabled]="maxSum < 1000" i18n>mit Überschreitung der Hunderter- oder Zehnerstelle</mat-option>
-    <mat-option [value]="8" [disabled]="maxSum < 10000" i18n>mit Überschreitung der Tausenderstelle</mat-option>
-    <mat-option [value]="9" [disabled]="maxSum < 10000" i18n>mit Überschreitung der Tausender- oder Einerstelle</mat-option>
-    <mat-option [value]="10" [disabled]="maxSum < 10000" i18n>mit Überschreitung der Tausender- oder Zehnerstelle</mat-option>
-    <mat-option [value]="11" [disabled]="maxSum < 10000" i18n>mit Überschreitung der Tausender-, Zehner- oder Einerstelle</mat-option>
-    <mat-option [value]="12" [disabled]="maxSum < 10000" i18n>mit Überschreitung der Tausender- oder Hunderterstelle</mat-option>
-    <mat-option [value]="13" [disabled]="maxSum < 10000" i18n>mit Überschreitung der Tausender-, Hunderter- oder Einerstelle</mat-option>
-    <mat-option [value]="14" [disabled]="maxSum < 10000" i18n>mit Überschreitung der Tausender-, Hunderter- oder Zehnerstelle</mat-option>
-  </mat-select>
-</mat-form-field>
+<section class="transgression">
+  <mat-checkbox [checked]="transgression !== -1" (change)="changeUnlimitedTransgression($event)" [disabled]="maxSum < 20 || maxSum > 100000 || secondAddendRounding > 1" i18n>
+    Überschreitungen eingrenzen
+  </mat-checkbox>
+  <section [hidden]="transgression === -1">
+    <ul class="transgression-choices">
+      <li>
+        <mat-checkbox [checked]="isTransgression(ONE)" (change)="setTransgression(ONE)" i18n>
+          Einerstelle
+        </mat-checkbox>
+      </li>
+      <li>
+        <mat-checkbox [disabled]="maxSum < 100" [checked]="isTransgression(TEN)" (change)="setTransgression(TEN)" i18n>
+          Zehnerstelle
+        </mat-checkbox>
+      </li>
+      <li>
+        <mat-checkbox [disabled]="maxSum < 1000" [checked]="isTransgression(HUNDRED)" (change)="setTransgression(HUNDRED)" i18n>
+          Hunderterstelle
+        </mat-checkbox>
+      </li>
+      <li>
+        <mat-checkbox [disabled]="maxSum < 10000" [checked]="isTransgression(THOUSAND)" (change)="setTransgression(THOUSAND)" i18n>
+          Tausenderstelle
+        </mat-checkbox>
+      </li>
+      <li>
+        <mat-checkbox [disabled]="maxSum < 100000" [checked]="isTransgression(TENTHOUSAND)" (change)="setTransgression(TENTHOUSAND)" i18n>
+          Zehntausenderstelle
+        </mat-checkbox>
+      </li>
+    </ul>
+  </section>
+</section>

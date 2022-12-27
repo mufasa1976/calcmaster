@@ -1,7 +1,8 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { AdditionProperties, initialAdditionProperties } from "../../../../shared/addition-properties";
 import { MatSlideToggleChange } from "@angular/material/slide-toggle";
-import { UNLIMITED_TRANSACTIONS } from "../../../../shared/calculation-properties";
+import { UNLIMITED_TRANSACTIONS } from "../../../../shared/constants";
+import { MatCheckboxChange } from "@angular/material/checkbox";
 
 @Component({
   selector: 'app-addition-options',
@@ -11,6 +12,12 @@ import { UNLIMITED_TRANSACTIONS } from "../../../../shared/calculation-propertie
 export class AdditionOptionsComponent {
   @Input("properties") properties: AdditionProperties = { ...initialAdditionProperties };
   @Output("propertiesChange") private _propertiesEmitter = new EventEmitter<AdditionProperties>();
+
+  readonly ONE = 1 << 0;
+  readonly TEN = 1 << 1;
+  readonly HUNDRED = 1 << 2;
+  readonly THOUSAND = 1 << 3;
+  readonly TENTHOUSAND = 1 << 4;
 
   constructor() {}
 
@@ -32,29 +39,28 @@ export class AdditionOptionsComponent {
   set maxSum(maxSum: number) {
     let secondAddendRounding = this.properties.secondAddendRounding;
     let transgression = this.properties.transgression;
-    if (maxSum <= 10 && transgression > UNLIMITED_TRANSACTIONS) {
-      transgression = UNLIMITED_TRANSACTIONS;
-    }
     if (maxSum <= 20) {
       secondAddendRounding = 1;
+    } else if (maxSum <= 100 && secondAddendRounding > 10) {
+      secondAddendRounding = 10;
+    } else if (maxSum <= 1000 && secondAddendRounding > 100) {
+      secondAddendRounding = 100;
     }
-    if (maxSum <= 100) {
-      if (secondAddendRounding > 10) {
-        secondAddendRounding = 10;
-      }
-      if (transgression > 2) {
-        transgression = 2;
-      }
+
+    if (maxSum < 20 && transgression > UNLIMITED_TRANSACTIONS) {
+      transgression = UNLIMITED_TRANSACTIONS;
+    } else if (maxSum < 100 && transgression >= this.ONE) {
+      transgression &= this.ONE;
+    } else if (maxSum < 1000 && transgression > this.TEN) {
+      transgression &= this.ONE | this.TEN;
+    } else if (maxSum < 10000 && transgression > this.HUNDRED) {
+      transgression &= this.ONE | this.TEN | this.HUNDRED;
+    } else if (maxSum < 100000 && transgression > this.THOUSAND) {
+      transgression &= this.ONE | this.TEN | this.HUNDRED | this.THOUSAND;
+    } else if (maxSum > 100000) {
+      transgression = UNLIMITED_TRANSACTIONS;
     }
-    if (maxSum <= 1000) {
-      if (secondAddendRounding > 100) {
-        secondAddendRounding = 100;
-      }
-      if (transgression > 6) {
-        transgression = 6;
-      }
-    }
-    if (secondAddendRounding > 1 || maxSum > 10000) {
+    if (secondAddendRounding > 1) {
       transgression = UNLIMITED_TRANSACTIONS;
     }
 
@@ -106,15 +112,37 @@ export class AdditionOptionsComponent {
     return this.properties.transgression;
   }
 
-  set transgression(transgression: number) {
-    let minSum = this.properties.minSum;
-    if (transgression > -1) {
-      minSum = 0;
+  changeUnlimitedTransgression(event: MatCheckboxChange) {
+    const maxSum = this.properties.maxSum;
+    let transgression = this.ONE;
+    let includeZeroAsOperand = this.properties.includeZeroOnOperand;
+    if (maxSum >= 100) {
+      transgression |= this.TEN;
+    }
+    if (maxSum >= 1000) {
+      transgression |= this.HUNDRED;
+    }
+    if (maxSum >= 10000) {
+      transgression |= this.THOUSAND;
+    }
+    if (maxSum >= 100000) {
+      transgression |= this.TENTHOUSAND;
     }
     this._propertiesEmitter.emit({
       ...this.properties,
-      minSum: minSum,
-      transgression: transgression
+      transgression: event.checked ? transgression : -1,
+      includeZeroOnOperand: event.checked ? true : includeZeroAsOperand
+    })
+  }
+
+  isTransgression(digit: number): boolean {
+    return (this.properties.transgression & digit) === digit;
+  }
+
+  setTransgression(digit: number) {
+    this._propertiesEmitter.emit({
+      ...this.properties,
+      transgression: this.properties.transgression ^ digit,
     })
   }
 }

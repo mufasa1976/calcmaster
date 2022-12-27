@@ -37,3 +37,16 @@ mat-form-field.transgression {
     padding-left: 0;
   }
 }
+
+mat-form-field.transgression {
+  width: 250px;
+  padding-left: 20px;
+  @media (max-width: 469px) {
+    padding-left: 0;
+  }
+}
+
+ul.transgression-choices {
+  margin-top: 0;
+  list-style-type: none;
+}

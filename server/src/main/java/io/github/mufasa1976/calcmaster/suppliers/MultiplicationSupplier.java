@@ -7,14 +7,18 @@ import org.apache.commons.collections4.CollectionUtils;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+
+import static io.github.mufasa1976.calcmaster.records.CalculationProperties.UNLIMITED_TRANSGRESSIONS;
 
 public class MultiplicationSupplier extends AbstractCalculationSupplier {
   private static final String OPERATOR = "·";
 
   private final MultiplicationProperties properties;
 
-  private final List<Integer> multipliers = new ArrayList<>();
+  private final List<Integer> multipliersSqrt = new ArrayList<>();
+  private final List<Integer> multipliersHalfOfProduct = new ArrayList<>();
 
   private final List<Integer> multiplicands = new ArrayList<>();
 
@@ -25,6 +29,9 @@ public class MultiplicationSupplier extends AbstractCalculationSupplier {
 
   @Override
   public void init() {
+    multipliersSqrt.clear();
+    multipliersHalfOfProduct.clear();
+    multiplicands.clear();
     if (CollectionUtils.isNotEmpty(properties.fixedMultiplicands())) {
       properties.fixedMultiplicands()
                 .stream()
@@ -38,13 +45,22 @@ public class MultiplicationSupplier extends AbstractCalculationSupplier {
       IntStream.rangeClosed(0, maxMultiplier)
                .filter(canBeIncluded(properties.exclusions()))
                .sorted()
-               .forEach(multipliers::add);
+               .forEach(multipliersSqrt::add);
+      IntStream.rangeClosed(0, maxMultiplier)
+               .filter(canBeIncluded(properties.exclusions()))
+               .sorted()
+               .forEach(multipliersHalfOfProduct::add);
     } else {
+      IntStream.rangeClosed(0, properties.maxProduct() / 2)
+               .filter(canBeIncluded(properties.exclusions()))
+               .sorted()
+               .forEach(multipliersHalfOfProduct::add);
+
       final int maxMultiplier = Double.valueOf(Math.round(Math.sqrt(properties.maxProduct()))).intValue();
       IntStream.range(0, maxMultiplier + 1)
                .filter(canBeIncluded(properties.exclusions()))
                .sorted()
-               .forEach(multipliers::add);
+               .forEach(multipliersSqrt::add);
 
       int maxMultiplicand = maxMultiplier;
       if (maxMultiplicand * maxMultiplier > properties.maxProduct()) {
@@ -59,19 +75,23 @@ public class MultiplicationSupplier extends AbstractCalculationSupplier {
 
   @Override
   public Calculation getInternal() {
-    final var operands = properties.transgression() < 0 ? getOperandsWithoutAnyTransgression() : getOperandsWithTransgression();
+    final var unlimitedTransgressions = properties.transgression() == UNLIMITED_TRANSGRESSIONS || properties.transgression() == (1 << (int) Math.log10(properties.maxProduct())) - 1;
+    final var operands = !unlimitedTransgressions ? getOperandsWithTransgression() : switch (properties.type()) {
+      case SQRT -> getOperandsWithoutAnyTransgressionBySqrt();
+      case HALF_OF_PRODUCT -> getOperandsWithoutAnyTransgressionByHalfOfMaxProduct();
+    };
     return Calculation.builder()
                       .type(Calculation.Type.CALCULATION)
                       .operand1(operands[0])
                       .operator(OPERATOR)
                       .operand2(operands[1])
-                      .result((long) operands[0] * operands[1])
+                      .result(operands[0] * operands[1])
                       .hiddenField(getRandomHiddenField())
                       .build();
   }
 
-  private long[] getOperandsWithoutAnyTransgression() {
-    int multiplier = multipliers.get(random.nextInt(multipliers.size()));
+  private long[] getOperandsWithoutAnyTransgressionBySqrt() {
+    int multiplier = multipliersSqrt.get(random.nextInt(multipliersSqrt.size()));
     int multiplicand = multiplicands.get(random.nextInt(multiplicands.size()));
     if (multiplier < multiplicand && CollectionUtils.isEmpty(properties.fixedMultiplicands())) {
       int oldMultiplier = multiplier;
@@ -81,10 +101,31 @@ public class MultiplicationSupplier extends AbstractCalculationSupplier {
     return new long[] {multiplier, multiplicand};
   }
 
+  private long[] getOperandsWithoutAnyTransgressionByHalfOfMaxProduct() {
+    int multiplier = multipliersHalfOfProduct.get(random.nextInt(multipliersHalfOfProduct.size()));
+    final var multiplicands = getMultiplicands(multiplier);
+    int multiplicand = multiplicands.get(random.nextInt(multiplicands.size()));
+    return new long[] {multiplier, multiplicand};
+  }
+
+  private List<Integer> getMultiplicands(int maxMultiplicand) {
+    if (CollectionUtils.isNotEmpty(properties.fixedMultiplicands())) {
+      return properties.fixedMultiplicands()
+                       .stream()
+                       .sorted()
+                       .collect(Collectors.toList());
+    }
+    return IntStream.rangeClosed(0, properties.maxProduct() / maxMultiplicand)
+                    .filter(canBeIncluded(properties.exclusions()))
+                    .sorted()
+                    .boxed()
+                    .collect(Collectors.toList());
+  }
+
   private long[] getOperandsWithTransgression() {
     final int digits = (int) Math.log10(properties.maxProduct());
     if (digits < 1) {
-      return getOperandsWithoutAnyTransgression();
+      return getOperandsWithoutAnyTransgressionBySqrt();
     }
 
     final int[] operand1 = new int[digits];
@@ -92,7 +133,7 @@ public class MultiplicationSupplier extends AbstractCalculationSupplier {
     int digit = 0;
     int remainderOfPreviousDigit = 0;
     do {
-      boolean transgression = (properties.transgression() & (1 << digit)) != (1 << digit);
+      boolean transgression = (properties.transgression() & (1 << digit)) == (1 << digit);
       final int bound = switch (operand2) {
         case 2 -> 4 - (remainderOfPreviousDigit / 2);
         case 3 -> 3 - ((remainderOfPreviousDigit + 2) / 3);

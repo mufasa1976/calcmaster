@@ -1,4 +1,4 @@
-import { UNLIMITED_TRANSACTIONS } from "./calculation-properties";
+import { UNLIMITED_TRANSACTIONS } from "./constants";
 
 export interface AdditionProperties {
   minSum: number;

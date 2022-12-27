@@ -1,6 +1,8 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { initialSubtractionProperties, SubtractionProperties } from "../../../../shared/subtraction-properties";
 import { MatSlideToggleChange } from "@angular/material/slide-toggle";
+import { MatCheckboxChange } from "@angular/material/checkbox";
+import { UNLIMITED_TRANSACTIONS } from "../../../../shared/constants";
 
 @Component({
   selector: 'app-subtraction-options',
@@ -10,6 +12,12 @@ import { MatSlideToggleChange } from "@angular/material/slide-toggle";
 export class SubtractionOptionsComponent {
   @Input("properties") properties: SubtractionProperties = { ...initialSubtractionProperties };
   @Output("propertiesChange") private _propertiesEmitter = new EventEmitter<SubtractionProperties>();
+
+  readonly ONE = 1 << 0;
+  readonly TEN = 1 << 1;
+  readonly HUNDRED = 1 << 2;
+  readonly THOUSAND = 1 << 3;
+  readonly TENTHOUSAND = 1 << 4;
 
   constructor() {
   }
@@ -32,34 +40,33 @@ export class SubtractionOptionsComponent {
   set maxDifference(maxDifference: number) {
     let subtrahendRounding = this.properties.subtrahendRounding;
     let transgression = this.properties.transgression;
-    if (maxDifference <= 10 && transgression > -1) {
-      transgression = -1;
-    }
     if (maxDifference <= 20) {
       subtrahendRounding = 1;
+    } else if (maxDifference <= 100 && subtrahendRounding > 10) {
+      subtrahendRounding = 10;
+    } else if (maxDifference <= 1000 && subtrahendRounding > 100) {
+      subtrahendRounding = 100;
     }
-    if (maxDifference <= 100) {
-      if (subtrahendRounding > 10) {
-        subtrahendRounding = 10;
-      }
-      if (transgression > 2) {
-        transgression = 2;
-      }
+
+    if (maxDifference < 20 && transgression > UNLIMITED_TRANSACTIONS) {
+      transgression = UNLIMITED_TRANSACTIONS;
+    } else if (maxDifference < 100 && transgression >= this.ONE) {
+      transgression &= this.ONE;
+    } else if (maxDifference < 1000 && transgression > this.TEN) {
+      transgression &= this.ONE | this.TEN;
+    } else if (maxDifference < 10000 && transgression > this.HUNDRED) {
+      transgression &= this.ONE | this.TEN | this.HUNDRED;
+    } else if (maxDifference < 100000 && transgression > this.THOUSAND) {
+      transgression &= this.ONE | this.TEN | this.HUNDRED | this.THOUSAND;
+    } else if (maxDifference > 100000) {
+      transgression = UNLIMITED_TRANSACTIONS;
     }
-    if (maxDifference <= 1000) {
-      if (subtrahendRounding > 100) {
-        subtrahendRounding = 100;
-      }
-      if (transgression > 6) {
-        transgression = 6;
-      }
-    }
-    if (subtrahendRounding > 1 || maxDifference > 10000) {
-      transgression = -1;
+    if (subtrahendRounding > 1 || maxDifference > 100000) {
+      transgression = UNLIMITED_TRANSACTIONS;
     }
 
     let minDifference = this.properties.minDifference;
-    if (minDifference < 20) {
+    if (minDifference < 20 || transgression > UNLIMITED_TRANSACTIONS) {
       minDifference = 0;
     }
 
@@ -106,10 +113,37 @@ export class SubtractionOptionsComponent {
     return this.properties.transgression;
   }
 
-  set transgression(transgression: number) {
+  changeUnlimitedTransgression(event: MatCheckboxChange) {
+    const maxDifference = this.properties.maxDifference;
+    let transgression = this.ONE;
+    let includeZeroAsOperand = this.properties.includeZeroOnOperand;
+    if (maxDifference >= 100) {
+      transgression |= this.TEN;
+    }
+    if (maxDifference >= 1000) {
+      transgression |= this.HUNDRED;
+    }
+    if (maxDifference >= 10000) {
+      transgression |= this.THOUSAND;
+    }
+    if (maxDifference >= 100000) {
+      transgression |= this.TENTHOUSAND;
+    }
     this._propertiesEmitter.emit({
       ...this.properties,
-      transgression: transgression
+      transgression: event.checked ? transgression : -1,
+      includeZeroOnOperand: event.checked ? true : includeZeroAsOperand
+    })
+  }
+
+  isTransgression(digit: number): boolean {
+    return (this.properties.transgression & digit) === digit;
+  }
+
+  setTransgression(digit: number) {
+    this._propertiesEmitter.emit({
+      ...this.properties,
+      transgression: this.properties.transgression ^ digit,
     })
   }
 }
