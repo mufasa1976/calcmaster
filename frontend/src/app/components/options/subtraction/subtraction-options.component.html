@@ -43,7 +43,7 @@
 </mat-slide-toggle>
 <section class="transgression">
   <mat-checkbox [checked]="transgression !== -1" (change)="changeUnlimitedTransgression($event)" [disabled]="maxDifference < 20 || maxDifference > 100000 || subtrahendRounding > 1" i18n>
-    Überschreitungen eingrenzen
+    Unterschreitungen eingrenzen
   </mat-checkbox>
   <section [hidden]="transgression === -1">
     <ul class="transgression-choices">
