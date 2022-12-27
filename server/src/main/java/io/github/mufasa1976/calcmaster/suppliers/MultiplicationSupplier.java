@@ -10,6 +10,8 @@ import java.util.Random;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import static io.github.mufasa1976.calcmaster.records.CalculationProperties.UNLIMITED_TRANSGRESSIONS;
+
 public class MultiplicationSupplier extends AbstractCalculationSupplier {
   private static final String OPERATOR = "·";
 
@@ -73,7 +75,8 @@ public class MultiplicationSupplier extends AbstractCalculationSupplier {
 
   @Override
   public Calculation getInternal() {
-    final var operands = properties.transgression() >= 0 ? getOperandsWithTransgression() : switch (properties.type()) {
+    final var unlimitedTransgressions = properties.transgression() == UNLIMITED_TRANSGRESSIONS || properties.transgression() == (1 << (int) Math.log10(properties.maxProduct())) - 1;
+    final var operands = !unlimitedTransgressions ? getOperandsWithTransgression() : switch (properties.type()) {
       case SQRT -> getOperandsWithoutAnyTransgressionBySqrt();
       case HALF_OF_PRODUCT -> getOperandsWithoutAnyTransgressionByHalfOfMaxProduct();
     };
@@ -130,7 +133,7 @@ public class MultiplicationSupplier extends AbstractCalculationSupplier {
     int digit = 0;
     int remainderOfPreviousDigit = 0;
     do {
-      boolean transgression = (properties.transgression() & (1 << digit)) != (1 << digit);
+      boolean transgression = (properties.transgression() & (1 << digit)) == (1 << digit);
       final int bound = switch (operand2) {
         case 2 -> 4 - (remainderOfPreviousDigit / 2);
         case 3 -> 3 - ((remainderOfPreviousDigit + 2) / 3);

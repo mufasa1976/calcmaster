@@ -126,7 +126,7 @@ class AdditionExercisesTest implements DigitTest {
   }
 
   @Test
-  @DisplayName("Addition Exercises with maxSum = 100,000 and transgression = 25 [11001] (2nd and 3rd Position should have no Transgression)")
+  @DisplayName("Addition Exercises with maxSum = 100,000 and transgression = 6 [00110] (2nd and 3rd Position should have no Transgression)")
   void additionExercisesWithMaxSum100000AndTransgression25() {
     // GIVEN
     final var calculationProperties =
@@ -138,7 +138,7 @@ class AdditionExercisesTest implements DigitTest {
                                                    .minSum(0)
                                                    .maxSum(100_000)
                                                    .includeZeroOnOperand(false)
-                                                   .transgression(25) // 2nd and 3rd digit -> [11001] = 25
+                                                   .transgression(6) // 2nd and 3rd digit -> [00110] = 6
                                                    .build())
                              .build();
 
@@ -162,7 +162,7 @@ class AdditionExercisesTest implements DigitTest {
   }
 
   @Test
-  @DisplayName("Addition Exercises with maxSum = 20 and transgression = 0 (1st Position should have no Transgression)")
+  @DisplayName("Addition Exercises with maxSum = 20 and transgression = 1 [01] (1st Position should have no Transgression)")
   void additionExercisesWithMaxSum20AndTransgression0() {
     // GIVEN
     final var calculationProperties =
@@ -173,7 +173,7 @@ class AdditionExercisesTest implements DigitTest {
                                  AdditionProperties.builder()
                                                    .maxSum(20)
                                                    .includeZeroOnOperand(false)
-                                                   .transgression(0) // 1st digit = 0
+                                                   .transgression(1) // 1st digit = [01] = 1
                                                    .build())
                              .build();
 

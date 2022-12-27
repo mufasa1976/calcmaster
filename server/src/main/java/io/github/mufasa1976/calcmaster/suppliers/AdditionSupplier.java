@@ -5,6 +5,8 @@ import io.github.mufasa1976.calcmaster.records.AdditionProperties;
 
 import java.util.Random;
 
+import static io.github.mufasa1976.calcmaster.records.CalculationProperties.UNLIMITED_TRANSGRESSIONS;
+
 public class AdditionSupplier extends AbstractCalculationSupplier {
   private static final String OPERATOR = "+";
 
@@ -19,7 +21,8 @@ public class AdditionSupplier extends AbstractCalculationSupplier {
 
   @Override
   public Calculation getInternal() {
-    final var operands = properties.transgression() < 0 ? getOperandsWithoutAnyTransgression() : getOperandsWithTransgression();
+    final var unlimitedTransgressions = properties.transgression() == UNLIMITED_TRANSGRESSIONS || properties.transgression() == (1 << (int) Math.log10(properties.maxSum())) - 1;
+    final var operands = unlimitedTransgressions ? getOperandsWithoutAnyTransgression() : getOperandsWithTransgression();
     return Calculation.builder()
                       .type(Calculation.Type.CALCULATION)
                       .operand1(operands[0])
@@ -32,10 +35,12 @@ public class AdditionSupplier extends AbstractCalculationSupplier {
 
   private long[] getOperandsWithoutAnyTransgression() {
     final var lowerBoundSecondAddend = properties.secondAddendRounding() > 1 ? properties.secondAddendRounding() : properties.includeZeroOnOperand() ? 0 : 1;
-    var secondAddend = (random.nextInt(lowerBoundSecondAddend, properties.maxSum() + 1) / properties.secondAddendRounding()) * properties.secondAddendRounding();
+    var secondAddend = (random.nextInt(lowerBoundSecondAddend, properties.maxSum() + 1) / (properties.secondAddendRounding() > 0 ? properties.secondAddendRounding() : 1))
+        * properties.secondAddendRounding();
     var sum = random.nextInt(Math.max(secondAddend, properties.minSum()), properties.maxSum() + 1);
     for (int i = 0; !properties.includeZeroOnOperand() && sum == secondAddend && i < maxTriesToFindSumOfAdditionNotEqualToSecondAddend; i++) {
-      secondAddend = (random.nextInt(lowerBoundSecondAddend, properties.maxSum() + 1) / properties.secondAddendRounding()) * properties.secondAddendRounding();
+      secondAddend = (random.nextInt(lowerBoundSecondAddend, properties.maxSum() + 1) / (properties.secondAddendRounding() > 0 ? properties.secondAddendRounding() : 1))
+          * properties.secondAddendRounding();
       sum = random.nextInt(Math.max(secondAddend, properties.minSum()), properties.maxSum() + 1);
     }
     var firstAddend = sum - secondAddend;
@@ -57,7 +62,7 @@ public class AdditionSupplier extends AbstractCalculationSupplier {
     int digit = 0;
     int remainderOfPreviousDigit = 0;
     do {
-      boolean transgression = (properties.transgression() & (1 << digit)) != (1 << digit);
+      boolean transgression = (properties.transgression() & (1 << digit)) == (1 << digit);
       int bound = 10;
       if (properties.maxSum() <= Math.pow(10, digit + 1)) {
         bound = properties.maxSum() / (int) Math.pow(10, Math.ceil(Math.log10(properties.maxSum())));

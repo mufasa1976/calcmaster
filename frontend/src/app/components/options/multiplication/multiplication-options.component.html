@@ -1,3 +1,10 @@
+<mat-form-field class="type">
+  <mat-label i18n>maximaler Multiplikator</mat-label>
+  <mat-select [(value)]="type">
+    <mat-option [value]="typeEnum.SQRT" i18n>Wurzel aus maximalem Produkt</mat-option>
+    <mat-option [value]="typeEnum.HALF_OF_PRODUCT" i18n>Hälfte des maximalen Produkts</mat-option>
+  </mat-select>
+</mat-form-field>
 <mat-form-field class="maxProduct">
   <mat-label i18n>maximales Produkt</mat-label>
   <mat-select [(value)]="maxProduct">
@@ -18,7 +25,7 @@
 </mat-form-field>
 <mat-form-field class="excludedNumbers">
   <mat-label i18n>Auszuschließende Zahlen</mat-label>
-  <mat-chip-grid #excludedNumberInput>
+  <mat-chip-grid #excludedNumberInput [disabled]="transgression > 0">
     <mat-chip-row *ngFor="let excludedNumber of exclusions" (removed)="removeExclusion(excludedNumber)">
       {{excludedNumber}}
       <button matChipRemove>
@@ -37,8 +44,8 @@
   </mat-chip-grid>
 </mat-form-field>
 <mat-form-field class="fixedMultiplicands">
-  <mat-label i18n>Multiplikand eingrenzen auf</mat-label>
-  <mat-chip-grid #fixedMultiplicandInput [disabled]="maxProduct < 100">
+  <mat-label i18n>Multiplikand eingrenzen</mat-label>
+  <mat-chip-grid #fixedMultiplicandInput [disabled]="maxProduct < 100 || transgression > 0">
     <mat-chip-row *ngFor="let fixedMultiplicand of fixedMultiplicands" (removed)="removeFixedMultiplicand(fixedMultiplicand)">
       {{fixedMultiplicand}}
       <button matChipRemove>
@@ -56,21 +63,35 @@
            (matChipInputTokenEnd)="addFixedMultiplicand($event)">
   </mat-chip-grid>
 </mat-form-field>
-<mat-form-field class="transgression">
-  <mat-label i18n>Überschreitung</mat-label>
-  <mat-select [(value)]="transgression" [disabled]="maxProduct < 100 || maxProduct > 10000">
-    <mat-option [value]="-1" i18n>Überschreitungen an allen Stellen möglich</mat-option>
-    <mat-option [value]="0" i18n>ohne Überschreitungen</mat-option>
-    <mat-option [value]="2" i18n>mit Überschreitung der Zehnerstelle</mat-option>
-    <mat-option [value]="4" [disabled]="maxProduct < 1000" i18n>mit Überschreitung der Hunderterstelle</mat-option>
-    <mat-option [value]="5" [disabled]="maxProduct < 1000" i18n>mit Überschreitung der Hunderter- oder Einerstelle</mat-option>
-    <mat-option [value]="6" [disabled]="maxProduct < 1000" i18n>mit Überschreitung der Hunderter- oder Zehnerstelle</mat-option>
-    <mat-option [value]="8" [disabled]="maxProduct < 10000" i18n>mit Überschreitung der Tausenderstelle</mat-option>
-    <mat-option [value]="9" [disabled]="maxProduct < 10000" i18n>mit Überschreitung der Tausender- oder Einerstelle</mat-option>
-    <mat-option [value]="10" [disabled]="maxProduct < 10000" i18n>mit Überschreitung der Tausender- oder Zehnerstelle</mat-option>
-    <mat-option [value]="11" [disabled]="maxProduct < 10000" i18n>mit Überschreitung der Tausender-, Zehner- oder Einerstelle</mat-option>
-    <mat-option [value]="12" [disabled]="maxProduct < 10000" i18n>mit Überschreitung der Tausender- oder Hunderterstelle</mat-option>
-    <mat-option [value]="13" [disabled]="maxProduct < 10000" i18n>mit Überschreitung der Tausender-, Hunderter- oder Einerstelle</mat-option>
-    <mat-option [value]="14" [disabled]="maxProduct < 10000" i18n>mit Überschreitung der Tausender-, Hunderter- oder Zehnerstelle</mat-option>
-  </mat-select>
-</mat-form-field>
+<section class="transgression">
+  <mat-checkbox [checked]="transgression !== -1" (change)="changeUnlimitedTransgression($event)" [disabled]="maxProduct < 100 || maxProduct > 100000" i18n>Überschreitungen eingrenzen</mat-checkbox>
+  <section [hidden]="transgression === -1">
+    <ul class="transgression-choices">
+      <li>
+        <mat-checkbox i18n [checked]="isTransgression(ONE)" (change)="setTransgression(ONE)">
+          Einerstelle
+        </mat-checkbox>
+      </li>
+      <li>
+        <mat-checkbox [disabled]="maxProduct < 100" i18n [checked]="isTransgression(TEN)" (change)="setTransgression(TEN)">
+          Zehnerstelle
+        </mat-checkbox>
+      </li>
+      <li>
+        <mat-checkbox [disabled]="maxProduct < 1000" i18n [checked]="isTransgression(HUNDRED)" (change)="setTransgression(HUNDRED)">
+          Hunderterstelle
+        </mat-checkbox>
+      </li>
+      <li>
+        <mat-checkbox [disabled]="maxProduct < 10000" i18n [checked]="isTransgression(THOUSAND)" (change)="setTransgression(THOUSAND)">
+          Tausenderstelle
+        </mat-checkbox>
+      </li>
+      <li>
+        <mat-checkbox [disabled]="maxProduct < 100000" i18n [checked]="isTransgression(TENTHOUSAND)" (change)="setTransgression(TENTHOUSAND)">
+          Zehntausenderstelle
+        </mat-checkbox>
+      </li>
+    </ul>
+  </section>
+</section>
