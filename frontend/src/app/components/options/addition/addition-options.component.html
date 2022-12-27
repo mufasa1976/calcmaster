@@ -42,7 +42,9 @@
   0 als Operand zulassen?
 </mat-slide-toggle>
 <section class="transgression">
-  <mat-checkbox [checked]="transgression !== -1" (change)="changeUnlimitedTransgression($event)" [disabled]="maxSum < 20 || maxSum > 100000 || secondAddendRounding > 1" i18n>Überschreitungen eingrenzen</mat-checkbox>
+  <mat-checkbox [checked]="transgression !== -1" (change)="changeUnlimitedTransgression($event)" [disabled]="maxSum < 20 || maxSum > 100000 || secondAddendRounding > 1" i18n>
+    Überschreitungen eingrenzen
+  </mat-checkbox>
   <section [hidden]="transgression === -1">
     <ul class="transgression-choices">
       <li>

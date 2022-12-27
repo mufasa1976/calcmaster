@@ -39,9 +39,6 @@ export class AdditionOptionsComponent {
   set maxSum(maxSum: number) {
     let secondAddendRounding = this.properties.secondAddendRounding;
     let transgression = this.properties.transgression;
-    if (maxSum <= 10 && transgression > UNLIMITED_TRANSACTIONS) {
-      transgression = UNLIMITED_TRANSACTIONS;
-    }
     if (maxSum <= 20) {
       secondAddendRounding = 1;
     } else if (maxSum <= 100 && secondAddendRounding > 10) {

@@ -1,6 +1,6 @@
 <mat-form-field class="minDifference">
   <mat-label i18n>minimale Differenz</mat-label>
-  <mat-select [(value)]="minDifference">
+  <mat-select [(value)]="minDifference" [disabled]="transgression > -1">
     <mat-option [value]="0">0</mat-option>
     <mat-option [value]="10" [disabled]="maxDifference < 20">10</mat-option>
   </mat-select>
@@ -36,26 +36,42 @@
 </mat-form-field>
 <mat-slide-toggle class="includeZeroOnOperand"
                   [checked]="includeZeroOnOperand"
-                  [disabled]="subtrahendRounding > 1"
+                  [disabled]="subtrahendRounding > 1 || transgression > -1"
                   (change)="toggleIncludeZeroOnOperand($event)"
                   i18n>
   0 als Operand zulassen?
 </mat-slide-toggle>
-<mat-form-field class="transgression">
-  <mat-label i18n>Unterschreitungen</mat-label>
-  <mat-select [(value)]="transgression" [disabled]="maxDifference < 20 || maxDifference > 10000 || subtrahendRounding > 1">
-    <mat-option [value]="-1" i18n>Unterschreitungen an allen Stellen möglich</mat-option>
-    <mat-option [value]="0" [disabled]="maxDifference < 20" i18n>ohne Unterschreitungen</mat-option>
-    <mat-option [value]="2" [disabled]="maxDifference < 100" i18n>mit Unterschreitung der Zehnerstelle</mat-option>
-    <mat-option [value]="4" [disabled]="maxDifference < 1000" i18n>mit Unterschreitung der Hunderterstelle</mat-option>
-    <mat-option [value]="5" [disabled]="maxDifference < 1000" i18n>mit Unterschreitung der Hunderter- oder Einerstelle</mat-option>
-    <mat-option [value]="6" [disabled]="maxDifference < 1000" i18n>mit Unterschreitung der Hunderter- oder Zehnerstelle</mat-option>
-    <mat-option [value]="8" [disabled]="maxDifference < 10000" i18n>mit Unterschreitung der Tausenderstelle</mat-option>
-    <mat-option [value]="9" [disabled]="maxDifference < 10000" i18n>mit Unterschreitung der Tausender- oder Einerstelle</mat-option>
-    <mat-option [value]="10" [disabled]="maxDifference < 10000" i18n>mit Unterschreitung der Tausender- oder Zehnerstelle</mat-option>
-    <mat-option [value]="11" [disabled]="maxDifference < 10000" i18n>mit Unterschreitung der Tausender-, Zehner- oder Einerstelle</mat-option>
-    <mat-option [value]="12" [disabled]="maxDifference < 10000" i18n>mit Unterschreitung der Tausender- oder Hunderterstelle</mat-option>
-    <mat-option [value]="13" [disabled]="maxDifference < 10000" i18n>mit Unterschreitung der Tausender-, Hunderter- oder Einerstelle</mat-option>
-    <mat-option [value]="14" [disabled]="maxDifference < 10000" i18n>mit Unterschreitung der Tausender-, Hunderter- oder Zehnerstelle</mat-option>
-  </mat-select>
-</mat-form-field>
+<section class="transgression">
+  <mat-checkbox [checked]="transgression !== -1" (change)="changeUnlimitedTransgression($event)" [disabled]="maxDifference < 20 || maxDifference > 100000 || subtrahendRounding > 1" i18n>
+    Überschreitungen eingrenzen
+  </mat-checkbox>
+  <section [hidden]="transgression === -1">
+    <ul class="transgression-choices">
+      <li>
+        <mat-checkbox [checked]="isTransgression(ONE)" (change)="setTransgression(ONE)" i18n>
+          Einerstelle
+        </mat-checkbox>
+      </li>
+      <li>
+        <mat-checkbox [disabled]="maxDifference < 100" [checked]="isTransgression(TEN)" (change)="setTransgression(TEN)" i18n>
+          Zehnerstelle
+        </mat-checkbox>
+      </li>
+      <li>
+        <mat-checkbox [disabled]="maxDifference < 1000" [checked]="isTransgression(HUNDRED)" (change)="setTransgression(HUNDRED)" i18n>
+          Hunderterstelle
+        </mat-checkbox>
+      </li>
+      <li>
+        <mat-checkbox [disabled]="maxDifference < 10000" [checked]="isTransgression(THOUSAND)" (change)="setTransgression(THOUSAND)" i18n>
+          Tausenderstelle
+        </mat-checkbox>
+      </li>
+      <li>
+        <mat-checkbox [disabled]="maxDifference < 100000" [checked]="isTransgression(TENTHOUSAND)" (change)="setTransgression(TENTHOUSAND)" i18n>
+          Zehntausenderstelle
+        </mat-checkbox>
+      </li>
+    </ul>
+  </section>
+</section>
