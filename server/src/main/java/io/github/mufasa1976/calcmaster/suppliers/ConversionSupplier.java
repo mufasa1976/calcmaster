@@ -50,6 +50,7 @@ public class ConversionSupplier extends AbstractCalculationSupplier {
     return switch (getRandomUnitConversion(properties.getUnit())) {
       case WHOLE_NUMBERS -> getWholeNumberConversion(properties.getUnit());
       case MATRIX -> getMatrixConversion(properties.getUnit());
+      case UPSCALE -> getUpscaleConversion(properties.getUnit());
     };
   }
 
@@ -67,6 +68,7 @@ public class ConversionSupplier extends AbstractCalculationSupplier {
     final var result = Math.round(randomValue * conversionFactor);
     return Calculation.builder()
                       .type(Calculation.Type.CONVERSION)
+                      .conversionType(UnitConversion.WHOLE_NUMBERS)
                       .operand1(randomValue)
                       .operand1Unit(fromUnitPrefix.getPrefixSymbol() + unit.getUnitSymbol())
                       .conversionFactor(conversionFactor)
@@ -90,9 +92,10 @@ public class ConversionSupplier extends AbstractCalculationSupplier {
     final var lowestNumber = (long) (toUnitPrefix.getFactor() / lowestUnitPrefix.getFactor());
     final var randomValue = getRandomNumber(lowestNumber);
     final var result = randomValue / lowestNumber;
-    final var decomposedRandomValue = decomposeNumber(randomValue, unit);
+    final var decomposedRandomValue = decomposeNumber(randomValue, unit, lowestUnitPrefix);
     return Calculation.builder()
                       .type(Calculation.Type.CONVERSION)
+                      .conversionType(UnitConversion.MATRIX)
                       .operand1(randomValue)
                       .operand1Unit(lowestUnitPrefix.getPrefixSymbol() + unit.getUnitSymbol())
                       .textExercise(decomposedRandomValue)
@@ -111,14 +114,16 @@ public class ConversionSupplier extends AbstractCalculationSupplier {
     return (long) (random.nextDouble(lowestNumber, highestNumberForMatrixConversion) / lowestNumber) * lowestNumber;
   }
 
-  private String decomposeNumber(long randomValue, Unit unit) {
+  private String decomposeNumber(long randomValue, Unit unit, UnitPrefix startUnitPrefix) {
     final var decomposedNumber = new StringBuilder();
-    for (var unitPrefix = lowestUnitPrefix; unitPrefix != null; unitPrefix = getNextHigherUnitPrefixThan(unitPrefix)) {
+    for (var unitPrefix = startUnitPrefix; unitPrefix != null; unitPrefix = getNextHigherUnitPrefixThan(unitPrefix)) {
       var conversionFactor = 10;
       final var nextUnitPrefix = getNextHigherUnitPrefixThan(unitPrefix);
-      if (nextUnitPrefix != null) {
-        conversionFactor = (int) (nextUnitPrefix.getFactor() / unitPrefix.getFactor());
+      if (nextUnitPrefix == null) {
+        decomposedNumber.insert(0, String.format("%d%s%s", randomValue, unitPrefix.getPrefixSymbol() + unit.getUnitSymbol(), (decomposedNumber.isEmpty() ? StringUtils.EMPTY : " ")));
+        break;
       }
+      conversionFactor = (int) (nextUnitPrefix.getFactor() / unitPrefix.getFactor());
       final var digit = randomValue - ((randomValue / conversionFactor) * conversionFactor);
       randomValue /= conversionFactor;
       if (digit > 0) {
@@ -135,5 +140,18 @@ public class ConversionSupplier extends AbstractCalculationSupplier {
 
     int index = ArrayUtils.indexOf(sortedUnitPrefixes, unitPrefix);
     return sortedUnitPrefixes[index - 1];
+  }
+
+  private Calculation getUpscaleConversion(Unit unit) {
+    final var unitPrefix = getRandomUnitPrefix(unit, UnitPrefix.BASE);
+    final var value = Double.valueOf(random.nextDouble(10.0, highestNumberForMatrixConversion)).longValue();
+    final var decomposedValue = decomposeNumber(value, unit, unitPrefix);
+    return Calculation.builder()
+                      .type(Calculation.Type.CONVERSION)
+                      .conversionType(UnitConversion.UPSCALE)
+                      .operand1(value)
+                      .operand1Unit(unitPrefix.getPrefixSymbol() + unit.getUnitSymbol())
+                      .textSolution(decomposedValue)
+                      .build();
   }
 }
