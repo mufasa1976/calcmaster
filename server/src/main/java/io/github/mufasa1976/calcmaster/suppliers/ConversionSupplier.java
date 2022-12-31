@@ -120,7 +120,9 @@ public class ConversionSupplier extends AbstractCalculationSupplier {
       var conversionFactor = 10;
       final var nextUnitPrefix = getNextHigherUnitPrefixThan(unitPrefix);
       if (nextUnitPrefix == null) {
-        decomposedNumber.insert(0, String.format("%d%s%s", randomValue, unitPrefix.getPrefixSymbol() + unit.getUnitSymbol(), (decomposedNumber.isEmpty() ? StringUtils.EMPTY : " ")));
+        if (randomValue > 0) {
+          decomposedNumber.insert(0, String.format("%d%s%s", randomValue, unitPrefix.getPrefixSymbol() + unit.getUnitSymbol(), (decomposedNumber.isEmpty() ? StringUtils.EMPTY : " ")));
+        }
         break;
       }
       conversionFactor = (int) (nextUnitPrefix.getFactor() / unitPrefix.getFactor());
