@@ -23,6 +23,7 @@
 	<field name="hiddenField" class="io.github.mufasa1976.calcmaster.enums.HiddenField"/>
 	<field name="textExercise" class="java.lang.String"/>
 	<field name="type" class="io.github.mufasa1976.calcmaster.dtos.Calculation.Type"/>
+	<field name="exerciseHint" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -176,7 +177,8 @@
 				</line>
 			</frame>
 			<frame>
-				<reportElement x="5" y="0" width="170" height="77" uuid="63505463-8e22-4944-a653-e87d8bb01b86">
+				<reportElement x="5" y="0" width="170" height="80" uuid="63505463-8e22-4944-a653-e87d8bb01b86">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<printWhenExpression><![CDATA[$F{type} == io.github.mufasa1976.calcmaster.dtos.Calculation.Type.CALCULATION && $P{VERTICAL_DISPLAY} && ("+".equals($F{operator}) || "-".equals($F{operator}))]]></printWhenExpression>
 				</reportElement>
 				<textField pattern="#,###,##0;-#,###,##0">
@@ -229,7 +231,7 @@
 					<textFieldExpression><![CDATA[$F{operand2}]]></textFieldExpression>
 				</textField>
 				<line>
-					<reportElement x="35" y="56" width="135" height="1" uuid="f4ac04f0-3ac8-485f-9f08-3ab26941b607">
+					<reportElement x="35" y="55" width="135" height="1" uuid="f4ac04f0-3ac8-485f-9f08-3ab26941b607">
 						<property name="com.jaspersoft.studio.unit.height" value="px"/>
 						<property name="com.jaspersoft.studio.unit.y" value="px"/>
 						<property name="com.jaspersoft.studio.unit.x" value="px"/>
@@ -237,7 +239,7 @@
 					</reportElement>
 				</line>
 				<textField pattern="#,###,##0;-#,###,##0">
-					<reportElement x="50" y="57" width="120" height="20" uuid="daf5044b-52e5-4c64-aa49-b81bf6664268">
+					<reportElement x="50" y="60" width="120" height="20" uuid="daf5044b-52e5-4c64-aa49-b81bf6664268">
 						<property name="com.jaspersoft.studio.unit.width" value="px"/>
 						<property name="com.jaspersoft.studio.unit.x" value="px"/>
 						<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -257,7 +259,7 @@
 				</textField>
 			</frame>
 			<frame>
-				<reportElement x="5" y="0" width="170" height="20" uuid="1d332003-fb59-4563-b276-ba7face3306b">
+				<reportElement x="5" y="0" width="170" height="80" uuid="1d332003-fb59-4563-b276-ba7face3306b">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -301,11 +303,11 @@
 					<text><![CDATA[=]]></text>
 				</staticText>
 				<line>
-					<reportElement x="100" y="19" width="50" height="1" uuid="b7553343-4b5a-4114-8d88-14631a99d05c">
+					<reportElement x="100" y="19" width="70" height="1" uuid="b7553343-4b5a-4114-8d88-14631a99d05c">
 						<property name="com.jaspersoft.studio.unit.y" value="px"/>
 						<property name="com.jaspersoft.studio.unit.height" value="px"/>
-						<property name="com.jaspersoft.studio.unit.width" value="px"/>
 						<property name="com.jaspersoft.studio.unit.x" value="px"/>
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					</reportElement>
 				</line>
 				<textField textAdjust="ScaleFont">
@@ -313,9 +315,18 @@
 						<property name="com.jaspersoft.studio.unit.height" value="px"/>
 						<property name="com.jaspersoft.studio.unit.x" value="px"/>
 						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+						<printWhenExpression><![CDATA[$F{resultUnit} != null && !$F{resultUnit}.isBlank()]]></printWhenExpression>
 					</reportElement>
 					<textElement verticalAlignment="Middle"/>
 					<textFieldExpression><![CDATA[$F{resultUnit}]]></textFieldExpression>
+				</textField>
+				<textField textAdjust="ScaleFont">
+					<reportElement x="0" y="25" width="170" height="55" uuid="a5bf755a-5790-400f-96f3-a0e11556a4cd">
+						<property name="com.jaspersoft.studio.unit.y" value="px"/>
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<printWhenExpression><![CDATA[$F{exerciseHint} != null && !$F{exerciseHint}.isBlank()]]></printWhenExpression>
+					</reportElement>
+					<textFieldExpression><![CDATA[$F{exerciseHint}]]></textFieldExpression>
 				</textField>
 			</frame>
 		</band>

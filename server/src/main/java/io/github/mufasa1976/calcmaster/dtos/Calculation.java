@@ -1,6 +1,7 @@
 package io.github.mufasa1976.calcmaster.dtos;
 
 import io.github.mufasa1976.calcmaster.enums.HiddenField;
+import io.github.mufasa1976.calcmaster.enums.UnitConversion;
 import lombok.Builder;
 import lombok.Value;
 import org.apache.commons.lang3.StringUtils;
@@ -13,6 +14,7 @@ public class Calculation implements Comparable<Calculation> {
   }
 
   Type type;
+  UnitConversion conversionType;
   long operand1;
   String operand1Unit;
   String operator;
@@ -24,6 +26,7 @@ public class Calculation implements Comparable<Calculation> {
   String textExercise;
   String textSolution;
   double conversionFactor;
+  String exerciseHint;
 
   @Override
   public String toString() {
