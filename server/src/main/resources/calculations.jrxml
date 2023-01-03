@@ -13,6 +13,7 @@
 	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
 	<parameter name="SUBHEADER" class="java.lang.String" isForPrompting="false"/>
 	<parameter name="VERTICAL_DISPLAY" class="java.lang.Boolean" isForPrompting="false"/>
+	<parameter name="CONVERSION_FOOTER" class="java.lang.String" isForPrompting="false"/>
 	<field name="operand1" class="java.lang.Long"/>
 	<field name="operand1Unit" class="java.lang.String"/>
 	<field name="operator" class="java.lang.String"/>
@@ -265,61 +266,117 @@
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<printWhenExpression><![CDATA[$F{type} == io.github.mufasa1976.calcmaster.dtos.Calculation.Type.CONVERSION]]></printWhenExpression>
 				</reportElement>
-				<textField textAdjust="ScaleFont">
-					<reportElement x="0" y="0" width="90" height="20" uuid="04a78041-1d74-49a8-96e6-56afe5d4257a">
-						<property name="com.jaspersoft.studio.unit.height" value="px"/>
-						<property name="com.jaspersoft.studio.unit.width" value="px"/>
-						<printWhenExpression><![CDATA[$F{textExercise} != null && !$F{textExercise}.isBlank()]]></printWhenExpression>
-					</reportElement>
-					<textElement textAlignment="Right" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{textExercise}]]></textFieldExpression>
-				</textField>
-				<textField pattern="#,###,##0;-#,###,##0">
-					<reportElement x="0" y="0" width="70" height="20" uuid="3648048c-d82c-47ec-99f7-977e87d71626">
+				<frame>
+					<reportElement x="0" y="0" width="170" height="20" uuid="280c58ac-c65b-4287-9716-c41d623211c8">
 						<property name="com.jaspersoft.studio.unit.width" value="px"/>
 						<property name="com.jaspersoft.studio.unit.height" value="px"/>
-						<printWhenExpression><![CDATA[$F{textExercise} == null || $F{textExercise}.isBlank()]]></printWhenExpression>
+						<printWhenExpression><![CDATA[$F{resultUnit} == null || $F{resultUnit}.isBlank()]]></printWhenExpression>
 					</reportElement>
-					<textElement textAlignment="Right" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{operand1}]]></textFieldExpression>
-				</textField>
-				<textField textAdjust="ScaleFont">
-					<reportElement x="70" y="0" width="20" height="20" uuid="01ec2739-622c-4a75-b953-60cff166286f">
+					<textField pattern="#,###,##0;-#,###,##0">
+						<reportElement x="0" y="0" width="50" height="20" uuid="6aa0d8ca-83dc-4622-9021-d7e0f88297e4">
+							<property name="com.jaspersoft.studio.unit.height" value="px"/>
+							<property name="com.jaspersoft.studio.unit.x" value="px"/>
+							<property name="com.jaspersoft.studio.unit.y" value="px"/>
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+							<printWhenExpression><![CDATA[$F{textExercise} == null || $F{textExercise}.isBlank()]]></printWhenExpression>
+						</reportElement>
+						<textElement textAlignment="Right" verticalAlignment="Middle"/>
+						<textFieldExpression><![CDATA[$F{operand1}]]></textFieldExpression>
+					</textField>
+					<textField textAdjust="ScaleFont">
+						<reportElement x="50" y="0" width="20" height="20" uuid="4e6e3cd5-1147-4496-9f2e-5916696dba36">
+							<property name="com.jaspersoft.studio.unit.height" value="px"/>
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+							<property name="com.jaspersoft.studio.unit.y" value="px"/>
+							<property name="com.jaspersoft.studio.unit.x" value="px"/>
+							<printWhenExpression><![CDATA[$F{textExercise} == null || $F{textExercise}.isBlank()]]></printWhenExpression>
+						</reportElement>
+						<textElement textAlignment="Left" verticalAlignment="Middle"/>
+						<textFieldExpression><![CDATA[$F{operand1Unit}]]></textFieldExpression>
+					</textField>
+					<staticText>
+						<reportElement x="70" y="0" width="10" height="20" uuid="7fd4ad3e-4e0f-48d1-bf34-0a5a6e1285eb">
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+							<property name="com.jaspersoft.studio.unit.height" value="px"/>
+							<property name="com.jaspersoft.studio.unit.y" value="px"/>
+							<property name="com.jaspersoft.studio.unit.x" value="px"/>
+						</reportElement>
+						<textElement verticalAlignment="Middle"/>
+						<text><![CDATA[=]]></text>
+					</staticText>
+					<line>
+						<reportElement x="80" y="19" width="90" height="1" uuid="72fd993e-cf6a-4f34-a86e-44ec4df59629">
+							<property name="com.jaspersoft.studio.unit.height" value="px"/>
+							<property name="com.jaspersoft.studio.unit.y" value="px"/>
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+							<property name="com.jaspersoft.studio.unit.x" value="px"/>
+						</reportElement>
+					</line>
+				</frame>
+				<frame>
+					<reportElement x="0" y="0" width="170" height="20" uuid="3b4ec4ac-e9bc-4cde-ac10-72277f835a4f">
 						<property name="com.jaspersoft.studio.unit.x" value="px"/>
-						<property name="com.jaspersoft.studio.unit.height" value="px"/>
-						<property name="com.jaspersoft.studio.unit.width" value="px"/>
-						<printWhenExpression><![CDATA[$F{textExercise} == null || $F{textExercise}.isBlank()]]></printWhenExpression>
-					</reportElement>
-					<textElement textAlignment="Left" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{operand1Unit}]]></textFieldExpression>
-				</textField>
-				<staticText>
-					<reportElement x="90" y="0" width="10" height="20" uuid="17d29264-d12d-452d-9ff7-7164b8e5cbb4">
-						<property name="com.jaspersoft.studio.unit.width" value="px"/>
-						<property name="com.jaspersoft.studio.unit.height" value="px"/>
-						<property name="com.jaspersoft.studio.unit.x" value="px"/>
-					</reportElement>
-					<textElement verticalAlignment="Middle"/>
-					<text><![CDATA[=]]></text>
-				</staticText>
-				<line>
-					<reportElement x="100" y="19" width="70" height="1" uuid="b7553343-4b5a-4114-8d88-14631a99d05c">
 						<property name="com.jaspersoft.studio.unit.y" value="px"/>
-						<property name="com.jaspersoft.studio.unit.height" value="px"/>
-						<property name="com.jaspersoft.studio.unit.x" value="px"/>
 						<property name="com.jaspersoft.studio.unit.width" value="px"/>
-					</reportElement>
-				</line>
-				<textField textAdjust="ScaleFont">
-					<reportElement x="150" y="0" width="20" height="20" uuid="924acd4b-01ea-4702-b957-b4ed84fab650">
 						<property name="com.jaspersoft.studio.unit.height" value="px"/>
-						<property name="com.jaspersoft.studio.unit.x" value="px"/>
-						<property name="com.jaspersoft.studio.unit.width" value="px"/>
 						<printWhenExpression><![CDATA[$F{resultUnit} != null && !$F{resultUnit}.isBlank()]]></printWhenExpression>
 					</reportElement>
-					<textElement verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{resultUnit}]]></textFieldExpression>
-				</textField>
+					<textField textAdjust="ScaleFont">
+						<reportElement x="0" y="0" width="90" height="20" uuid="04a78041-1d74-49a8-96e6-56afe5d4257a">
+							<property name="com.jaspersoft.studio.unit.height" value="px"/>
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+							<printWhenExpression><![CDATA[$F{textExercise} != null && !$F{textExercise}.isBlank()]]></printWhenExpression>
+						</reportElement>
+						<textElement textAlignment="Right" verticalAlignment="Middle"/>
+						<textFieldExpression><![CDATA[$F{textExercise}]]></textFieldExpression>
+					</textField>
+					<textField pattern="#,###,##0;-#,###,##0">
+						<reportElement x="0" y="0" width="70" height="20" uuid="3648048c-d82c-47ec-99f7-977e87d71626">
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+							<property name="com.jaspersoft.studio.unit.height" value="px"/>
+							<printWhenExpression><![CDATA[$F{textExercise} == null || $F{textExercise}.isBlank()]]></printWhenExpression>
+						</reportElement>
+						<textElement textAlignment="Right" verticalAlignment="Middle"/>
+						<textFieldExpression><![CDATA[$F{operand1}]]></textFieldExpression>
+					</textField>
+					<textField textAdjust="ScaleFont">
+						<reportElement x="70" y="0" width="20" height="20" uuid="01ec2739-622c-4a75-b953-60cff166286f">
+							<property name="com.jaspersoft.studio.unit.x" value="px"/>
+							<property name="com.jaspersoft.studio.unit.height" value="px"/>
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+							<printWhenExpression><![CDATA[$F{textExercise} == null || $F{textExercise}.isBlank()]]></printWhenExpression>
+						</reportElement>
+						<textElement textAlignment="Left" verticalAlignment="Middle"/>
+						<textFieldExpression><![CDATA[$F{operand1Unit}]]></textFieldExpression>
+					</textField>
+					<staticText>
+						<reportElement x="90" y="0" width="10" height="20" uuid="17d29264-d12d-452d-9ff7-7164b8e5cbb4">
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+							<property name="com.jaspersoft.studio.unit.height" value="px"/>
+							<property name="com.jaspersoft.studio.unit.x" value="px"/>
+						</reportElement>
+						<textElement verticalAlignment="Middle"/>
+						<text><![CDATA[=]]></text>
+					</staticText>
+					<line>
+						<reportElement x="100" y="19" width="50" height="1" uuid="b7553343-4b5a-4114-8d88-14631a99d05c">
+							<property name="com.jaspersoft.studio.unit.y" value="px"/>
+							<property name="com.jaspersoft.studio.unit.height" value="px"/>
+							<property name="com.jaspersoft.studio.unit.x" value="px"/>
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+						</reportElement>
+					</line>
+					<textField textAdjust="ScaleFont">
+						<reportElement x="150" y="0" width="20" height="20" uuid="924acd4b-01ea-4702-b957-b4ed84fab650">
+							<property name="com.jaspersoft.studio.unit.height" value="px"/>
+							<property name="com.jaspersoft.studio.unit.x" value="px"/>
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+							<printWhenExpression><![CDATA[$F{resultUnit} != null && !$F{resultUnit}.isBlank()]]></printWhenExpression>
+						</reportElement>
+						<textElement verticalAlignment="Middle"/>
+						<textFieldExpression><![CDATA[$F{resultUnit}]]></textFieldExpression>
+					</textField>
+				</frame>
 				<textField textAdjust="ScaleFont">
 					<reportElement x="0" y="25" width="170" height="55" uuid="a5bf755a-5790-400f-96f3-a0e11556a4cd">
 						<property name="com.jaspersoft.studio.unit.y" value="px"/>
@@ -342,6 +399,16 @@
 					<font fontName="Liberation Sans" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$R{page} + " " + $V{MASTER_CURRENT_PAGE} + " / "  + $V{MASTER_TOTAL_PAGES}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="ScaleFont">
+				<reportElement x="0" y="0" width="450" height="15" uuid="7a9d3823-3f54-4b35-ae10-5f43768a635e">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<printWhenExpression><![CDATA[$P{CONVERSION_FOOTER} != null && !$P{CONVERSION_FOOTER}.isBlank()]]></printWhenExpression>
+				</reportElement>
+				<textElement verticalAlignment="Bottom">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{CONVERSION_FOOTER}]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageFooter>
