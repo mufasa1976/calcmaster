@@ -1,6 +1,8 @@
 package io.github.mufasa1976.calcmaster.services;
 
 import io.github.mufasa1976.calcmaster.ApplicationProperties;
+import io.github.mufasa1976.calcmaster.dtos.Calculation;
+import io.github.mufasa1976.calcmaster.enums.UnitConversion;
 import io.github.mufasa1976.calcmaster.records.CalculationProperties;
 import io.github.mufasa1976.calcmaster.records.Calculations;
 import lombok.RequiredArgsConstructor;
@@ -28,6 +30,7 @@ import java.util.*;
 public class CalculationServiceImpl implements CalculationService {
   private static final String PARAMETER_SUBHEADER = "SUBHEADER";
   private static final String PARAMETER_VERTICAL_DISPLAY = "VERTICAL_DISPLAY";
+  private static final String PARAMETER_CONVERSION_FOOTER = "CONVERSION_FOOTER";
   private static final String EMPTY_STRING = "";
 
   private final ApplicationProperties applicationProperties;
@@ -63,6 +66,9 @@ public class CalculationServiceImpl implements CalculationService {
       parameters.put(JRParameter.REPORT_RESOURCE_BUNDLE, new MessageSourceResourceBundle(messageSource, locale));
       parameters.put(PARAMETER_SUBHEADER, calculations.subheader().orElse(EMPTY_STRING));
       parameters.put(PARAMETER_VERTICAL_DISPLAY, calculations.verticalDisplay());
+      if (hasUpscaleConversions(calculations)) {
+        parameters.put(PARAMETER_CONVERSION_FOOTER, messageSource.getMessage("conversion.footer", null, "conversion.footer", locale));
+      }
 
       try {
         final JRDataSource calculationsDataSource = new JRBeanCollectionDataSource(calculations.calculations());
@@ -82,6 +88,10 @@ public class CalculationServiceImpl implements CalculationService {
         throw new RuntimeException("Error while generating Calculation Report", e);
       }
     };
+  }
+
+  private boolean hasUpscaleConversions(Calculations calculations) {
+    return calculations.calculations().stream().anyMatch(calculation -> calculation.getType() == Calculation.Type.CONVERSION && calculation.getConversionType() == UnitConversion.UPSCALE);
   }
 
   private Exporter<ExporterInput, PdfReportConfiguration, PdfExporterConfiguration, OutputStreamExporterOutput> createPdfExporter(JasperPrint... reports) {

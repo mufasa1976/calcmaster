@@ -19,6 +19,7 @@ public class ConversionSupplier extends AbstractCalculationSupplier {
 
   private UnitPrefix lowestUnitPrefix = UnitPrefix.BASE;
   private UnitPrefix highestUnitPrefix = UnitPrefix.BASE;
+  private UnitPrefix secondHighestUnitPrefix = UnitPrefix.BASE;
   private double highestNumberForMatrixConversion = 1.0;
   private UnitPrefix[] sortedUnitPrefixes = new UnitPrefix[0];
 
@@ -39,6 +40,10 @@ public class ConversionSupplier extends AbstractCalculationSupplier {
     highestUnitPrefix = Stream.of(properties.getUnit().getAllowedPrefixes())
                               .max(Comparator.comparing(UnitPrefix::getFactor))
                               .orElse(UnitPrefix.BASE);
+    secondHighestUnitPrefix = Stream.of(properties.getUnit().getAllowedPrefixes())
+                                    .filter(unitPrefix -> unitPrefix != highestUnitPrefix)
+                                    .max(Comparator.comparing(UnitPrefix::getFactor))
+                                    .orElse(UnitPrefix.BASE);
     highestNumberForMatrixConversion = (highestFactor / lowestUnitPrefix.getFactor()) * 10.0;
     sortedUnitPrefixes = Stream.of(properties.getUnit().getAllowedPrefixes())
                                .sorted(Comparator.comparing(UnitPrefix::getFactor).reversed())
@@ -146,7 +151,11 @@ public class ConversionSupplier extends AbstractCalculationSupplier {
 
   private Calculation getUpscaleConversion(Unit unit) {
     final var unitPrefix = getRandomUnitPrefix(unit, UnitPrefix.BASE);
-    final var value = Double.valueOf(random.nextDouble(10.0, highestNumberForMatrixConversion)).longValue();
+    var highestNumber = highestNumberForMatrixConversion;
+    if (unitPrefix == secondHighestUnitPrefix && highestNumber > 10.0) {
+      highestNumber /= 10.0;
+    }
+    final var value = Double.valueOf(random.nextDouble(10.0, highestNumber)).longValue();
     final var decomposedValue = decomposeNumber(value, unit, unitPrefix);
     return Calculation.builder()
                       .type(Calculation.Type.CONVERSION)
