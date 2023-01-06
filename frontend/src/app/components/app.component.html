@@ -14,6 +14,14 @@
       <input matInput [(ngModel)]="calculationProperties.subheader" autofocus>
     </mat-form-field>
 
+    <mat-form-field class="exerciseReference">
+      <mat-label i18n>Seiteneferenz</mat-label>
+      <input matInput [(ngModel)]="calculationProperties.exerciseReference">
+      <fa-icon matSuffix icon="question-circle"
+               matTooltip="die Seitenreferenz wird auf jeder Seite sowohl bei den Aufgabenblättern als auch am Lösungsblatt zur Verfügung gestellt und dient der Wiederauffindung von zusammengehörenden Aufgabenblättern mit dem Lösungsblatt"
+               i18n-matTooltip></fa-icon>
+    </mat-form-field>
+
     <div class="operator">
       <div>
         <mat-button-toggle [value]="ADD" (change)="toggleButton($event)" i18n>Addition</mat-button-toggle>

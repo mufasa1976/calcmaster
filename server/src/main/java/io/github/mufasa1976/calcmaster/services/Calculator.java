@@ -58,6 +58,7 @@ public class Calculator {
                     .subheader(calculationProperties.subheader())
                     .calculations(calculations)
                     .verticalDisplay(calculationProperties.verticalDisplay())
+                    .exerciseReference(calculationProperties.exerciseReference())
                     .build());
   }
 
