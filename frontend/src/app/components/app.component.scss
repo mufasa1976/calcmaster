@@ -19,6 +19,10 @@ mat-form-field.className {
   width: 100%;
 }
 
+mat-form-field.exerciseReference {
+  width: 50%;
+}
+
 div.operator {
   display: grid;
   grid-template-columns: [first] 120px [line2] 90% [end];

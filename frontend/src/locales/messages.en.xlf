@@ -10,12 +10,28 @@
           <context context-type="linenumber">13</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="4873643889613251479" datatype="html">
+        <source>Seiteneferenz</source>
+        <target>Reference</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/app.component.html</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8843346210346887052" datatype="html">
+        <source>die Seitenreferenz wird auf jeder Seite sowohl bei den Aufgabenblättern als auch am Lösungsblatt zur Verfügung gestellt und dient der Wiederauffindung von zusammengehörenden Aufgabenblättern mit dem Lösungsblatt</source>
+        <target>the Reference will be used to combine the Exercise-Sheets with the Solution-Sheet. It will be printed on each Exercise-Sheet as well as on the Solution-Sheet</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/app.component.html</context>
+          <context context-type="linenumber">21</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="5906303094565365510" datatype="html">
         <source>Addition</source>
         <target>Addition</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/app.component.html</context>
-          <context context-type="linenumber">19</context>
+          <context context-type="linenumber">27</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3712017978546369289" datatype="html">
@@ -23,7 +39,7 @@
         <target>Subtraction</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/app.component.html</context>
-          <context context-type="linenumber">26</context>
+          <context context-type="linenumber">34</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6756572749179459857" datatype="html">
@@ -31,7 +47,7 @@
         <target>Multiplication</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/app.component.html</context>
-          <context context-type="linenumber">33</context>
+          <context context-type="linenumber">41</context>
         </context-group>
       </trans-unit>
       <trans-unit id="2230231798402415493" datatype="html">
@@ -39,7 +55,7 @@
         <target>Division</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/app.component.html</context>
-          <context context-type="linenumber">40</context>
+          <context context-type="linenumber">48</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1742416124648955107" datatype="html">
@@ -47,7 +63,7 @@
         <target>Rounding</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/app.component.html</context>
-          <context context-type="linenumber">47</context>
+          <context context-type="linenumber">55</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6823142082851771071" datatype="html">
@@ -55,7 +71,7 @@
         <target>Conversions</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/app.component.html</context>
-          <context context-type="linenumber">54</context>
+          <context context-type="linenumber">62</context>
         </context-group>
       </trans-unit>
       <trans-unit id="2279643000254834468" datatype="html">
@@ -63,7 +79,7 @@
         <target>randomly hide Operand2 or Result</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/app.component.html</context>
-          <context context-type="linenumber">61</context>
+          <context context-type="linenumber">69</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5321676509681693051" datatype="html">
@@ -71,7 +87,7 @@
         <target>(only for Additions, Subtractions &amp; Multiplications)</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/app.component.html</context>
-          <context context-type="linenumber">62</context>
+          <context context-type="linenumber">70</context>
         </context-group>
       </trans-unit>
       <trans-unit id="9037368691717240476" datatype="html">
@@ -79,7 +95,7 @@
         <target> view Addition/Subtraction vertically </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/app.component.html</context>
-          <context context-type="linenumber">68,69</context>
+          <context context-type="linenumber">76,77</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3105118889040470091" datatype="html">
@@ -87,7 +103,7 @@
         <target>Number of Exercises</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/app.component.html</context>
-          <context context-type="linenumber">73</context>
+          <context context-type="linenumber">81</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6525583106874020108" datatype="html">
@@ -95,7 +111,7 @@
         <target>Output Format</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/app.component.html</context>
-          <context context-type="linenumber">91</context>
+          <context context-type="linenumber">99</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4673462559639802160" datatype="html">
@@ -103,7 +119,7 @@
         <target> Generate </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/app.component.html</context>
-          <context context-type="linenumber">100,101</context>
+          <context context-type="linenumber">108,109</context>
         </context-group>
       </trans-unit>
       <trans-unit id="9199998427972314361" datatype="html">

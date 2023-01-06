@@ -17,6 +17,7 @@ export interface CalculationProperties {
   toggleHide: boolean;
   numberOfCalculations: number;
   verticalDisplay: boolean;
+  exerciseReference?: string;
 }
 
 export const initialCalculationProperties = {

@@ -12,6 +12,7 @@
 	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
 	<parameter name="SUBHEADER" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="EXERCISE_REFERENCE" class="java.lang.String" isForPrompting="false"/>
 	<field name="operand1" class="java.lang.Long"/>
 	<field name="operand1Unit" class="java.lang.String"/>
 	<field name="operator" class="java.lang.String"/>
@@ -302,6 +303,17 @@
 					<font fontName="Liberation Sans" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$R{page} + " " + $V{MASTER_CURRENT_PAGE} + " / "  + $V{MASTER_TOTAL_PAGES}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="280" y="5" width="175" height="10" uuid="44b12dd7-8fab-40c1-936e-ae53672c355c">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<printWhenExpression><![CDATA[$P{EXERCISE_REFERENCE} != null && !$P{EXERCISE_REFERENCE}.isBlank()]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{reference} + ": " + $P{EXERCISE_REFERENCE}]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageFooter>

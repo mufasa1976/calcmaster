@@ -18,6 +18,7 @@ public record CalculationProperties(
     Optional<String> subheader,
     boolean toggleHide,
     int numberOfCalculations,
-    boolean verticalDisplay) {
+    boolean verticalDisplay,
+    Optional<String> exerciseReference) {
   public static final int UNLIMITED_TRANSGRESSIONS = -1;
 }

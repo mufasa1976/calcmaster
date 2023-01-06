@@ -31,6 +31,7 @@ public class CalculationServiceImpl implements CalculationService {
   private static final String PARAMETER_SUBHEADER = "SUBHEADER";
   private static final String PARAMETER_VERTICAL_DISPLAY = "VERTICAL_DISPLAY";
   private static final String PARAMETER_CONVERSION_FOOTER = "CONVERSION_FOOTER";
+  private static final String PARAMETER_EXERCISE_REFERENCE = "EXERCISE_REFERENCE";
   private static final String EMPTY_STRING = "";
 
   private final ApplicationProperties applicationProperties;
@@ -66,6 +67,7 @@ public class CalculationServiceImpl implements CalculationService {
       parameters.put(JRParameter.REPORT_RESOURCE_BUNDLE, new MessageSourceResourceBundle(messageSource, locale));
       parameters.put(PARAMETER_SUBHEADER, calculations.subheader().orElse(EMPTY_STRING));
       parameters.put(PARAMETER_VERTICAL_DISPLAY, calculations.verticalDisplay());
+      parameters.put(PARAMETER_EXERCISE_REFERENCE, calculations.exerciseReference().orElse(EMPTY_STRING));
       if (hasUpscaleConversions(calculations)) {
         parameters.put(PARAMETER_CONVERSION_FOOTER, messageSource.getMessage("conversion.footer", null, "conversion.footer", locale));
       }

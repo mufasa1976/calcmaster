@@ -14,6 +14,7 @@
 	<parameter name="SUBHEADER" class="java.lang.String" isForPrompting="false"/>
 	<parameter name="VERTICAL_DISPLAY" class="java.lang.Boolean" isForPrompting="false"/>
 	<parameter name="CONVERSION_FOOTER" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="EXERCISE_REFERENCE" class="java.lang.String" isForPrompting="false"/>
 	<field name="operand1" class="java.lang.Long"/>
 	<field name="operand1Unit" class="java.lang.String"/>
 	<field name="operator" class="java.lang.String"/>
@@ -391,6 +392,16 @@
 	<pageFooter>
 		<band height="15">
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<textField textAdjust="ScaleFont">
+				<reportElement x="0" y="0" width="280" height="15" uuid="7a9d3823-3f54-4b35-ae10-5f43768a635e">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<printWhenExpression><![CDATA[$P{CONVERSION_FOOTER} != null && !$P{CONVERSION_FOOTER}.isBlank()]]></printWhenExpression>
+				</reportElement>
+				<textElement verticalAlignment="Bottom">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{CONVERSION_FOOTER}]]></textFieldExpression>
+			</textField>
 			<textField evaluationTime="Master">
 				<reportElement x="455" y="5" width="100" height="10" uuid="325af7c4-5fd1-4240-98ec-be620baf5dee">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -400,15 +411,16 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$R{page} + " " + $V{MASTER_CURRENT_PAGE} + " / "  + $V{MASTER_TOTAL_PAGES}]]></textFieldExpression>
 			</textField>
-			<textField textAdjust="ScaleFont">
-				<reportElement x="0" y="0" width="450" height="15" uuid="7a9d3823-3f54-4b35-ae10-5f43768a635e">
+			<textField>
+				<reportElement x="280" y="5" width="175" height="10" uuid="291cb858-5f76-4bd3-9cbd-92c26288f962">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-					<printWhenExpression><![CDATA[$P{CONVERSION_FOOTER} != null && !$P{CONVERSION_FOOTER}.isBlank()]]></printWhenExpression>
+					<printWhenExpression><![CDATA[$P{EXERCISE_REFERENCE} != null && !$P{EXERCISE_REFERENCE}.isBlank()]]></printWhenExpression>
 				</reportElement>
-				<textElement verticalAlignment="Bottom">
-					<font size="6"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{CONVERSION_FOOTER}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$R{reference} + ": " + $P{EXERCISE_REFERENCE}]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageFooter>
