@@ -55,18 +55,14 @@ export class MultiplicationOptionsComponent {
     }
     if (maxProduct < 20 && transgression > UNLIMITED_TRANSACTIONS) {
       transgression = UNLIMITED_TRANSACTIONS;
-    } else if (maxProduct <= 20 && transgression >= this.ONE) {
+    } else if (maxProduct <= 100 && transgression >= this.ONE) {
       transgression &= this.ONE;
-    } else if (maxProduct <= 100 && transgression >= this.TEN) {
+    } else if (maxProduct <= 1000 && transgression >= this.TEN) {
       transgression &= this.ONE | this.TEN;
-    } else if (maxProduct <= 1000 && transgression > this.HUNDRED) {
+    } else if (maxProduct <= 10000 && transgression > this.HUNDRED) {
       transgression &= this.ONE | this.TEN | this.HUNDRED;
-    } else if (maxProduct <= 10000 && transgression > this.THOUSAND) {
+    } else if (maxProduct <= 100000 && transgression > this.THOUSAND) {
       transgression &= this.ONE | this.TEN | this.HUNDRED | this.THOUSAND;
-    } else if (maxProduct <= 100000 && transgression > this.TENTHOUSAND) {
-      transgression &= this.ONE | this.TEN | this.HUNDRED | this.THOUSAND | this.TENTHOUSAND;
-    } else if (maxProduct > 100000) {
-      transgression = UNLIMITED_TRANSACTIONS;
     }
     this._propertiesEmitter.emit({
       ...this.properties,
@@ -134,16 +130,16 @@ export class MultiplicationOptionsComponent {
   changeUnlimitedTransgression(event: MatCheckboxChange) {
     const maxProduct = this.properties.maxProduct;
     let transgression = this.ONE;
-    if (maxProduct >= 100) {
+    if (maxProduct > 100) {
       transgression |= this.TEN;
     }
-    if (maxProduct >= 1000) {
+    if (maxProduct > 1000) {
       transgression |= this.HUNDRED;
     }
-    if (maxProduct >= 10000) {
+    if (maxProduct > 10000) {
       transgression |= this.THOUSAND;
     }
-    if (maxProduct >= 100000) {
+    if (maxProduct > 100000) {
       transgression |= this.TENTHOUSAND;
     }
     this._propertiesEmitter.emit({

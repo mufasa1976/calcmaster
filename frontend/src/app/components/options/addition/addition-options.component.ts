@@ -49,16 +49,14 @@ export class AdditionOptionsComponent {
 
     if (maxSum < 20 && transgression > UNLIMITED_TRANSACTIONS) {
       transgression = UNLIMITED_TRANSACTIONS;
-    } else if (maxSum < 100 && transgression >= this.ONE) {
+    } else if (maxSum <= 100 && transgression >= this.ONE) {
       transgression &= this.ONE;
-    } else if (maxSum < 1000 && transgression > this.TEN) {
+    } else if (maxSum <= 1000 && transgression > this.TEN) {
       transgression &= this.ONE | this.TEN;
-    } else if (maxSum < 10000 && transgression > this.HUNDRED) {
+    } else if (maxSum <= 10000 && transgression > this.HUNDRED) {
       transgression &= this.ONE | this.TEN | this.HUNDRED;
-    } else if (maxSum < 100000 && transgression > this.THOUSAND) {
+    } else if (maxSum <= 100000 && transgression > this.THOUSAND) {
       transgression &= this.ONE | this.TEN | this.HUNDRED | this.THOUSAND;
-    } else if (maxSum > 100000) {
-      transgression = UNLIMITED_TRANSACTIONS;
     }
     if (secondAddendRounding > 1) {
       transgression = UNLIMITED_TRANSACTIONS;
@@ -116,16 +114,16 @@ export class AdditionOptionsComponent {
     const maxSum = this.properties.maxSum;
     let transgression = this.ONE;
     let includeZeroAsOperand = this.properties.includeZeroOnOperand;
-    if (maxSum >= 100) {
+    if (maxSum > 100) {
       transgression |= this.TEN;
     }
-    if (maxSum >= 1000) {
+    if (maxSum > 1000) {
       transgression |= this.HUNDRED;
     }
-    if (maxSum >= 10000) {
+    if (maxSum > 10000) {
       transgression |= this.THOUSAND;
     }
-    if (maxSum >= 100000) {
+    if (maxSum > 100000) {
       transgression |= this.TENTHOUSAND;
     }
     this._propertiesEmitter.emit({

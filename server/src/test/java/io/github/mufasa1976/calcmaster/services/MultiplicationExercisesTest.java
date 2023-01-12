@@ -205,7 +205,7 @@ public class MultiplicationExercisesTest implements DigitTest {
   }
 
   @Test
-  @DisplayName("Multiplication Exercises with maxProduct = 100,000 and Transgression = 6 [00110] (2nd and 3rd should have no Transgression)")
+  @DisplayName("Multiplication Exercises with maxProduct = 100,000 and Transgression = 25 [11001] (2nd and 3rd should have no Transgression)")
   void multiplicationExercisesWithMaxProduct100000AndWithTransgression25() {
     // GIVEN
     final var calculationProperties =
@@ -215,7 +215,7 @@ public class MultiplicationExercisesTest implements DigitTest {
                              .multiplicationProperties(
                                  MultiplicationProperties.builder()
                                                          .maxProduct(100_000)
-                                                         .transgression(6) // 2nd and 3rd digit -> [00110] = 6
+                                                         .transgression(25) // 2nd and 3rd digit -> [11001] = 25
                                                          .build())
                              .build();
 

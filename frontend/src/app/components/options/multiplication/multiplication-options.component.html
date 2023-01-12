@@ -64,32 +64,32 @@
   </mat-chip-grid>
 </mat-form-field>
 <section class="transgression">
-  <mat-checkbox [checked]="transgression !== -1" (change)="changeUnlimitedTransgression($event)" [disabled]="maxProduct < 100 || maxProduct > 100000" i18n>Überschreitungen eingrenzen</mat-checkbox>
+  <mat-checkbox [checked]="transgression !== -1" (change)="changeUnlimitedTransgression($event)" [disabled]="maxProduct < 100" i18n>Überschreitungen eingrenzen</mat-checkbox>
   <section [hidden]="transgression === -1">
     <ul class="transgression-choices">
       <li>
         <mat-checkbox [checked]="isTransgression(ONE)" (change)="setTransgression(ONE)" i18n>
-          Einerstelle
+          Überschreitung der Einerstelle zulassen
         </mat-checkbox>
       </li>
       <li>
-        <mat-checkbox [disabled]="maxProduct < 100" [checked]="isTransgression(TEN)" (change)="setTransgression(TEN)" i18n>
-          Zehnerstelle
+        <mat-checkbox [disabled]="maxProduct <= 100" [checked]="isTransgression(TEN)" (change)="setTransgression(TEN)" i18n>
+          Überschreitung der Zehnerstelle zulassen
         </mat-checkbox>
       </li>
       <li>
-        <mat-checkbox [disabled]="maxProduct < 1000" [checked]="isTransgression(HUNDRED)" (change)="setTransgression(HUNDRED)" i18n>
-          Hunderterstelle
+        <mat-checkbox [disabled]="maxProduct <= 1000" [checked]="isTransgression(HUNDRED)" (change)="setTransgression(HUNDRED)" i18n>
+          Überschreitung der Hunderterstelle zulassen
         </mat-checkbox>
       </li>
       <li>
-        <mat-checkbox [disabled]="maxProduct < 10000" [checked]="isTransgression(THOUSAND)" (change)="setTransgression(THOUSAND)" i18n>
-          Tausenderstelle
+        <mat-checkbox [disabled]="maxProduct <= 10000" [checked]="isTransgression(THOUSAND)" (change)="setTransgression(THOUSAND)" i18n>
+          Überschreitung der Tausenderstelle zulassen
         </mat-checkbox>
       </li>
       <li>
-        <mat-checkbox [disabled]="maxProduct < 100000" [checked]="isTransgression(TENTHOUSAND)" (change)="setTransgression(TENTHOUSAND)" i18n>
-          Zehntausenderstelle
+        <mat-checkbox [disabled]="maxProduct <= 100000" [checked]="isTransgression(TENTHOUSAND)" (change)="setTransgression(TENTHOUSAND)" i18n>
+          Überschreitung der Zehntausenderstelle zulassen
         </mat-checkbox>
       </li>
     </ul>

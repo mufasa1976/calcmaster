@@ -42,34 +42,34 @@
   0 als Operand zulassen?
 </mat-slide-toggle>
 <section class="transgression">
-  <mat-checkbox [checked]="transgression !== -1" (change)="changeUnlimitedTransgression($event)" [disabled]="maxDifference < 20 || maxDifference > 100000 || subtrahendRounding > 1" i18n>
+  <mat-checkbox [checked]="transgression !== -1" (change)="changeUnlimitedTransgression($event)" [disabled]="maxDifference < 20 || subtrahendRounding > 1" i18n>
     Unterschreitungen eingrenzen
   </mat-checkbox>
   <section [hidden]="transgression === -1">
     <ul class="transgression-choices">
       <li>
         <mat-checkbox [checked]="isTransgression(ONE)" (change)="setTransgression(ONE)" i18n>
-          Einerstelle
+          Unterschreitung der Einerstelle zulassen
         </mat-checkbox>
       </li>
       <li>
-        <mat-checkbox [disabled]="maxDifference < 100" [checked]="isTransgression(TEN)" (change)="setTransgression(TEN)" i18n>
-          Zehnerstelle
+        <mat-checkbox [disabled]="maxDifference <= 100" [checked]="isTransgression(TEN)" (change)="setTransgression(TEN)" i18n>
+          Unterschreitung der Zehnerstelle zulassen
         </mat-checkbox>
       </li>
       <li>
-        <mat-checkbox [disabled]="maxDifference < 1000" [checked]="isTransgression(HUNDRED)" (change)="setTransgression(HUNDRED)" i18n>
-          Hunderterstelle
+        <mat-checkbox [disabled]="maxDifference <= 1000" [checked]="isTransgression(HUNDRED)" (change)="setTransgression(HUNDRED)" i18n>
+          Unterschreitung der Hunderterstelle zulassen
         </mat-checkbox>
       </li>
       <li>
-        <mat-checkbox [disabled]="maxDifference < 10000" [checked]="isTransgression(THOUSAND)" (change)="setTransgression(THOUSAND)" i18n>
-          Tausenderstelle
+        <mat-checkbox [disabled]="maxDifference <= 10000" [checked]="isTransgression(THOUSAND)" (change)="setTransgression(THOUSAND)" i18n>
+          Unterschreitung der Tausenderstelle zulassen
         </mat-checkbox>
       </li>
       <li>
-        <mat-checkbox [disabled]="maxDifference < 100000" [checked]="isTransgression(TENTHOUSAND)" (change)="setTransgression(TENTHOUSAND)" i18n>
-          Zehntausenderstelle
+        <mat-checkbox [disabled]="maxDifference <= 100000" [checked]="isTransgression(TENTHOUSAND)" (change)="setTransgression(TENTHOUSAND)" i18n>
+          Unterschreitung der Zehntausenderstelle zulassen
         </mat-checkbox>
       </li>
     </ul>
