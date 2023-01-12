@@ -52,7 +52,7 @@ public class AdditionSupplier extends AbstractCalculationSupplier {
   }
 
   private long[] getOperandsWithTransgression() {
-    final int digits = (int) Math.log10(properties.maxSum());
+    final int digits = (int) Math.ceil(Math.log10(properties.maxSum()));
     if (digits < 1) {
       return getOperandsWithoutAnyTransgression();
     }
@@ -64,14 +64,14 @@ public class AdditionSupplier extends AbstractCalculationSupplier {
     do {
       boolean transgression = (properties.transgression() & (1 << digit)) == (1 << digit);
       int bound = 10;
-      if (properties.maxSum() <= Math.pow(10, digit + 1)) {
-        bound = properties.maxSum() / (int) Math.pow(10, Math.ceil(Math.log10(properties.maxSum())));
-        transgression = true;
+      if (properties.maxSum() < Math.pow(10, digit + 1)) {
+        bound = properties.maxSum() / (int) Math.pow(10, Math.floor(Math.log10(properties.maxSum())));
+        transgression = false;
       }
-      bound -= transgression ? remainderOfPreviousDigit : 0;
+      bound -= transgression ? 0 : remainderOfPreviousDigit;
       if (bound > 0) {
         operand1[operand1.length - digit - 1] = random.nextInt(bound);
-        if (!transgression) {
+        if (transgression) {
           operand2[operand2.length - digit - 1] = random.nextInt(bound);
         } else if (operand1[operand1.length - digit - 1] + remainderOfPreviousDigit < 10) {
           operand2[operand2.length - digit - 1] = random.nextInt(10 - operand1[operand1.length - digit - 1] - remainderOfPreviousDigit);

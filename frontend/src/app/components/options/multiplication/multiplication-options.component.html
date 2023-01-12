@@ -69,27 +69,27 @@
     <ul class="transgression-choices">
       <li>
         <mat-checkbox [checked]="isTransgression(ONE)" (change)="setTransgression(ONE)" i18n>
-          Einerstelle
+          Überschreitung der Einerstelle zulassen
         </mat-checkbox>
       </li>
       <li>
         <mat-checkbox [disabled]="maxProduct < 100" [checked]="isTransgression(TEN)" (change)="setTransgression(TEN)" i18n>
-          Zehnerstelle
+          Überschreitung der Zehnerstelle zulassen
         </mat-checkbox>
       </li>
       <li>
         <mat-checkbox [disabled]="maxProduct < 1000" [checked]="isTransgression(HUNDRED)" (change)="setTransgression(HUNDRED)" i18n>
-          Hunderterstelle
+          Überschreitung der Hunderterstelle zulassen
         </mat-checkbox>
       </li>
       <li>
         <mat-checkbox [disabled]="maxProduct < 10000" [checked]="isTransgression(THOUSAND)" (change)="setTransgression(THOUSAND)" i18n>
-          Tausenderstelle
+          Überschreitung der Tausenderstelle zulassen
         </mat-checkbox>
       </li>
       <li>
         <mat-checkbox [disabled]="maxProduct < 100000" [checked]="isTransgression(TENTHOUSAND)" (change)="setTransgression(TENTHOUSAND)" i18n>
-          Zehntausenderstelle
+          Überschreitung der Zehntausenderstelle zulassen
         </mat-checkbox>
       </li>
     </ul>
