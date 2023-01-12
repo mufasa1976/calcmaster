@@ -123,7 +123,7 @@ public class MultiplicationSupplier extends AbstractCalculationSupplier {
   }
 
   private long[] getOperandsWithTransgression() {
-    final int digits = (int) Math.log10(properties.maxProduct());
+    final int digits = (int) Math.ceil(Math.log10(properties.maxProduct()));
     if (digits < 1) {
       return getOperandsWithoutAnyTransgressionBySqrt();
     }
@@ -133,7 +133,7 @@ public class MultiplicationSupplier extends AbstractCalculationSupplier {
     int digit = 0;
     int remainderOfPreviousDigit = 0;
     do {
-      boolean transgression = (properties.transgression() & (1 << digit)) == (1 << digit);
+      boolean transgression = (properties.transgression() & (1 << digit)) != (1 << digit);
       final int bound = switch (operand2) {
         case 2 -> 4 - (remainderOfPreviousDigit / 2);
         case 3 -> 3 - ((remainderOfPreviousDigit + 2) / 3);

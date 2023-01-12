@@ -40,11 +40,11 @@ public class SubtractionSupplier extends AbstractCalculationSupplier {
           * properties.subtrahendRounding();
       minuend = random.nextInt(subtrahend + properties.minDifference(), properties.maxDifference() + 1);
     }
-    return new long[] {minuend, subtrahend};
+    return new long[]{minuend, subtrahend};
   }
 
   private long[] getOperandsWithTransgression() {
-    final int digits = (int) Math.log10(properties.maxDifference());
+    final int digits = (int) Math.ceil(Math.log10(properties.maxDifference()));
     if (digits < 1) {
       return getOperandsWithoutAnyTransgression();
     }
@@ -56,26 +56,23 @@ public class SubtractionSupplier extends AbstractCalculationSupplier {
     do {
       boolean transgression = (properties.transgression() & (1 << digit)) == (1 << digit);
       int bound = 10;
-      if (properties.maxDifference() <= Math.pow(10, digit + 1)) {
-        bound = properties.maxDifference() / (int) Math.pow(10, Math.ceil(Math.log10(properties.maxDifference())));
-        transgression = true;
+      if (properties.maxDifference() < Math.pow(10, digit + 1)) {
+        bound = properties.maxDifference() / (int) Math.pow(10, Math.floor(Math.log10(properties.maxDifference())));
       }
-      bound -= transgression ? remainderOfPreviousDigit : 0;
+      transgression &= properties.maxDifference() > Math.pow(10, digit + 1);
+      bound -= transgression ? 0 : remainderOfPreviousDigit;
       if (bound > 0) {
-        operand1[operand1.length - digit - 1] = random.nextInt(bound);
-        if (!transgression) {
-          operand2[operand2.length - digit - 1] = random.nextInt(bound);
-        } else if (operand1[operand1.length - digit - 1] + remainderOfPreviousDigit < 10) {
-          operand2[operand2.length - digit - 1] = random.nextInt(10 - operand1[operand1.length - digit - 1] - remainderOfPreviousDigit);
+        operand2[operand2.length - digit - 1] = random.nextInt(bound);
+        if (transgression) {
+          operand1[operand1.length - digit - 1] = random.nextInt(bound);
+        } else if (operand2[operand2.length - digit - 1] + remainderOfPreviousDigit < bound) {
+          operand1[operand1.length - digit - 1] = random.nextInt(bound - operand2[operand2.length - digit - 1] - remainderOfPreviousDigit);
         }
       }
       remainderOfPreviousDigit = (operand1[operand1.length - digit - 1] + operand2[operand2.length - digit - 1]) / 10;
     } while (++digit < digits);
 
-    final long[] operands = new long[] {getValue(operand1), getValue(operand2)};
-    if (operands[0] < operands[1]) {
-      return new long[] {operands[0] + operands[1], operands[1]};
-    }
-    return new long[] {operands[0] + operands[1], operands[0]};
+    final long[] operands = new long[]{getValue(operand1), getValue(operand2)};
+    return new long[]{operands[0] + operands[1], operands[0]};
   }
 }

@@ -48,11 +48,11 @@ public class AdditionSupplier extends AbstractCalculationSupplier {
       firstAddend = secondAddend;
       secondAddend = sum - firstAddend;
     }
-    return new long[] {firstAddend, secondAddend};
+    return new long[]{firstAddend, secondAddend};
   }
 
   private long[] getOperandsWithTransgression() {
-    final int digits = (int) Math.log10(properties.maxSum());
+    final int digits = (int) Math.ceil(Math.log10(properties.maxSum()));
     if (digits < 1) {
       return getOperandsWithoutAnyTransgression();
     }
@@ -64,25 +64,25 @@ public class AdditionSupplier extends AbstractCalculationSupplier {
     do {
       boolean transgression = (properties.transgression() & (1 << digit)) == (1 << digit);
       int bound = 10;
-      if (properties.maxSum() <= Math.pow(10, digit + 1)) {
-        bound = properties.maxSum() / (int) Math.pow(10, Math.ceil(Math.log10(properties.maxSum())));
-        transgression = true;
+      if (properties.maxSum() < Math.pow(10, digit + 1)) {
+        bound = properties.maxSum() / (int) Math.pow(10, Math.floor(Math.log10(properties.maxSum())));
       }
-      bound -= transgression ? remainderOfPreviousDigit : 0;
+      transgression &= properties.maxSum() > Math.pow(10, digit + 1);
+      bound -= transgression ? 0 : remainderOfPreviousDigit;
       if (bound > 0) {
         operand1[operand1.length - digit - 1] = random.nextInt(bound);
-        if (!transgression) {
+        if (transgression) {
           operand2[operand2.length - digit - 1] = random.nextInt(bound);
-        } else if (operand1[operand1.length - digit - 1] + remainderOfPreviousDigit < 10) {
-          operand2[operand2.length - digit - 1] = random.nextInt(10 - operand1[operand1.length - digit - 1] - remainderOfPreviousDigit);
+        } else if (operand1[operand1.length - digit - 1] + remainderOfPreviousDigit < bound) {
+          operand2[operand2.length - digit - 1] = random.nextInt(bound - operand1[operand1.length - digit - 1] - remainderOfPreviousDigit);
         }
       }
       remainderOfPreviousDigit = (operand1[operand1.length - digit - 1] + operand2[operand2.length - digit - 1]) / 10;
     } while (++digit < digits);
 
-    final long[] operands = new long[] {getValue(operand1), getValue(operand2)};
+    final long[] operands = new long[]{getValue(operand1), getValue(operand2)};
     if (operands[0] < operands[1]) {
-      return new long[] {operands[1], operands[0]};
+      return new long[]{operands[1], operands[0]};
     }
     return operands;
   }

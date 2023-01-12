@@ -50,18 +50,16 @@ export class SubtractionOptionsComponent {
 
     if (maxDifference < 20 && transgression > UNLIMITED_TRANSACTIONS) {
       transgression = UNLIMITED_TRANSACTIONS;
-    } else if (maxDifference < 100 && transgression >= this.ONE) {
+    } else if (maxDifference <= 100 && transgression >= this.ONE) {
       transgression &= this.ONE;
-    } else if (maxDifference < 1000 && transgression > this.TEN) {
+    } else if (maxDifference <= 1000 && transgression > this.TEN) {
       transgression &= this.ONE | this.TEN;
-    } else if (maxDifference < 10000 && transgression > this.HUNDRED) {
+    } else if (maxDifference <= 10000 && transgression > this.HUNDRED) {
       transgression &= this.ONE | this.TEN | this.HUNDRED;
-    } else if (maxDifference < 100000 && transgression > this.THOUSAND) {
+    } else if (maxDifference <= 100000 && transgression > this.THOUSAND) {
       transgression &= this.ONE | this.TEN | this.HUNDRED | this.THOUSAND;
-    } else if (maxDifference > 100000) {
-      transgression = UNLIMITED_TRANSACTIONS;
     }
-    if (subtrahendRounding > 1 || maxDifference > 100000) {
+    if (subtrahendRounding > 1) {
       transgression = UNLIMITED_TRANSACTIONS;
     }
 
@@ -117,16 +115,16 @@ export class SubtractionOptionsComponent {
     const maxDifference = this.properties.maxDifference;
     let transgression = this.ONE;
     let includeZeroAsOperand = this.properties.includeZeroOnOperand;
-    if (maxDifference >= 100) {
+    if (maxDifference > 100) {
       transgression |= this.TEN;
     }
-    if (maxDifference >= 1000) {
+    if (maxDifference > 1000) {
       transgression |= this.HUNDRED;
     }
-    if (maxDifference >= 10000) {
+    if (maxDifference > 10000) {
       transgression |= this.THOUSAND;
     }
-    if (maxDifference >= 100000) {
+    if (maxDifference > 100000) {
       transgression |= this.TENTHOUSAND;
     }
     this._propertiesEmitter.emit({

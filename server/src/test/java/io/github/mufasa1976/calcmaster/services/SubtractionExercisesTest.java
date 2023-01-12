@@ -125,7 +125,7 @@ public class SubtractionExercisesTest implements DigitTest {
   }
 
   @Test
-  @DisplayName("Subtraction Exercises with maxDifference = 100,000 and transgression = 6 [00110] (2nd and 3rd Position should have no Transgression)")
+  @DisplayName("Subtraction Exercises with maxDifference = 100,000 and transgression = 25 [11001] (2nd and 3rd Position should have no Transgression)")
   void subtractionExercisesWithMaxSum100000AndTransgression25() {
     // GIVEN
     final var calculationProperties =
@@ -137,7 +137,7 @@ public class SubtractionExercisesTest implements DigitTest {
                                                       .minDifference(0)
                                                       .maxDifference(100_000)
                                                       .includeZeroOnOperand(false)
-                                                      .transgression(6) // 2nd and 3rd digit -> [00110] = 6
+                                                      .transgression(25) // 2nd and 3rd digit -> [11001] = 25
                                                       .build())
                              .build();
 
@@ -163,7 +163,7 @@ public class SubtractionExercisesTest implements DigitTest {
   }
 
   @Test
-  @DisplayName("Subtraction Exercises with maxDifference = 20 and transgression = 1 [01] (1st Position should have no Transgression)")
+  @DisplayName("Subtraction Exercises with maxDifference = 20 and transgression = 2 [10] (1st Position should have no Transgression)")
   void subtractionExercisesWithMaxSum20AndTransgression0() {
     // GIVEN
     final var calculationProperties =
@@ -175,7 +175,7 @@ public class SubtractionExercisesTest implements DigitTest {
                                                       .minDifference(0)
                                                       .maxDifference(20)
                                                       .includeZeroOnOperand(false)
-                                                      .transgression(1) // 1st digit = [01] = 1
+                                                      .transgression(2) // 1st digit = [10] = 2
                                                       .build())
                              .build();
 
