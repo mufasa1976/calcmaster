@@ -33,14 +33,17 @@ public class SubtractionSupplier extends AbstractCalculationSupplier {
 
   private long[] getOperandsWithoutAnyTransgression() {
     final var lowerBoundSubtrahend = properties.subtrahendRounding() > 1 ? properties.subtrahendRounding() : properties.includeZeroOnOperand() ? 0 : 1;
-    var subtrahend = (random.nextInt(lowerBoundSubtrahend, properties.maxDifference()) / (properties.subtrahendRounding() > 0 ? properties.subtrahendRounding() : 1)) * properties.subtrahendRounding();
+    var subtrahend = properties.subtrahendRounding() == 0
+        ? random.nextInt(10)
+        : (random.nextInt(lowerBoundSubtrahend, properties.maxDifference()) / properties.subtrahendRounding()) * properties.subtrahendRounding();
     var minuend = random.nextInt(subtrahend, properties.maxDifference() + 1);
     if (properties.minDifference() > 0) {
-      subtrahend = (random.nextInt(lowerBoundSubtrahend, properties.maxDifference() - properties.minDifference()) / (properties.subtrahendRounding() > 0 ? properties.subtrahendRounding() : 1))
-          * properties.subtrahendRounding();
+      subtrahend = properties.subtrahendRounding() == 0
+          ? random.nextInt(10)
+          : (random.nextInt(lowerBoundSubtrahend, properties.maxDifference() - properties.minDifference()) / properties.subtrahendRounding()) * properties.subtrahendRounding();
       minuend = random.nextInt(subtrahend + properties.minDifference(), properties.maxDifference() + 1);
     }
-    return new long[]{minuend, subtrahend};
+    return new long[] {minuend, subtrahend};
   }
 
   private long[] getOperandsWithTransgression() {
@@ -72,7 +75,7 @@ public class SubtractionSupplier extends AbstractCalculationSupplier {
       remainderOfPreviousDigit = (operand1[operand1.length - digit - 1] + operand2[operand2.length - digit - 1]) / 10;
     } while (++digit < digits);
 
-    final long[] operands = new long[]{getValue(operand1), getValue(operand2)};
-    return new long[]{operands[0] + operands[1], operands[0]};
+    final long[] operands = new long[] {getValue(operand1), getValue(operand2)};
+    return new long[] {operands[0] + operands[1], operands[0]};
   }
 }

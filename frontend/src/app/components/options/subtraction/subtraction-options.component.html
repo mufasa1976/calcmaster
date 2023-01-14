@@ -29,6 +29,7 @@
   <mat-label i18n>Subtrahend gerundet auf</mat-label>
   <mat-select [(value)]="subtrahendRounding" [disabled]="maxDifference <= 20">
     <mat-option [value]="1" i18n>ganze Zahlen</mat-option>
+    <mat-option [value]="0" i18n>nur einstellig</mat-option>
     <mat-option [value]="10" i18n>ganze Zehner (10, 20, ...)</mat-option>
     <mat-option [value]="100" [disabled]="maxDifference <= 100" i18n>ganze Hunderter (100, 200, ...)</mat-option>
     <mat-option [value]="1000" [disabled]="maxDifference <= 1000" i18n>ganze Tausender (1.000, 2.000, ...)</mat-option>

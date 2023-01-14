@@ -195,4 +195,36 @@ public class SubtractionExercisesTest implements DigitTest {
         .noneMatch(calculation -> calculation.getResult() < 0)
         .noneMatch(calculation -> getDigit(calculation.getOperand1(), 1) - getDigit(calculation.getOperand2(), 1) < 0);
   }
+
+  @Test
+  @DisplayName("Subtraction Exercises with maxDifference = 100 and subtrahendRounding = 0")
+  void subtractionExercisesWithMaxDifference100AndSubtrahendRounding0() {
+    // GIVEN
+    final var calculationProperties =
+        CalculationProperties.builder()
+                             .operators(List.of(Operator.SUBTRACT))
+                             .numberOfCalculations(NUMBER_OF_EXERCISES)
+                             .subtractionProperties(
+                                 SubtractionProperties.builder()
+                                                      .transgression(UNLIMITED_TRANSGRESSIONS)
+                                                      .minDifference(0)
+                                                      .maxDifference(100)
+                                                      .subtrahendRounding(0)
+                                                      .build())
+                             .build();
+
+    // WHEN
+    final var calculationsCandidate = calculationService.createCalculations(calculationProperties, Locale.ENGLISH);
+
+    // THEN
+    assertThat(calculationsCandidate).isPresent();
+    final var calculations = calculationsCandidate.orElseThrow();
+    assertThat(calculations).extracting(Calculations::subheader, Calculations::verticalDisplay).contains(null, false);
+    assertThat(calculations.calculations())
+        .hasSize(NUMBER_OF_EXERCISES)
+        .allMatch(calculation -> calculation.getType() == Calculation.Type.CALCULATION)
+        .allMatch(calculation -> calculation.getOperand1() - calculation.getOperand2() == calculation.getResult())
+        .noneMatch(calculation -> calculation.getResult() > 100)
+        .noneMatch(calculation -> calculation.getOperand2() >= 10);
+  }
 }

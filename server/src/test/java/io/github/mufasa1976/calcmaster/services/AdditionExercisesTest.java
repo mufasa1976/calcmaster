@@ -191,4 +191,35 @@ class AdditionExercisesTest implements DigitTest {
         .noneMatch(calculation -> calculation.getResult() > 20)
         .noneMatch(calculation -> getDigit(calculation.getOperand1(), 1) + getDigit(calculation.getOperand2(), 1) > 10);
   }
+
+  @Test
+  @DisplayName("Addition Exercises with maxSum = 100 and secondAddendRounding = 0")
+  void additionExcercisesWithMaxSum100AndSecondAddendRounding0() {
+    // GIVEN
+    final var calculationProperties =
+        CalculationProperties.builder()
+                             .operators(List.of(Operator.ADD))
+                             .numberOfCalculations(NUMBER_OF_EXERCISES)
+                             .additionProperties(
+                                 AdditionProperties.builder()
+                                                   .maxSum(100)
+                                                   .secondAddendRounding(0)
+                                                   .transgression(UNLIMITED_TRANSGRESSIONS)
+                                                   .build())
+                             .build();
+
+    // WHEN
+    final var calculationsCandidate = calculationService.createCalculations(calculationProperties, Locale.ENGLISH);
+
+    // THEN
+    assertThat(calculationsCandidate).isPresent();
+    final var calculations = calculationsCandidate.orElseThrow();
+    assertThat(calculations).extracting(Calculations::subheader, Calculations::verticalDisplay).contains(null, false);
+    assertThat(calculations.calculations())
+        .hasSize(NUMBER_OF_EXERCISES)
+        .allMatch(calculation -> calculation.getType() == Calculation.Type.CALCULATION)
+        .allMatch(calculation -> calculation.getOperand1() + calculation.getOperand2() == calculation.getResult())
+        .noneMatch(calculation -> calculation.getResult() > 100)
+        .noneMatch(calculation -> calculation.getOperand2() >= 10);
+  }
 }
