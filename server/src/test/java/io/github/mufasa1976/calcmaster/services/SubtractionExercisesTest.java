@@ -197,8 +197,8 @@ public class SubtractionExercisesTest implements DigitTest {
   }
 
   @Test
-  @DisplayName("Subtraction Exercises with maxDifference = 100 and subtrahendRounding = 0")
-  void subtractionExercisesWithMaxDifference100AndSubtrahendRounding0() {
+  @DisplayName("Subtraction Exercises with maxDifference = 100 and subtrahendRounding = 0 and includeZeroOnOperand = false")
+  void subtractionExercisesWithMaxDifference100AndSubtrahendRounding0AndIncludeZeroOnOperandFalse() {
     // GIVEN
     final var calculationProperties =
         CalculationProperties.builder()
@@ -210,6 +210,7 @@ public class SubtractionExercisesTest implements DigitTest {
                                                       .minDifference(0)
                                                       .maxDifference(100)
                                                       .subtrahendRounding(0)
+                                                      .includeZeroOnOperand(false)
                                                       .build())
                              .build();
 
@@ -225,6 +226,7 @@ public class SubtractionExercisesTest implements DigitTest {
         .allMatch(calculation -> calculation.getType() == Calculation.Type.CALCULATION)
         .allMatch(calculation -> calculation.getOperand1() - calculation.getOperand2() == calculation.getResult())
         .noneMatch(calculation -> calculation.getResult() > 100)
-        .noneMatch(calculation -> calculation.getOperand2() >= 10);
+        .noneMatch(calculation -> calculation.getOperand2() >= 10)
+        .noneMatch(calculation -> calculation.getOperand2() == 0);
   }
 }

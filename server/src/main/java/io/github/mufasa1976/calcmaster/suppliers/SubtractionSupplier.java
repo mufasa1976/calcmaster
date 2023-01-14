@@ -34,12 +34,12 @@ public class SubtractionSupplier extends AbstractCalculationSupplier {
   private long[] getOperandsWithoutAnyTransgression() {
     final var lowerBoundSubtrahend = properties.subtrahendRounding() > 1 ? properties.subtrahendRounding() : properties.includeZeroOnOperand() ? 0 : 1;
     var subtrahend = properties.subtrahendRounding() == 0
-        ? random.nextInt(10)
+        ? random.nextInt(properties.includeZeroOnOperand() ? 0 : 1, 10)
         : (random.nextInt(lowerBoundSubtrahend, properties.maxDifference()) / properties.subtrahendRounding()) * properties.subtrahendRounding();
     var minuend = random.nextInt(subtrahend, properties.maxDifference() + 1);
     if (properties.minDifference() > 0) {
       subtrahend = properties.subtrahendRounding() == 0
-          ? random.nextInt(10)
+          ? random.nextInt(properties.includeZeroOnOperand() ? 0 : 1, 10)
           : (random.nextInt(lowerBoundSubtrahend, properties.maxDifference() - properties.minDifference()) / properties.subtrahendRounding()) * properties.subtrahendRounding();
       minuend = random.nextInt(subtrahend + properties.minDifference(), properties.maxDifference() + 1);
     }

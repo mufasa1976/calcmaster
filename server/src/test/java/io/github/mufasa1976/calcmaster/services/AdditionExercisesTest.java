@@ -193,8 +193,8 @@ class AdditionExercisesTest implements DigitTest {
   }
 
   @Test
-  @DisplayName("Addition Exercises with maxSum = 100 and secondAddendRounding = 0")
-  void additionExcercisesWithMaxSum100AndSecondAddendRounding0() {
+  @DisplayName("Addition Exercises with maxSum = 100 and secondAddendRounding = 0 and includeZeroOnOperand = false")
+  void additionExcercisesWithMaxSum100AndSecondAddendRounding0AndIncludeZeroOnOperandFalse() {
     // GIVEN
     final var calculationProperties =
         CalculationProperties.builder()
@@ -205,6 +205,7 @@ class AdditionExercisesTest implements DigitTest {
                                                    .maxSum(100)
                                                    .secondAddendRounding(0)
                                                    .transgression(UNLIMITED_TRANSGRESSIONS)
+                                                   .includeZeroOnOperand(false)
                                                    .build())
                              .build();
 
@@ -220,6 +221,7 @@ class AdditionExercisesTest implements DigitTest {
         .allMatch(calculation -> calculation.getType() == Calculation.Type.CALCULATION)
         .allMatch(calculation -> calculation.getOperand1() + calculation.getOperand2() == calculation.getResult())
         .noneMatch(calculation -> calculation.getResult() > 100)
-        .noneMatch(calculation -> calculation.getOperand2() >= 10);
+        .noneMatch(calculation -> calculation.getOperand2() >= 10)
+        .noneMatch(calculation -> calculation.getOperand2() == 0);
   }
 }
