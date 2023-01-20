@@ -83,7 +83,7 @@ export class AdditionOptionsComponent {
   set secondAddendRounding(secondAddendRounding: number) {
     let includeZeroOnOperand = this.properties.includeZeroOnOperand;
     let transgression = this.properties.transgression;
-    if (secondAddendRounding > 1) {
+    if (secondAddendRounding === 0 || secondAddendRounding > 1) {
       includeZeroOnOperand = false;
       transgression = -1;
     }

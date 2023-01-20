@@ -43,7 +43,7 @@
   0 als Operand zulassen?
 </mat-slide-toggle>
 <section class="transgression">
-  <mat-checkbox [checked]="transgression !== -1" (change)="changeUnlimitedTransgression($event)" [disabled]="maxSum < 20 || secondAddendRounding > 1" i18n>
+  <mat-checkbox [checked]="transgression !== -1" (change)="changeUnlimitedTransgression($event)" [disabled]="maxSum < 20 || secondAddendRounding === 0 || secondAddendRounding > 1" i18n>
     Überschreitungen eingrenzen
   </mat-checkbox>
   <section [hidden]="transgression === -1">

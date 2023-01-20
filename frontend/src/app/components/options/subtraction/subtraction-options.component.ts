@@ -84,7 +84,7 @@ export class SubtractionOptionsComponent {
   set subtrahendRounding(subtrahendRounding: number) {
     let includeZeroOnOperand = this.properties.includeZeroOnOperand;
     let transgression = this.properties.transgression;
-    if (subtrahendRounding > 1) {
+    if (subtrahendRounding === 0 || subtrahendRounding > 1) {
       includeZeroOnOperand = false;
       transgression = -1;
     }
