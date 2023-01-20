@@ -1,6 +1,5 @@
 package io.github.mufasa1976.calcmaster.config;
 
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.thymeleaf.ThymeleafProperties;
 import org.springframework.context.annotation.Bean;
@@ -51,32 +50,10 @@ public class WebFluxConfiguration implements WebFluxConfigurer {
 
   @Override
   public void addResourceHandlers(ResourceHandlerRegistry registry) {
-    registry.setOrder(1);
     registry.addResourceHandler("/webjars/**")
             .addResourceLocations("classpath:/META-INF/resources/webjars/")
             .resourceChain(true);
-    SUPPORTED_LANGUAGES.forEach(addLocalizedAngularResourcesTo(registry));
-  }
-
-  private Consumer<Locale> addLocalizedAngularResourcesTo(ResourceHandlerRegistry registry) {
-    return language -> {
-      final var relativeAngularResources = Stream.of(ANGULAR_RESOURCES)
-                                                 .filter(resource -> StringUtils.contains(resource, "*"))
-                                                 .map(resource -> "/" + language.getLanguage() + resource)
-                                                 .toArray(String[]::new);
-      registry.addResourceHandler(relativeAngularResources)
-              .addResourceLocations(prefix + language.getLanguage() + "/");
-
-      final var fixedAngularResources = Stream.of(ANGULAR_RESOURCES)
-                                              .filter(resource -> !StringUtils.contains(resource, "*"))
-                                              .map(resource -> "/" + language.getLanguage() + resource)
-                                              .toArray(String[]::new);
-      registry.addResourceHandler(fixedAngularResources)
-              .addResourceLocations(prefix);
-
-      registry.addResourceHandler("/" + language.getLanguage() + "/assets/**")
-              .addResourceLocations(prefix + language.getLanguage() + "/assets/");
-    };
+    SUPPORTED_LANGUAGES.forEach(language -> registry.addResourceHandler("/" + language.getLanguage() + "/**").addResourceLocations(prefix + language.getLanguage() + "/"));
   }
 
   @Override
