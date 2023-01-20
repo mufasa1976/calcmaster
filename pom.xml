@@ -20,19 +20,19 @@
     <maven.compiler.target>${java.version}</maven.compiler.target>
     <maven.deploy.skip>true</maven.deploy.skip>
 
-    <node.version>v18.12.1</node.version>
-    <npm.version>9.1.2</npm.version>
+    <node.version>v18.13.0</node.version>
+    <npm.version>9.3.1</npm.version>
 
     <docker.base-image>eclipse-temurin:${java.version}</docker.base-image>
     <docker.image>mufasa1976/calcmaster</docker.image>
     <docker.app.user>app</docker.app.user>
 
-    <spring-boot.version>2.7.7</spring-boot.version>
+    <spring-boot.version>2.7.8</spring-boot.version>
     <jasper-reports.version>6.20.0</jasper-reports.version>
 
     <frontend-plugin.version>1.12.1</frontend-plugin.version>
     <git-commit-id-plugin.version>4.9.10</git-commit-id-plugin.version>
-    <docker-plugin.version>0.40.2</docker-plugin.version>
+    <docker-plugin.version>0.40.3</docker-plugin.version>
     <maven-replacer-plugin.version>1.4.1</maven-replacer-plugin.version>
   </properties>
 
