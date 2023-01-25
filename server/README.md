@@ -342,31 +342,4 @@ Just as [`WebFluxConfiguration` for multilingual Application](#webfluxconfigurat
 I assume that the `RestController` will be defined under the Context-Path `/api/**`. So we have to exclude these
 Paths before routing to `index.html`.
 
-We also have to separately exclude `/assets/**` and `/webjars/**` so these two will also be handled by the `ResourceHandler`. 
-
-### Landing Page
-
-The Frontend Application will be provided with the Language as a Path-Prefix. For Example [the german Version](https://calcmaster.coolstuff.software/de) or
-[the english Version](https://calcmaster.coolstuff.software/en). But if you don't know the Landing Page will be without any Language Prefix.
-(i.E.: [https://calcmaster.coolstuff.software](https://calcmaster.coolstuff.software)).
-
-In this case the Application has a [`LandingPageController`](src/main/java/io/github/mufasa1976/calcmaster/controllers/LandingPageController.java) which gets the
-Default-Locale of the Browser and redirects to the correct localized Landing-Page:
-
-```java
-
-@Controller
-public class LandingPageController {
-  private static final String DEFAULT_REDIRECT = "redirect:/en";
-
-  @GetMapping
-  public String landingPage(final Locale locale) {
-    if (Arrays.asList(WebMvcConfiguration.SUPPORTED_LANGUAGES).contains(locale.getLanguage())) {
-      return "redirect:/" + locale.getLanguage();
-    }
-    return DEFAULT_REDIRECT;
-  }
-}
-```
-
-If the Default-Locale of the Browser isn't a supported Version one will be redirected to the english Version of the Frontend Application.
+We also have to separately exclude `/assets/**` and `/webjars/**` so these two will also be handled by the `ResourceHandler`.
