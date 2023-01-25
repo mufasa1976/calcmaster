@@ -196,6 +196,7 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
     registry.setOrder(2);
     registry.addViewController("/**").setViewName("index");
   }
+}
 ```
 
 ### WebFluxConfiguration for multilingual Angular Application
