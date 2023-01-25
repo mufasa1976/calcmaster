@@ -226,7 +226,7 @@ public class WebFluxConfiguration implements WebFluxConfigurer {
   private final ThymeleafReactiveViewResolver thymeleafReactiveViewResolver;
 
   public WebFluxConfiguration(@Value("${spring.thymeleaf.prefix:" + ThymeleafProperties.DEFAULT_PREFIX + "}") String prefix, ThymeleafReactiveViewResolver thymeleafReactiveViewResolver) {
-    this.prefix = prefix;
+    this.prefix = StringUtils.appendIfMissing(prefix, "/");
     this.thymeleafReactiveViewResolver = thymeleafReactiveViewResolver;
   }
 
@@ -235,7 +235,8 @@ public class WebFluxConfiguration implements WebFluxConfigurer {
     registry.addResourceHandler("/webjars/**")
             .addResourceLocations("classpath:/META-INF/resources/webjars/")
             .resourceChain(true);
-    SUPPORTED_LANGUAGES.forEach(language -> registry.addResourceHandler("/" + language.getLanguage() + "/**").addResourceLocations(prefix + language.getLanguage() + "/"));
+    SUPPORTED_LANGUAGES.forEach(language -> registry.addResourceHandler("/" + language.getLanguage() + "/**")
+                                                    .addResourceLocations(prefix + language.getLanguage() + "/"));
   }
 
   @Override
@@ -262,7 +263,9 @@ public class WebFluxConfiguration implements WebFluxConfigurer {
                                    .map(angularResource -> "/" + language.getLanguage() + angularResource)
                                    .reduce(GET("/" + language.getLanguage() + "/**"), (predicate, route) -> predicate.and(GET(route).negate()), RequestPredicate::and);
       requestPredicate = requestPredicate.and(GET("/" + language.getLanguage() + "/assets/**").negate());
-      routerFunctionBuilder.route(requestPredicate, request -> ServerResponse.ok().contentType(MediaType.TEXT_HTML).render(language.getLanguage() + "/index"));
+      routerFunctionBuilder.route(requestPredicate, request -> ServerResponse.ok()
+                                                                             .contentType(MediaType.TEXT_HTML)
+                                                                             .render(language.getLanguage() + "/index"));
     };
   }
 }
@@ -300,7 +303,7 @@ public class WebFluxConfiguration implements WebFluxConfigurer {
   private final ThymeleafReactiveViewResolver thymeleafReactiveViewResolver;
 
   public WebFluxConfiguration(@Value("${spring.thymeleaf.prefix:" + ThymeleafProperties.DEFAULT_PREFIX + "}") String prefix, ThymeleafReactiveViewResolver thymeleafReactiveViewResolver) {
-    this.prefix = prefix;
+    this.prefix = StringUtils.appendIfMissing(prefix, "/");
     this.thymeleafReactiveViewResolver = thymeleafReactiveViewResolver;
   }
 
