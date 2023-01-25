@@ -225,7 +225,9 @@ public class WebFluxConfiguration implements WebFluxConfigurer {
   private final String prefix;
   private final ThymeleafReactiveViewResolver thymeleafReactiveViewResolver;
 
-  public WebFluxConfiguration(@Value("${spring.thymeleaf.prefix:" + ThymeleafProperties.DEFAULT_PREFIX + "}") String prefix, ThymeleafReactiveViewResolver thymeleafReactiveViewResolver) {
+  public WebFluxConfiguration(
+      @Value("${spring.thymeleaf.prefix:" + ThymeleafProperties.DEFAULT_PREFIX + "}") String prefix, 
+      ThymeleafReactiveViewResolver thymeleafReactiveViewResolver) {
     this.prefix = StringUtils.appendIfMissing(prefix, "/");
     this.thymeleafReactiveViewResolver = thymeleafReactiveViewResolver;
   }
@@ -302,7 +304,9 @@ public class WebFluxConfiguration implements WebFluxConfigurer {
   private final String prefix;
   private final ThymeleafReactiveViewResolver thymeleafReactiveViewResolver;
 
-  public WebFluxConfiguration(@Value("${spring.thymeleaf.prefix:" + ThymeleafProperties.DEFAULT_PREFIX + "}") String prefix, ThymeleafReactiveViewResolver thymeleafReactiveViewResolver) {
+  public WebFluxConfiguration(
+      @Value("${spring.thymeleaf.prefix:" + ThymeleafProperties.DEFAULT_PREFIX + "}") String prefix,
+      ThymeleafReactiveViewResolver thymeleafReactiveViewResolver) {
     this.prefix = StringUtils.appendIfMissing(prefix, "/");
     this.thymeleafReactiveViewResolver = thymeleafReactiveViewResolver;
   }
