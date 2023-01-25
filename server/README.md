@@ -196,6 +196,11 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
     registry.setOrder(2);
     registry.addViewController("/**").setViewName("index");
   }
+
+  @Bean
+  public RouterFunction<ServerResponse> routerFunction() {
+    return route(GET("/"), request -> ServerResponse.ok().render("index"));
+  }
 }
 ```
 
