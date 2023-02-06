@@ -295,25 +295,25 @@
 	<pageFooter>
 		<band height="15">
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
-			<textField evaluationTime="Master">
-				<reportElement x="455" y="5" width="100" height="10" uuid="80ca6e35-009e-4a58-a735-751c8542919a">
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-				</reportElement>
-				<textElement textAlignment="Right" verticalAlignment="Bottom">
-					<font fontName="Liberation Sans" size="8"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$R{page} + " " + $V{MASTER_CURRENT_PAGE} + " / "  + $V{MASTER_TOTAL_PAGES}]]></textFieldExpression>
-			</textField>
 			<textField>
-				<reportElement x="280" y="5" width="175" height="10" uuid="44b12dd7-8fab-40c1-936e-ae53672c355c">
+				<reportElement x="280" y="0" width="175" height="15" uuid="44b12dd7-8fab-40c1-936e-ae53672c355c">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<printWhenExpression><![CDATA[$P{EXERCISE_REFERENCE} != null && !$P{EXERCISE_REFERENCE}.isBlank()]]></printWhenExpression>
 				</reportElement>
-				<textElement textAlignment="Right">
+				<textElement textAlignment="Right" verticalAlignment="Bottom">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$R{reference} + ": " + $P{EXERCISE_REFERENCE}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Master">
+				<reportElement x="455" y="0" width="100" height="15" uuid="80ca6e35-009e-4a58-a735-751c8542919a">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Bottom">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{page} + " " + $V{MASTER_CURRENT_PAGE} + " / "  + $V{MASTER_TOTAL_PAGES}]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageFooter>
