@@ -19,7 +19,7 @@ public class ConversionSupplier extends AbstractCalculationSupplier {
 
   private UnitPrefix lowestUnitPrefix = UnitPrefix.BASE;
   private UnitPrefix highestUnitPrefix = UnitPrefix.BASE;
-  private UnitPrefix secondHighestUnitPrefix = UnitPrefix.BASE;
+  private double factorBetweenHighestAndSecondHighestUnitPrefix = 10.0;
   private double highestNumberForMatrixConversion = 1.0;
   private UnitPrefix[] sortedUnitPrefixes = new UnitPrefix[0];
 
@@ -40,10 +40,11 @@ public class ConversionSupplier extends AbstractCalculationSupplier {
     highestUnitPrefix = Stream.of(properties.getUnit().getAllowedPrefixes())
                               .max(Comparator.comparing(UnitPrefix::getFactor))
                               .orElse(UnitPrefix.BASE);
-    secondHighestUnitPrefix = Stream.of(properties.getUnit().getAllowedPrefixes())
-                                    .filter(unitPrefix -> unitPrefix != highestUnitPrefix)
-                                    .max(Comparator.comparing(UnitPrefix::getFactor))
-                                    .orElse(UnitPrefix.BASE);
+    final var secondHighestUnitPrefix = Stream.of(properties.getUnit().getAllowedPrefixes())
+                                              .filter(unitPrefix -> unitPrefix != highestUnitPrefix)
+                                              .max(Comparator.comparing(UnitPrefix::getFactor))
+                                              .orElse(UnitPrefix.BASE);
+    factorBetweenHighestAndSecondHighestUnitPrefix = highestUnitPrefix.getFactor() / secondHighestUnitPrefix.getFactor();
     highestNumberForMatrixConversion = (highestFactor / lowestUnitPrefix.getFactor()) * 10.0;
     sortedUnitPrefixes = Stream.of(properties.getUnit().getAllowedPrefixes())
                                .sorted(Comparator.comparing(UnitPrefix::getFactor).reversed())
@@ -85,6 +86,7 @@ public class ConversionSupplier extends AbstractCalculationSupplier {
   private UnitPrefix getRandomUnitPrefix(Unit unit, UnitPrefix exceptUnitPrefix) {
     final var unitPrefixes = Stream.of(unit.getAllowedPrefixes())
                                    .filter(unitPrefix -> unitPrefix != exceptUnitPrefix)
+                                   .sorted(Comparator.comparing(UnitPrefix::getFactor).reversed())
                                    .toArray(UnitPrefix[]::new);
     if (unitPrefixes.length == 0) {
       return UnitPrefix.BASE;
@@ -150,12 +152,13 @@ public class ConversionSupplier extends AbstractCalculationSupplier {
   }
 
   private Calculation getUpscaleConversion(Unit unit) {
-    final var unitPrefix = getRandomUnitPrefix(unit, UnitPrefix.BASE);
-    var highestNumber = highestNumberForMatrixConversion;
-    if (unitPrefix == secondHighestUnitPrefix && highestNumber > 10.0) {
-      highestNumber /= 10.0;
+    final var unitPrefix = getRandomUnitPrefix(unit, highestUnitPrefix);
+    final var nextHigherUnitPrefix = getNextHigherUnitPrefixThan(unitPrefix);
+    var lowerBound = nextHigherUnitPrefix == null ? 0.0 : nextHigherUnitPrefix.getFactor() / unitPrefix.getFactor();
+    if (lowerBound >= highestNumberForMatrixConversion) {
+      lowerBound /= factorBetweenHighestAndSecondHighestUnitPrefix;
     }
-    final var value = Double.valueOf(random.nextDouble(10.0, highestNumber)).longValue();
+    final var value = Double.valueOf(random.nextDouble(lowerBound, highestNumberForMatrixConversion)).longValue();
     final var decomposedValue = decomposeNumber(value, unit, unitPrefix);
     return Calculation.builder()
                       .type(Calculation.Type.CONVERSION)

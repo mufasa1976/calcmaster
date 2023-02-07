@@ -11,7 +11,9 @@ public enum Unit {
       UnitPrefix.DEKA,
       UnitPrefix.KILO
   }, new UnitConversion[] {
-      UnitConversion.WHOLE_NUMBERS
+      UnitConversion.WHOLE_NUMBERS,
+      UnitConversion.MATRIX,
+      UnitConversion.UPSCALE
   }),
   LITRE("l", new UnitPrefix[] {
       UnitPrefix.BASE,

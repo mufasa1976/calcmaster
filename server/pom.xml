@@ -6,7 +6,7 @@
   <parent>
     <groupId>io.github.mufasa1976</groupId>
     <artifactId>calcmaster</artifactId>
-    <version>1.11.0</version>
+    <version>1.12.0-SNAPSHOT</version>
     <relativePath>../pom.xml</relativePath>
   </parent>
 
@@ -163,8 +163,6 @@
                 </tags>
                 <optimise>true</optimise>
                 <runCmds>
-                  <runCmd>apt update</runCmd>
-                  <runCmd>apt install fonts-liberation -y</runCmd>
                   <runCmd>mkdir -p /opt/config</runCmd>
                   <runCmd>useradd -d /opt ${docker.app.user}</runCmd>
                   <runCmd>chown -R ${docker.app.user}. /opt</runCmd>

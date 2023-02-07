@@ -55,10 +55,10 @@ public class ConversionExercisesTest {
     assertThat(calculations.calculations())
         .hasSize(NUMBER_OF_EXERCISES)
         .allMatch(calculation -> calculation.getType() == Calculation.Type.CONVERSION)
-        .allSatisfy(satisfyConversion(Unit.METER));
+        .allSatisfy(toConversionUnit(Unit.METER));
   }
 
-  private Consumer<Calculation> satisfyConversion(Unit unit) {
+  private Consumer<Calculation> toConversionUnit(Unit unit) {
     return calculation -> {
       if (StringUtils.isNotEmpty(calculation.getTextExercise())) {
         assertThat(calculation.getTextExercise()).isEqualTo(decomposeNumber(calculation.getOperand1(), unit));
@@ -125,7 +125,7 @@ public class ConversionExercisesTest {
     assertThat(calculations.calculations())
         .hasSize(NUMBER_OF_EXERCISES)
         .allMatch(calculation -> calculation.getType() == Calculation.Type.CONVERSION)
-        .allSatisfy(satisfyConversion(Unit.KILOMETER));
+        .allSatisfy(toConversionUnit(Unit.KILOMETER));
   }
 
   @Test
@@ -152,7 +152,7 @@ public class ConversionExercisesTest {
     assertThat(calculations.calculations())
         .hasSize(NUMBER_OF_EXERCISES)
         .allMatch(calculation -> calculation.getType() == Calculation.Type.CONVERSION)
-        .allSatisfy(satisfyConversion(Unit.GRAM));
+        .allSatisfy(toConversionUnit(Unit.GRAM));
   }
 
   @Test
@@ -179,7 +179,7 @@ public class ConversionExercisesTest {
     assertThat(calculations.calculations())
         .hasSize(NUMBER_OF_EXERCISES)
         .allMatch(calculation -> calculation.getType() == Calculation.Type.CONVERSION)
-        .allSatisfy(satisfyConversion(Unit.SECOND));
+        .allSatisfy(toConversionUnit(Unit.SECOND));
   }
 
   @Test
@@ -206,6 +206,6 @@ public class ConversionExercisesTest {
     assertThat(calculations.calculations())
         .hasSize(NUMBER_OF_EXERCISES)
         .allMatch(calculation -> calculation.getType() == Calculation.Type.CONVERSION)
-        .allSatisfy(satisfyConversion(Unit.LITRE));
+        .allSatisfy(toConversionUnit(Unit.LITRE));
   }
 }
