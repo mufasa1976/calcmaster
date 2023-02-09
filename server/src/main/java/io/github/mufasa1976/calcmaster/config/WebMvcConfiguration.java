@@ -60,7 +60,7 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
     registry.setOrder(1);
     registry.addResourceHandler("/webjars/**")
             .addResourceLocations("classpath:/META-INF/resources/webjars/")
-            .resourceChain(true); // necessary for the WebJarsResolver to be used
+            .resourceChain(true); // necessary for the webjars-locator to be used
     SUPPORTED_LANGUAGES.forEach(registerLocalizedAngularResourcesTo(registry));
   }
 
