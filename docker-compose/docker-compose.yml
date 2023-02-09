@@ -2,13 +2,7 @@ version: '3'
 
 services:
   application:
-    image: mufasa1976/calcmaster
-    ports:
-      - 127.0.0.1:5005:5005
-    environment:
-      SPRING_PROFILES_ACTIVE: docker
-    volumes:
-      - ./config:/opt/config
+    image: mufasa1976/calcmaster-spring-boot-3
 
   nginx:
     image: nginx:stable

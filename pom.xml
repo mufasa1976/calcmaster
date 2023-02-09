@@ -20,29 +20,21 @@
     <maven.compiler.target>${java.version}</maven.compiler.target>
     <maven.deploy.skip>true</maven.deploy.skip>
 
-    <node.version>v18.12.1</node.version>
-    <npm.version>9.1.2</npm.version>
+    <node.version>v18.13.0</node.version>
+    <npm.version>9.3.1</npm.version>
 
-    <docker.image>mufasa1976/calcmaster-native</docker.image>
+    <docker.base-image>eclipse-temurin:${java.version}</docker.base-image>
+    <docker.image>mufasa1976/calcmaster-spring-boot-3</docker.image>
+    <docker.app.user>app</docker.app.user>
 
-    <spring-boot.version>3.0.1</spring-boot.version>
-    <spring-framework.version>6.0.4-SNAPSHOT</spring-framework.version>
+    <spring-boot.version>3.0.2</spring-boot.version>
     <jasper-reports.version>6.20.0</jasper-reports.version>
 
     <frontend-plugin.version>1.12.1</frontend-plugin.version>
     <git-commit-id-plugin.version>4.9.10</git-commit-id-plugin.version>
-    <docker-plugin.version>0.40.2</docker-plugin.version>
+    <docker-plugin.version>0.40.3</docker-plugin.version>
     <maven-replacer-plugin.version>1.4.1</maven-replacer-plugin.version>
-    <native-build-tools-plugin.version>0.9.19</native-build-tools-plugin.version>
   </properties>
-
-  <repositories>
-    <repository>
-      <id>repository.spring.snapshots</id>
-      <name>Spring Snapshot Repository</name>
-      <url>https://repo.spring.io/snapshot</url>
-    </repository>
-  </repositories>
 
   <dependencyManagement>
     <dependencies>
@@ -53,20 +45,6 @@
         <version>${spring-boot.version}</version>
         <type>pom</type>
         <scope>import</scope>
-      </dependency>
-
-      <!-- Spring Web -->
-      <dependency>
-        <groupId>org.springframework</groupId>
-        <artifactId>spring-web</artifactId>
-        <version>${spring-framework.version}</version>
-      </dependency>
-
-      <!-- Spring Web MVC -->
-      <dependency>
-        <groupId>org.springframework</groupId>
-        <artifactId>spring-webmvc</artifactId>
-        <version>${spring-framework.version}</version>
       </dependency>
 
       <!-- Jasper Reports -->
@@ -180,21 +158,6 @@
           <groupId>com.google.code.maven-replacer-plugin</groupId>
           <artifactId>maven-replacer-plugin</artifactId>
           <version>${maven-replacer-plugin.version}</version>
-        </plugin>
-
-        <!-- GraalVM Build Tools -->
-        <plugin>
-          <groupId>org.graalvm.buildtools</groupId>
-          <artifactId>native-maven-plugin</artifactId>
-          <version>${native-build-tools-plugin.version}</version>
-          <extensions>true</extensions>
-          <configuration>
-            <classesDirectory>${project.build.outputDirectory}</classesDirectory>
-            <metadataRepository>
-              <enabled>true</enabled>
-            </metadataRepository>
-            <requiredVersion>22.3</requiredVersion>
-          </configuration>
         </plugin>
       </plugins>
     </pluginManagement>
