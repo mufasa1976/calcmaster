@@ -84,6 +84,13 @@
       <scope>runtime</scope>
     </dependency>
 
+    <!-- Webjars Locator -->
+    <dependency>
+      <groupId>org.webjars</groupId>
+      <artifactId>webjars-locator-core</artifactId>
+      <scope>runtime</scope>
+    </dependency>
+
     <!-- Test Dependencies -->
 
     <!-- JUnit 5 Runner -->

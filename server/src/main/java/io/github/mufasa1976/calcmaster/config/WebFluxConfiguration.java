@@ -44,7 +44,9 @@ public class WebFluxConfiguration implements WebFluxConfigurer {
   private final String prefix;
   private final ThymeleafReactiveViewResolver thymeleafReactiveViewResolver;
 
-  public WebFluxConfiguration(@Value("${spring.thymeleaf.prefix:" + ThymeleafProperties.DEFAULT_PREFIX + "}") String prefix, ThymeleafReactiveViewResolver thymeleafReactiveViewResolver) {
+  public WebFluxConfiguration(
+      @Value("${spring.thymeleaf.prefix:" + ThymeleafProperties.DEFAULT_PREFIX + "}") String prefix,
+      ThymeleafReactiveViewResolver thymeleafReactiveViewResolver) {
     this.prefix = StringUtils.appendIfMissing(prefix, "/");
     this.thymeleafReactiveViewResolver = thymeleafReactiveViewResolver;
   }
@@ -76,11 +78,16 @@ public class WebFluxConfiguration implements WebFluxConfigurer {
     return ServerResponse.temporaryRedirect(request.uriBuilder().path(locale.getLanguage()).build()).build();
   }
 
+  /*
+   * reroute every Request to /de or /en to the corresponding index.html (/de/index.html, /en/index.html)
+   * except the real Resource-Files of Angular (defined by constant ANGULAR_RESOURCES) and the assets-Directory
+   */
   private Consumer<Locale> addLocalizedLandingPageTo(RouterFunctions.Builder routerFunctionBuilder) {
     return language -> {
       var requestPredicate = Stream.of(ANGULAR_RESOURCES)
                                    .map(angularResource -> "/" + language.getLanguage() + angularResource)
-                                   .reduce(GET("/" + language.getLanguage() + "/**"), (predicate, route) -> predicate.and(GET(route).negate()), RequestPredicate::and);
+                                   .reduce(GET("/" + language.getLanguage() + "/**"),
+                                       (predicate, route) -> predicate.and(GET(route).negate()), RequestPredicate::and);
       requestPredicate = requestPredicate.and(GET("/" + language.getLanguage() + "/assets/**").negate());
       routerFunctionBuilder.route(requestPredicate, request -> ServerResponse.ok()
                                                                              .contentType(MediaType.TEXT_HTML)

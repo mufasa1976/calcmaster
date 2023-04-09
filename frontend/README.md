@@ -79,7 +79,7 @@ be set to the Default-Language (specified by `i18n/sourceLocale`).
 }
 ```
 
-Also add a [Proxy-Configuration](proxy.conf.json) to the `serve` Section so that all Calls to `/api` would be redirected
+Also add a [Proxy-Configuration](src/proxy.conf.mjs) to the `serve` Section so that all Calls to `/api` would be redirected
 to the Spring-Boot Application.
 
 ```yaml
@@ -96,7 +96,7 @@ to the Spring-Boot Application.
         "configurations": {
           "development": {
             "browserTarget": "calcmaster:build:development",
-            "proxyConfig": "proxy.conf.json"
+            "proxyConfig": "src/proxy.conf.mjs"
           }
         },
         "defaultConfiguration": "development"
