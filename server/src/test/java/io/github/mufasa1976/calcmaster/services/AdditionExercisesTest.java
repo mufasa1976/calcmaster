@@ -33,10 +33,8 @@ class AdditionExercisesTest implements DigitTest {
                              .numberOfCalculations(NUMBER_OF_EXERCISES)
                              .additionProperties(
                                  AdditionProperties.builder()
-                                                   .minSum(0)
                                                    .maxSum(10)
                                                    .secondAddendRounding(1)
-                                                   .includeZeroOnOperand(true)
                                                    .transgression(UNLIMITED_TRANSGRESSIONS)
                                                    .build())
                              .build();
@@ -56,8 +54,8 @@ class AdditionExercisesTest implements DigitTest {
   }
 
   @Test
-  @DisplayName("Addition Exercises with minSum = 10 and maxSum = 100 and secondAddendRounding = 10 without Zero on Operands and vertical Layout")
-  void additionExercisesWithMinSum10AndMaxSum100AndSecondAddendRounding10AndNoZeroAsOperandAndVerticalLayout() {
+  @DisplayName("Addition Exercises with maxSum = 100 and minOperand = 1 and secondAddendRounding = 10 and vertical Layout")
+  void additionExercisesWithMaxSum100AndMinOperand1AndSecondAddendRounding10AndVerticalLayout() {
     // GIVEN
     final var calculationProperties =
         CalculationProperties.builder()
@@ -66,10 +64,9 @@ class AdditionExercisesTest implements DigitTest {
                              .verticalDisplay(true)
                              .additionProperties(
                                  AdditionProperties.builder()
-                                                   .minSum(10)
                                                    .maxSum(100)
+                                                   .minOperand(1)
                                                    .secondAddendRounding(10)
-                                                   .includeZeroOnOperand(false)
                                                    .transgression(UNLIMITED_TRANSGRESSIONS)
                                                    .build())
                              .build();
@@ -85,7 +82,6 @@ class AdditionExercisesTest implements DigitTest {
         .hasSize(NUMBER_OF_EXERCISES)
         .allMatch(calculation -> calculation.getType() == Calculation.Type.CALCULATION)
         .allMatch(calculation -> calculation.getOperand1() + calculation.getOperand2() == calculation.getResult())
-        .noneMatch(calculation -> calculation.getResult() < 10)
         .noneMatch(calculation -> calculation.getResult() > 100)
         .allMatch(calculation -> calculation.getOperand2() % 10 == 0)
         .noneMatch(calculation -> calculation.getOperand1() == 0)
@@ -102,10 +98,8 @@ class AdditionExercisesTest implements DigitTest {
                              .numberOfCalculations(NUMBER_OF_EXERCISES)
                              .additionProperties(
                                  AdditionProperties.builder()
-                                                   .minSum(0)
                                                    .maxSum(1_000_000)
                                                    .secondAddendRounding(100)
-                                                   .includeZeroOnOperand(true)
                                                    .transgression(UNLIMITED_TRANSGRESSIONS)
                                                    .build())
                              .build();
@@ -135,9 +129,7 @@ class AdditionExercisesTest implements DigitTest {
                              .numberOfCalculations(NUMBER_OF_EXERCISES)
                              .additionProperties(
                                  AdditionProperties.builder()
-                                                   .minSum(0)
                                                    .maxSum(100_000)
-                                                   .includeZeroOnOperand(false)
                                                    .transgression(25) // 2nd and 3rd digit -> [11001] = 25
                                                    .build())
                              .build();
@@ -172,7 +164,6 @@ class AdditionExercisesTest implements DigitTest {
                              .additionProperties(
                                  AdditionProperties.builder()
                                                    .maxSum(20)
-                                                   .includeZeroOnOperand(false)
                                                    .transgression(2) // 1st digit = [10] = 2
                                                    .build())
                              .build();
@@ -193,8 +184,8 @@ class AdditionExercisesTest implements DigitTest {
   }
 
   @Test
-  @DisplayName("Addition Exercises with maxSum = 100 and secondAddendRounding = 0 and includeZeroOnOperand = false")
-  void additionExcercisesWithMaxSum100AndSecondAddendRounding0AndIncludeZeroOnOperandFalse() {
+  @DisplayName("Addition Exercises with maxSum = 100 and minOperand = 1 and secondAddendRounding = 0")
+  void additionExcercisesWithMaxSum100AndMinOperand1AndSecondAddendRounding0() {
     // GIVEN
     final var calculationProperties =
         CalculationProperties.builder()
@@ -203,9 +194,9 @@ class AdditionExercisesTest implements DigitTest {
                              .additionProperties(
                                  AdditionProperties.builder()
                                                    .maxSum(100)
+                                                   .minOperand(1)
                                                    .secondAddendRounding(0)
                                                    .transgression(UNLIMITED_TRANSGRESSIONS)
-                                                   .includeZeroOnOperand(false)
                                                    .build())
                              .build();
 
@@ -223,5 +214,71 @@ class AdditionExercisesTest implements DigitTest {
         .noneMatch(calculation -> calculation.getResult() > 100)
         .noneMatch(calculation -> calculation.getOperand2() >= 10)
         .noneMatch(calculation -> calculation.getOperand2() == 0);
+  }
+
+  @Test
+  @DisplayName("Addition Exercises with maxSum = 30 and minOperand = 10")
+  void additionExercisesWithMaxSum30AndMinOperand10() {
+    // GIVEN
+    final var calculationProperties =
+        CalculationProperties.builder()
+                             .operators(List.of(Operator.ADD))
+                             .numberOfCalculations(NUMBER_OF_EXERCISES)
+                             .additionProperties(
+                                 AdditionProperties.builder()
+                                                   .maxSum(30)
+                                                   .minOperand(10)
+                                                   .secondAddendRounding(1)
+                                                   .transgression(UNLIMITED_TRANSGRESSIONS)
+                                                   .build())
+                             .build();
+
+    // WHEN
+    final var calculationsCandidate = calculationService.createCalculations(calculationProperties, Locale.ENGLISH);
+
+    // THEN
+    assertThat(calculationsCandidate).isPresent();
+    final var calculations = calculationsCandidate.orElseThrow();
+    assertThat(calculations).extracting(Calculations::subheader, Calculations::verticalDisplay).contains(null, false);
+    assertThat(calculations.calculations())
+        .hasSize(NUMBER_OF_EXERCISES)
+        .allMatch(calculation -> calculation.getType() == Calculation.Type.CALCULATION)
+        .allMatch(calculation -> calculation.getOperand1() + calculation.getOperand2() == calculation.getResult())
+        .noneMatch(calculation -> calculation.getResult() > 30)
+        .noneMatch(calculation -> calculation.getOperand1() < 10)
+        .noneMatch(calculation -> calculation.getOperand2() < 10);
+  }
+
+  @Test
+  @DisplayName("Addition Exercises with maxSum = 1,000,000 and minOperand = 100,000")
+  void additionExercisesWithMaxSum1000000AndMinOperand100000() {
+    // GIVEN
+    final var calculationProperties =
+        CalculationProperties.builder()
+                             .operators(List.of(Operator.ADD))
+                             .numberOfCalculations(NUMBER_OF_EXERCISES)
+                             .additionProperties(
+                                 AdditionProperties.builder()
+                                                   .maxSum(1_000_000)
+                                                   .minOperand(100_000)
+                                                   .secondAddendRounding(1)
+                                                   .transgression(UNLIMITED_TRANSGRESSIONS)
+                                                   .build())
+                             .build();
+
+    // WHEN
+    final var calculationsCandidate = calculationService.createCalculations(calculationProperties, Locale.ENGLISH);
+
+    // THEN
+    assertThat(calculationsCandidate).isPresent();
+    final var calculations = calculationsCandidate.orElseThrow();
+    assertThat(calculations).extracting(Calculations::subheader, Calculations::verticalDisplay).contains(null, false);
+    assertThat(calculations.calculations())
+        .hasSize(NUMBER_OF_EXERCISES)
+        .allMatch(calculation -> calculation.getType() == Calculation.Type.CALCULATION)
+        .allMatch(calculation -> calculation.getOperand1() + calculation.getOperand2() == calculation.getResult())
+        .noneMatch(calculation -> calculation.getResult() > 1_000_000)
+        .noneMatch(calculation -> calculation.getOperand1() < 100_000)
+        .noneMatch(calculation -> calculation.getOperand2() < 100_000);
   }
 }

@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { AdditionProperties, initialAdditionProperties } from "../../../../shared/addition-properties";
-import { MatSlideToggleChange } from "@angular/material/slide-toggle";
 import { UNLIMITED_TRANSACTIONS } from "../../../../shared/constants";
 import { MatCheckboxChange } from "@angular/material/checkbox";
 
@@ -21,17 +20,6 @@ export class AdditionOptionsComponent {
 
   constructor() {}
 
-  get minSum() {
-    return this.properties.minSum;
-  }
-
-  set minSum(minSum: number) {
-    this._propertiesEmitter.emit({
-      ...this.properties,
-      minSum: minSum
-    })
-  }
-
   get maxSum() {
     return this.properties.maxSum;
   }
@@ -45,6 +33,19 @@ export class AdditionOptionsComponent {
       secondAddendRounding = 10;
     } else if (maxSum <= 1000 && secondAddendRounding > 100) {
       secondAddendRounding = 100;
+    }
+
+    let minOperand = this.properties.minOperand;
+    if (maxSum <= 20 && minOperand > 1) {
+      minOperand = 1;
+    } else if (maxSum <= 100 && minOperand > 10) {
+      minOperand = 10;
+    } else if (maxSum <= 1000 && minOperand > 100) {
+      minOperand = 100;
+    } else if (maxSum <= 10000 && minOperand > 1000) {
+      minOperand = 1000;
+    } else if (maxSum <= 100000 && minOperand > 10000) {
+      minOperand = 10000;
     }
 
     if (maxSum < 20 && transgression > UNLIMITED_TRANSACTIONS) {
@@ -62,17 +63,12 @@ export class AdditionOptionsComponent {
       transgression = UNLIMITED_TRANSACTIONS;
     }
 
-    let minSum = this.properties.minSum;
-    if (maxSum < 20 || transgression > UNLIMITED_TRANSACTIONS) {
-      minSum = 0;
-    }
-
     this._propertiesEmitter.emit({
       ...this.properties,
-      minSum: minSum,
       maxSum: maxSum,
       secondAddendRounding: secondAddendRounding,
-      transgression: transgression
+      transgression: transgression,
+      minOperand: minOperand
     })
   }
 
@@ -81,28 +77,19 @@ export class AdditionOptionsComponent {
   }
 
   set secondAddendRounding(secondAddendRounding: number) {
-    let includeZeroOnOperand = this.properties.includeZeroOnOperand;
     let transgression = this.properties.transgression;
+    let minOperand = this.properties.minOperand;
     if (secondAddendRounding === 0 || secondAddendRounding > 1) {
-      includeZeroOnOperand = false;
       transgression = -1;
+      if (minOperand > 1) {
+        minOperand = 1;
+      }
     }
     this._propertiesEmitter.emit({
       ...this.properties,
       secondAddendRounding: secondAddendRounding,
-      includeZeroOnOperand: includeZeroOnOperand,
-      transgression: transgression
-    })
-  }
-
-  get includeZeroOnOperand() {
-    return this.properties.includeZeroOnOperand;
-  }
-
-  toggleIncludeZeroOnOperand(event: MatSlideToggleChange) {
-    this._propertiesEmitter.emit({
-      ...this.properties,
-      includeZeroOnOperand: event.checked
+      transgression: transgression,
+      minOperand: minOperand
     })
   }
 
@@ -113,7 +100,6 @@ export class AdditionOptionsComponent {
   changeUnlimitedTransgression(event: MatCheckboxChange) {
     const maxSum = this.properties.maxSum;
     let transgression = this.ONE;
-    let includeZeroAsOperand = this.properties.includeZeroOnOperand;
     if (maxSum > 100) {
       transgression |= this.TEN;
     }
@@ -128,8 +114,7 @@ export class AdditionOptionsComponent {
     }
     this._propertiesEmitter.emit({
       ...this.properties,
-      transgression: event.checked ? transgression : -1,
-      includeZeroOnOperand: event.checked ? true : includeZeroAsOperand
+      transgression: event.checked ? transgression : -1
     })
   }
 
@@ -141,6 +126,17 @@ export class AdditionOptionsComponent {
     this._propertiesEmitter.emit({
       ...this.properties,
       transgression: this.properties.transgression ^ digit,
+    })
+  }
+
+  get minOperand() {
+    return this.properties.minOperand;
+  }
+
+  set minOperand(minOperand: number) {
+    this._propertiesEmitter.emit({
+      ...this.properties,
+      minOperand: minOperand
     })
   }
 }

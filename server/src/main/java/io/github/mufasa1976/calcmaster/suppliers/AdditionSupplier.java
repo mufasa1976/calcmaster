@@ -34,23 +34,27 @@ public class AdditionSupplier extends AbstractCalculationSupplier {
   }
 
   private long[] getOperandsWithoutAnyTransgression() {
-    final var lowerBoundSecondAddend = properties.secondAddendRounding() > 1 ? properties.secondAddendRounding() : properties.includeZeroOnOperand() ? 0 : 1;
+    var lowerBoundSecondAddend = properties.minOperand();
+    if (properties.secondAddendRounding() > 1) {
+      lowerBoundSecondAddend = properties.secondAddendRounding();
+    }
+
     var secondAddend = properties.secondAddendRounding() == 0
-        ? random.nextInt(properties.includeZeroOnOperand() ? 0 : 1, 10)
-        : (random.nextInt(lowerBoundSecondAddend, properties.maxSum() + 1) / properties.secondAddendRounding()) * properties.secondAddendRounding();
-    var sum = random.nextInt(Math.max(secondAddend, properties.minSum()), properties.maxSum() + 1);
-    for (int i = 0; !properties.includeZeroOnOperand() && sum == secondAddend && i < maxTriesToFindSumOfAdditionNotEqualToSecondAddend; i++) {
+        ? random.nextInt(properties.minOperand(), 10)
+        : (random.nextInt(lowerBoundSecondAddend, properties.maxSum() - properties.minOperand() + 1) / properties.secondAddendRounding()) * properties.secondAddendRounding();
+    var sum = random.nextInt(secondAddend + properties.minOperand(), properties.maxSum() + 1);
+    for (int i = 0; sum == secondAddend && i < maxTriesToFindSumOfAdditionNotEqualToSecondAddend; i++) {
       secondAddend = properties.secondAddendRounding() == 0
-          ? random.nextInt(1, 10)
-          : (random.nextInt(lowerBoundSecondAddend, properties.maxSum() + 1) / properties.secondAddendRounding()) * properties.secondAddendRounding();
-      sum = random.nextInt(Math.max(secondAddend, properties.minSum()), properties.maxSum() + 1);
+          ? random.nextInt(properties.minOperand(), 10)
+          : (random.nextInt(lowerBoundSecondAddend, properties.maxSum() - properties.minOperand() + 1) / properties.secondAddendRounding()) * properties.secondAddendRounding();
+      sum = random.nextInt(secondAddend + properties.minOperand(), properties.maxSum() + 1);
     }
     var firstAddend = sum - secondAddend;
     if (properties.secondAddendRounding() < 10 && firstAddend < secondAddend) {
       firstAddend = secondAddend;
       secondAddend = sum - firstAddend;
     }
-    return new long[]{firstAddend, secondAddend};
+    return new long[] {firstAddend, secondAddend};
   }
 
   private long[] getOperandsWithTransgression() {
@@ -82,9 +86,9 @@ public class AdditionSupplier extends AbstractCalculationSupplier {
       remainderOfPreviousDigit = (operand1[operand1.length - digit - 1] + operand2[operand2.length - digit - 1]) / 10;
     } while (++digit < digits);
 
-    final long[] operands = new long[]{getValue(operand1), getValue(operand2)};
+    final long[] operands = new long[] {getValue(operand1), getValue(operand2)};
     if (operands[0] < operands[1]) {
-      return new long[]{operands[1], operands[0]};
+      return new long[] {operands[1], operands[0]};
     }
     return operands;
   }

@@ -130,20 +130,12 @@
           <context context-type="linenumber">38</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="1041061111592663374" datatype="html">
-        <source>minimale Summe</source>
-        <target>minimum Sum</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/components/options/addition/addition-options.component.html</context>
-          <context context-type="linenumber">2</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="7836516450578589347" datatype="html">
         <source>maximale Summe</source>
         <target>maximum Sum</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/options/addition/addition-options.component.html</context>
-          <context context-type="linenumber">9</context>
+          <context context-type="linenumber">2</context>
         </context-group>
       </trans-unit>
       <trans-unit id="404591326178995740" datatype="html">
@@ -151,11 +143,11 @@
         <target>up to 5</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/options/addition/addition-options.component.html</context>
-          <context context-type="linenumber">11</context>
+          <context context-type="linenumber">4</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/options/subtraction/subtraction-options.component.html</context>
-          <context context-type="linenumber">11</context>
+          <context context-type="linenumber">4</context>
         </context-group>
       </trans-unit>
       <trans-unit id="7067141121304635266" datatype="html">
@@ -163,11 +155,11 @@
         <target>up to 10</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/options/addition/addition-options.component.html</context>
-          <context context-type="linenumber">12</context>
+          <context context-type="linenumber">5</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/options/subtraction/subtraction-options.component.html</context>
-          <context context-type="linenumber">12</context>
+          <context context-type="linenumber">5</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3894024154935702815" datatype="html">
@@ -175,7 +167,7 @@
         <target>up to 20</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/options/addition/addition-options.component.html</context>
-          <context context-type="linenumber">13</context>
+          <context context-type="linenumber">6</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/options/division/division-options.component.html</context>
@@ -187,7 +179,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/options/subtraction/subtraction-options.component.html</context>
-          <context context-type="linenumber">13</context>
+          <context context-type="linenumber">6</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4854931514951916144" datatype="html">
@@ -195,7 +187,7 @@
         <target>up to 30</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/options/addition/addition-options.component.html</context>
-          <context context-type="linenumber">14</context>
+          <context context-type="linenumber">7</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/options/division/division-options.component.html</context>
@@ -207,7 +199,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/options/subtraction/subtraction-options.component.html</context>
-          <context context-type="linenumber">14</context>
+          <context context-type="linenumber">7</context>
         </context-group>
       </trans-unit>
       <trans-unit id="503959534640690658" datatype="html">
@@ -215,7 +207,7 @@
         <target>up to 40</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/options/addition/addition-options.component.html</context>
-          <context context-type="linenumber">15</context>
+          <context context-type="linenumber">8</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/options/division/division-options.component.html</context>
@@ -227,7 +219,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/options/subtraction/subtraction-options.component.html</context>
-          <context context-type="linenumber">15</context>
+          <context context-type="linenumber">8</context>
         </context-group>
       </trans-unit>
       <trans-unit id="916899165800077566" datatype="html">
@@ -235,7 +227,7 @@
         <target>up to 50</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/options/addition/addition-options.component.html</context>
-          <context context-type="linenumber">16</context>
+          <context context-type="linenumber">9</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/options/division/division-options.component.html</context>
@@ -247,7 +239,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/options/subtraction/subtraction-options.component.html</context>
-          <context context-type="linenumber">16</context>
+          <context context-type="linenumber">9</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3086270953530538360" datatype="html">
@@ -255,7 +247,7 @@
         <target>up to 60</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/options/addition/addition-options.component.html</context>
-          <context context-type="linenumber">17</context>
+          <context context-type="linenumber">10</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/options/division/division-options.component.html</context>
@@ -267,7 +259,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/options/subtraction/subtraction-options.component.html</context>
-          <context context-type="linenumber">17</context>
+          <context context-type="linenumber">10</context>
         </context-group>
       </trans-unit>
       <trans-unit id="338207462770736285" datatype="html">
@@ -275,7 +267,7 @@
         <target>up to 70</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/options/addition/addition-options.component.html</context>
-          <context context-type="linenumber">18</context>
+          <context context-type="linenumber">11</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/options/division/division-options.component.html</context>
@@ -287,7 +279,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/options/subtraction/subtraction-options.component.html</context>
-          <context context-type="linenumber">18</context>
+          <context context-type="linenumber">11</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3953547073269858997" datatype="html">
@@ -295,7 +287,7 @@
         <target>up to 80</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/options/addition/addition-options.component.html</context>
-          <context context-type="linenumber">19</context>
+          <context context-type="linenumber">12</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/options/division/division-options.component.html</context>
@@ -307,7 +299,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/options/subtraction/subtraction-options.component.html</context>
-          <context context-type="linenumber">19</context>
+          <context context-type="linenumber">12</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3611422979760368467" datatype="html">
@@ -315,7 +307,7 @@
         <target>up to 90</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/options/addition/addition-options.component.html</context>
-          <context context-type="linenumber">20</context>
+          <context context-type="linenumber">13</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/options/division/division-options.component.html</context>
@@ -327,7 +319,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/options/subtraction/subtraction-options.component.html</context>
-          <context context-type="linenumber">20</context>
+          <context context-type="linenumber">13</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1801315551090097799" datatype="html">
@@ -335,7 +327,7 @@
         <target>up to 100</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/options/addition/addition-options.component.html</context>
-          <context context-type="linenumber">21</context>
+          <context context-type="linenumber">14</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/options/division/division-options.component.html</context>
@@ -351,7 +343,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/options/subtraction/subtraction-options.component.html</context>
-          <context context-type="linenumber">21</context>
+          <context context-type="linenumber">14</context>
         </context-group>
       </trans-unit>
       <trans-unit id="7612473672329075944" datatype="html">
@@ -359,7 +351,7 @@
         <target>up to 1,000</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/options/addition/addition-options.component.html</context>
-          <context context-type="linenumber">22</context>
+          <context context-type="linenumber">15</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/options/division/division-options.component.html</context>
@@ -375,7 +367,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/options/subtraction/subtraction-options.component.html</context>
-          <context context-type="linenumber">22</context>
+          <context context-type="linenumber">15</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1123066181859889493" datatype="html">
@@ -383,7 +375,7 @@
         <target>up to 10,000</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/options/addition/addition-options.component.html</context>
-          <context context-type="linenumber">23</context>
+          <context context-type="linenumber">16</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/options/division/division-options.component.html</context>
@@ -399,7 +391,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/options/subtraction/subtraction-options.component.html</context>
-          <context context-type="linenumber">23</context>
+          <context context-type="linenumber">16</context>
         </context-group>
       </trans-unit>
       <trans-unit id="7524429168319823345" datatype="html">
@@ -407,7 +399,7 @@
         <target>up to 100,000</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/options/addition/addition-options.component.html</context>
-          <context context-type="linenumber">24</context>
+          <context context-type="linenumber">17</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/options/division/division-options.component.html</context>
@@ -423,7 +415,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/options/subtraction/subtraction-options.component.html</context>
-          <context context-type="linenumber">24</context>
+          <context context-type="linenumber">17</context>
         </context-group>
       </trans-unit>
       <trans-unit id="7861768224389228863" datatype="html">
@@ -431,7 +423,7 @@
         <target>up to 1,000,000</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/options/addition/addition-options.component.html</context>
-          <context context-type="linenumber">25</context>
+          <context context-type="linenumber">18</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/options/division/division-options.component.html</context>
@@ -447,7 +439,51 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/options/subtraction/subtraction-options.component.html</context>
-          <context context-type="linenumber">25</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8061164320393477818" datatype="html">
+        <source>minimaler Operand</source>
+        <target>minimum Operand</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/options/addition/addition-options.component.html</context>
+          <context context-type="linenumber">22</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6177086562177568686" datatype="html">
+        <source>1.000</source>
+        <target>1,000</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/options/addition/addition-options.component.html</context>
+          <context context-type="linenumber">28</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/options/subtraction/subtraction-options.component.html</context>
+          <context context-type="linenumber">28</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6568220203812332707" datatype="html">
+        <source>10.000</source>
+        <target>10,000</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/options/addition/addition-options.component.html</context>
+          <context context-type="linenumber">29</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/options/subtraction/subtraction-options.component.html</context>
+          <context context-type="linenumber">29</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1976791886034035346" datatype="html">
+        <source>100.000</source>
+        <target>100,000</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/options/addition/addition-options.component.html</context>
+          <context context-type="linenumber">30</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/options/subtraction/subtraction-options.component.html</context>
+          <context context-type="linenumber">30</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1995175148645275413" datatype="html">
@@ -455,7 +491,7 @@
         <target>second Addend rounded up to</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/options/addition/addition-options.component.html</context>
-          <context context-type="linenumber">29</context>
+          <context context-type="linenumber">34</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8774219476748624941" datatype="html">
@@ -463,11 +499,23 @@
         <target>whole Numbers</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/options/addition/addition-options.component.html</context>
-          <context context-type="linenumber">31</context>
+          <context context-type="linenumber">36</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/options/subtraction/subtraction-options.component.html</context>
-          <context context-type="linenumber">31</context>
+          <context context-type="linenumber">36</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3214576255692583294" datatype="html">
+        <source>nur einstellig</source>
+        <target>only single digits</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/options/addition/addition-options.component.html</context>
+          <context context-type="linenumber">37</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/options/subtraction/subtraction-options.component.html</context>
+          <context context-type="linenumber">37</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4082888596869142362" datatype="html">
@@ -475,11 +523,11 @@
         <target>whole Tens (10, 20, ...)</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/options/addition/addition-options.component.html</context>
-          <context context-type="linenumber">32</context>
+          <context context-type="linenumber">38</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/options/subtraction/subtraction-options.component.html</context>
-          <context context-type="linenumber">32</context>
+          <context context-type="linenumber">38</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1664895424037820569" datatype="html">
@@ -487,11 +535,11 @@
         <target>whole Hundreds (100, 200, ...)</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/options/addition/addition-options.component.html</context>
-          <context context-type="linenumber">33</context>
+          <context context-type="linenumber">39</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/options/subtraction/subtraction-options.component.html</context>
-          <context context-type="linenumber">33</context>
+          <context context-type="linenumber">39</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5314067178906812684" datatype="html">
@@ -499,25 +547,11 @@
         <target>whole Thousands (1,000, 2,000, ...)</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/options/addition/addition-options.component.html</context>
-          <context context-type="linenumber">34</context>
+          <context context-type="linenumber">40</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/options/subtraction/subtraction-options.component.html</context>
-          <context context-type="linenumber">34</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="3397872377795575436" datatype="html">
-        <source> 0 als Operand zulassen?
-</source>
-        <target> let 0 be an Operand?
-</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/components/options/addition/addition-options.component.html</context>
-          <context context-type="linenumber">41,43</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/components/options/subtraction/subtraction-options.component.html</context>
-          <context context-type="linenumber">41,43</context>
+          <context context-type="linenumber">40</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3740585351943942046" datatype="html">
@@ -525,7 +559,7 @@
         <target> enclose Exceedings </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/options/addition/addition-options.component.html</context>
-          <context context-type="linenumber">45,47</context>
+          <context context-type="linenumber">44,46</context>
         </context-group>
       </trans-unit>
       <trans-unit id="7768967831543034703" datatype="html">
@@ -533,7 +567,7 @@
         <target> allow Exceed on ones Place </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/options/addition/addition-options.component.html</context>
-          <context context-type="linenumber">51,53</context>
+          <context context-type="linenumber">50,52</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/options/multiplication/multiplication-options.component.html</context>
@@ -545,7 +579,7 @@
         <target> allow Exceed on tens Place </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/options/addition/addition-options.component.html</context>
-          <context context-type="linenumber">56,58</context>
+          <context context-type="linenumber">55,57</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/options/multiplication/multiplication-options.component.html</context>
@@ -557,7 +591,7 @@
         <target> allow Exceed on hundreds Place </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/options/addition/addition-options.component.html</context>
-          <context context-type="linenumber">61,63</context>
+          <context context-type="linenumber">60,62</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/options/multiplication/multiplication-options.component.html</context>
@@ -569,7 +603,7 @@
         <target> allow Exceed on thousands Place </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/options/addition/addition-options.component.html</context>
-          <context context-type="linenumber">66,68</context>
+          <context context-type="linenumber">65,67</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/options/multiplication/multiplication-options.component.html</context>
@@ -581,7 +615,7 @@
         <target> allow Exceed on tenthousands Place </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/options/addition/addition-options.component.html</context>
-          <context context-type="linenumber">71,73</context>
+          <context context-type="linenumber">70,72</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/options/multiplication/multiplication-options.component.html</context>
@@ -826,20 +860,20 @@
           <context context-type="linenumber">18</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="6791018251343016295" datatype="html">
-        <source>minimale Differenz</source>
+      <trans-unit id="2063450623288773405" datatype="html">
+        <source>maximale Differenz</source>
         <target>minimum Difference</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/options/subtraction/subtraction-options.component.html</context>
           <context context-type="linenumber">2</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="2063450623288773405" datatype="html">
-        <source>maximale Differenz</source>
-        <target>maximum Difference</target>
+      <trans-unit id="5649840682959694432" datatype="html">
+        <source>minimaler Subtrahend</source>
+        <target>minimum Subtrahend</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/options/subtraction/subtraction-options.component.html</context>
-          <context context-type="linenumber">9</context>
+          <context context-type="linenumber">22</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1547057986932580394" datatype="html">
@@ -847,7 +881,7 @@
         <target>Subtrahend rounded up to</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/options/subtraction/subtraction-options.component.html</context>
-          <context context-type="linenumber">29</context>
+          <context context-type="linenumber">34</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8108348497347404782" datatype="html">
@@ -855,7 +889,7 @@
         <target> enclose Underruns </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/options/subtraction/subtraction-options.component.html</context>
-          <context context-type="linenumber">45,47</context>
+          <context context-type="linenumber">44,46</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3185749320906088651" datatype="html">
@@ -863,7 +897,7 @@
         <target> allow Underrun on ones Place </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/options/subtraction/subtraction-options.component.html</context>
-          <context context-type="linenumber">51,53</context>
+          <context context-type="linenumber">50,52</context>
         </context-group>
       </trans-unit>
       <trans-unit id="566242523302700196" datatype="html">
@@ -871,7 +905,7 @@
         <target> allow Underrun on tens Place </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/options/subtraction/subtraction-options.component.html</context>
-          <context context-type="linenumber">56,58</context>
+          <context context-type="linenumber">55,57</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6381380150225984312" datatype="html">
@@ -879,7 +913,7 @@
         <target> allow Underrun on hundreds Place </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/options/subtraction/subtraction-options.component.html</context>
-          <context context-type="linenumber">61,63</context>
+          <context context-type="linenumber">60,62</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3356118620984624733" datatype="html">
@@ -887,7 +921,7 @@
         <target> allow Underrun on thousands Place </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/options/subtraction/subtraction-options.component.html</context>
-          <context context-type="linenumber">66,68</context>
+          <context context-type="linenumber">65,67</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6636105651156426354" datatype="html">
@@ -895,7 +929,7 @@
         <target> allow Underrun on tenthousands Place </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/options/subtraction/subtraction-options.component.html</context>
-          <context context-type="linenumber">71,73</context>
+          <context context-type="linenumber">70,72</context>
         </context-group>
       </trans-unit>
     </body>

@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { initialSubtractionProperties, SubtractionProperties } from "../../../../shared/subtraction-properties";
-import { MatSlideToggleChange } from "@angular/material/slide-toggle";
 import { MatCheckboxChange } from "@angular/material/checkbox";
 import { UNLIMITED_TRANSACTIONS } from "../../../../shared/constants";
 
@@ -22,17 +21,6 @@ export class SubtractionOptionsComponent {
   constructor() {
   }
 
-  get minDifference() {
-    return this.properties.minDifference;
-  }
-
-  set minDifference(minDifference: number) {
-    this._propertiesEmitter.emit({
-      ...this.properties,
-      minDifference: minDifference
-    })
-  }
-
   get maxDifference() {
     return this.properties.maxDifference;
   }
@@ -46,6 +34,19 @@ export class SubtractionOptionsComponent {
       subtrahendRounding = 10;
     } else if (maxDifference <= 1000 && subtrahendRounding > 100) {
       subtrahendRounding = 100;
+    }
+
+    let minSubtrahend = this.properties.minSubtrahend;
+    if (maxDifference <= 20 && minSubtrahend > 1) {
+      minSubtrahend = 1;
+    } else if (maxDifference <= 100 && minSubtrahend > 10) {
+      minSubtrahend = 10;
+    } else if (maxDifference <= 1000 && minSubtrahend > 100) {
+      minSubtrahend = 100;
+    } else if (maxDifference <= 10000 && minSubtrahend > 1000) {
+      minSubtrahend = 1000;
+    } else if (maxDifference <= 100000 && minSubtrahend > 10000) {
+      minSubtrahend = 10000;
     }
 
     if (maxDifference < 20 && transgression > UNLIMITED_TRANSACTIONS) {
@@ -63,17 +64,23 @@ export class SubtractionOptionsComponent {
       transgression = UNLIMITED_TRANSACTIONS;
     }
 
-    let minDifference = this.properties.minDifference;
-    if (minDifference < 20 || transgression > UNLIMITED_TRANSACTIONS) {
-      minDifference = 0;
-    }
-
     this._propertiesEmitter.emit({
       ...this.properties,
-      minDifference: minDifference,
       maxDifference: maxDifference,
       subtrahendRounding: subtrahendRounding,
-      transgression: transgression
+      transgression: transgression,
+      minSubtrahend: minSubtrahend
+    })
+  }
+
+  get minSubtrahend() {
+    return this.properties.minSubtrahend;
+  }
+
+  set minSubtrahend(minSubtrahend: number) {
+    this._propertiesEmitter.emit({
+      ...this.properties,
+      minSubtrahend: minSubtrahend
     })
   }
 
@@ -82,28 +89,19 @@ export class SubtractionOptionsComponent {
   }
 
   set subtrahendRounding(subtrahendRounding: number) {
-    let includeZeroOnOperand = this.properties.includeZeroOnOperand;
     let transgression = this.properties.transgression;
+    let minSubtrahend = this.properties.minSubtrahend;
     if (subtrahendRounding === 0 || subtrahendRounding > 1) {
-      includeZeroOnOperand = false;
       transgression = -1;
+      if (minSubtrahend > 1) {
+        minSubtrahend = 1;
+      }
     }
     this._propertiesEmitter.emit({
       ...this.properties,
       subtrahendRounding: subtrahendRounding,
-      includeZeroOnOperand: includeZeroOnOperand,
-      transgression: transgression
-    })
-  }
-
-  get includeZeroOnOperand() {
-    return this.properties.includeZeroOnOperand;
-  }
-
-  toggleIncludeZeroOnOperand(event: MatSlideToggleChange) {
-    this._propertiesEmitter.emit({
-      ...this.properties,
-      includeZeroOnOperand: event.checked
+      transgression: transgression,
+      minSubtrahend: minSubtrahend
     })
   }
 
@@ -114,7 +112,6 @@ export class SubtractionOptionsComponent {
   changeUnlimitedTransgression(event: MatCheckboxChange) {
     const maxDifference = this.properties.maxDifference;
     let transgression = this.ONE;
-    let includeZeroAsOperand = this.properties.includeZeroOnOperand;
     if (maxDifference > 100) {
       transgression |= this.TEN;
     }
@@ -129,8 +126,7 @@ export class SubtractionOptionsComponent {
     }
     this._propertiesEmitter.emit({
       ...this.properties,
-      transgression: event.checked ? transgression : -1,
-      includeZeroOnOperand: event.checked ? true : includeZeroAsOperand
+      transgression: event.checked ? transgression : -1
     })
   }
 

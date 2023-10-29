@@ -34,10 +34,8 @@ public class SubtractionExercisesTest implements DigitTest {
                              .subtractionProperties(
                                  SubtractionProperties.builder()
                                                       .transgression(UNLIMITED_TRANSGRESSIONS)
-                                                      .minDifference(0)
                                                       .maxDifference(10)
                                                       .subtrahendRounding(1)
-                                                      .includeZeroOnOperand(true)
                                                       .build())
                              .build();
 
@@ -56,8 +54,8 @@ public class SubtractionExercisesTest implements DigitTest {
   }
 
   @Test
-  @DisplayName("Subtraction Exercises with minDifference = 10 and maxDifference = 100 and subtrahendRounding = 10 without Zero on Operands with vertical Layout")
-  void subtractionExercisesWithMinDifference10AndMaxDifference100AndSubtrahendRounding10AndNoZeroAsOperandAndVerticalLayout() {
+  @DisplayName("Subtraction Exercises with maxDifference = 100 and minSubtrahend = 10 and subtrahendRounding = 10 with vertical Layout")
+  void subtractionExercisesWithMaxDifference100AndMinOperand10AndSubtrahendRounding10AndVerticalLayout() {
     // GIVEN
     final var calculationProperties =
         CalculationProperties.builder()
@@ -67,10 +65,9 @@ public class SubtractionExercisesTest implements DigitTest {
                              .subtractionProperties(
                                  SubtractionProperties.builder()
                                                       .transgression(UNLIMITED_TRANSGRESSIONS)
-                                                      .minDifference(10)
                                                       .maxDifference(100)
+                                                      .minSubtrahend(10)
                                                       .subtrahendRounding(10)
-                                                      .includeZeroOnOperand(false)
                                                       .build())
                              .build();
 
@@ -88,8 +85,8 @@ public class SubtractionExercisesTest implements DigitTest {
         .noneMatch(calculation -> calculation.getResult() < 10)
         .noneMatch(calculation -> calculation.getResult() > 100)
         .allMatch(calculation -> calculation.getOperand2() % 10 == 0)
-        .noneMatch(calculation -> calculation.getOperand1() == 0)
-        .noneMatch(calculation -> calculation.getOperand2() == 0);
+        .noneMatch(calculation -> calculation.getOperand1() < 10)
+        .noneMatch(calculation -> calculation.getOperand2() < 10);
   }
 
   @Test
@@ -105,7 +102,6 @@ public class SubtractionExercisesTest implements DigitTest {
                                                       .transgression(UNLIMITED_TRANSGRESSIONS)
                                                       .maxDifference(1_000_000)
                                                       .subtrahendRounding(100)
-                                                      .includeZeroOnOperand(true)
                                                       .build())
                              .build();
 
@@ -134,9 +130,7 @@ public class SubtractionExercisesTest implements DigitTest {
                              .numberOfCalculations(NUMBER_OF_EXERCISES)
                              .subtractionProperties(
                                  SubtractionProperties.builder()
-                                                      .minDifference(0)
                                                       .maxDifference(100_000)
-                                                      .includeZeroOnOperand(false)
                                                       .transgression(25) // 2nd and 3rd digit -> [11001] = 25
                                                       .build())
                              .build();
@@ -172,9 +166,7 @@ public class SubtractionExercisesTest implements DigitTest {
                              .numberOfCalculations(20)
                              .subtractionProperties(
                                  SubtractionProperties.builder()
-                                                      .minDifference(0)
                                                       .maxDifference(20)
-                                                      .includeZeroOnOperand(false)
                                                       .transgression(2) // 1st digit = [10] = 2
                                                       .build())
                              .build();
@@ -197,8 +189,8 @@ public class SubtractionExercisesTest implements DigitTest {
   }
 
   @Test
-  @DisplayName("Subtraction Exercises with maxDifference = 100 and subtrahendRounding = 0 and includeZeroOnOperand = false")
-  void subtractionExercisesWithMaxDifference100AndSubtrahendRounding0AndIncludeZeroOnOperandFalse() {
+  @DisplayName("Subtraction Exercises with maxDifference = 100 and minSubtrahend = 1 and subtrahendRounding = 0")
+  void subtractionExercisesWithMaxDifference100AndMinOperand1AndSubtrahendRounding0() {
     // GIVEN
     final var calculationProperties =
         CalculationProperties.builder()
@@ -207,10 +199,9 @@ public class SubtractionExercisesTest implements DigitTest {
                              .subtractionProperties(
                                  SubtractionProperties.builder()
                                                       .transgression(UNLIMITED_TRANSGRESSIONS)
-                                                      .minDifference(0)
                                                       .maxDifference(100)
+                                                      .minSubtrahend(1)
                                                       .subtrahendRounding(0)
-                                                      .includeZeroOnOperand(false)
                                                       .build())
                              .build();
 
@@ -228,5 +219,38 @@ public class SubtractionExercisesTest implements DigitTest {
         .noneMatch(calculation -> calculation.getResult() > 100)
         .noneMatch(calculation -> calculation.getOperand2() >= 10)
         .noneMatch(calculation -> calculation.getOperand2() == 0);
+  }
+
+  @Test
+  @DisplayName("Subtraction Exercises with maxDifference = 30 and minSubtrahend = 10")
+  void subtractionExercisesWithMaxDifference30AndMinOperand10() {
+    // GIVEN
+    final var calculationProperties =
+        CalculationProperties.builder()
+                             .operators(List.of(Operator.SUBTRACT))
+                             .numberOfCalculations(NUMBER_OF_EXERCISES)
+                             .subtractionProperties(
+                                 SubtractionProperties.builder()
+                                                      .transgression(UNLIMITED_TRANSGRESSIONS)
+                                                      .maxDifference(30)
+                                                      .minSubtrahend(10)
+                                                      .subtrahendRounding(1)
+                                                      .build())
+                             .build();
+
+    // WHEN
+    final var calculationsCandidate = calculationService.createCalculations(calculationProperties, Locale.ENGLISH);
+
+    // THEN
+    assertThat(calculationsCandidate).isPresent();
+    final var calculations = calculationsCandidate.orElseThrow();
+    assertThat(calculations).extracting(Calculations::subheader, Calculations::verticalDisplay).contains(null, false);
+    assertThat(calculations.calculations())
+        .hasSize(NUMBER_OF_EXERCISES)
+        .allMatch(calculation -> calculation.getType() == Calculation.Type.CALCULATION)
+        .allMatch(calculation -> calculation.getOperand1() - calculation.getOperand2() == calculation.getResult())
+        .noneMatch(calculation -> calculation.getResult() > 30)
+        .noneMatch(calculation -> calculation.getOperand2() < 10)
+        .noneMatch(calculation -> calculation.getOperand2() < 10);
   }
 }
