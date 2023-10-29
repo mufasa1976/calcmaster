@@ -60,7 +60,7 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
     registry.setOrder(1);
     registry.addResourceHandler("/webjars/**")
             .addResourceLocations("classpath:/META-INF/resources/webjars/")
-            .resourceChain(true); // necessary for the WebJarsResolver to be used
+            .resourceChain(true); // necessary for the webjars-locator to be used
     SUPPORTED_LANGUAGES.forEach(registerLocalizedAngularResourcesTo(registry));
   }
 
@@ -88,7 +88,9 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
   @Override
   public void addViewControllers(ViewControllerRegistry registry) {
     registry.setOrder(2);
-    SUPPORTED_LANGUAGES.forEach(language -> registry.addViewController("/" + language.getLanguage() + "/**").setViewName(language.getLanguage() + "/index"));
+    SUPPORTED_LANGUAGES.forEach(language ->
+        registry.addViewController("/" + language.getLanguage() + "/**")
+                .setViewName(language.getLanguage() + "/index"));
   }
 
   @Bean
@@ -99,7 +101,8 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
   private ServerResponse defaultLandingPage(ServerRequest request) {
     final var locale = Optional.ofNullable(Locale.lookup(request.headers().acceptLanguage(), SUPPORTED_LANGUAGES))
                                .orElse(DEFAULT_LOCALE);
-    return ServerResponse.status(HttpStatus.TEMPORARY_REDIRECT).render("redirect:/" + locale.getLanguage());
+    return ServerResponse.status(HttpStatus.TEMPORARY_REDIRECT)
+                         .render("redirect:/" + locale.getLanguage());
   }
 
   @Override

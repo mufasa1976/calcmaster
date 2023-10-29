@@ -1,17 +1,15 @@
 import { UNLIMITED_TRANSACTIONS } from "./constants";
 
 export interface SubtractionProperties {
-  minDifference: number;
   maxDifference: number;
   subtrahendRounding: number;
-  includeZeroOnOperand: boolean;
   transgression: number;
+  minSubtrahend: number;
 }
 
 export const initialSubtractionProperties = {
-  minDifference: 0,
   maxDifference: 10,
   subtrahendRounding: 1,
-  includeZeroOnOperand: true,
-  transgression: UNLIMITED_TRANSACTIONS
+  transgression: UNLIMITED_TRANSACTIONS,
+  minSubtrahend: 0
 } as SubtractionProperties;

@@ -137,7 +137,7 @@
             },
             "development": {
               "browserTarget": "calcmaster:build:development",
-              "proxyConfig": "proxy.conf.json"
+              "proxyConfig": "src/proxy.conf.mjs"
             }
           },
           "defaultConfiguration": "development"

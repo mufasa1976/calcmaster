@@ -28,7 +28,7 @@ export const initialCalculationProperties = {
   divisionProperties: initialDivisionProperties,
   roundingProperties: initialRoundingProperties,
   conversionProperties: initialConversionProperties,
-  toggleHide: true,
+  toggleHide: false,
   numberOfCalculations: 15,
   verticalDisplay: false
 } as CalculationProperties;

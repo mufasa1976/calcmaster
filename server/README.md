@@ -97,7 +97,7 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
     registry.setOrder(1);
     registry.addResourceHandler("/webjars/**")
             .addResourceLocations("classpath:/META-INF/resources/webjars/")
-            .resourceChain(true); // necessary for the WebJarsResolver to be used
+            .resourceChain(true); // necessary for the webjars-locator to be used
     SUPPORTED_LANGUAGES.forEach(registerLocalizedAngularResourcesTo(registry));
   }
 
@@ -184,7 +184,7 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
     registry.setOrder(1);
     registry.addResourceHandler("/webjars/**")
             .addResourceLocations("classpath:/META-INF/resources/webjars/")
-            .resourceChain(true); // necessary for the WebJarsResolver to be used
+            .resourceChain(true); // necessary for the webjars-locator to be used
     registry.addResourceHandler(ANGULAR_RESOURCES)
             .addResourceLocations(prefix);
     registry.addResourceHandler("/assets/**")
@@ -236,7 +236,7 @@ public class WebFluxConfiguration implements WebFluxConfigurer {
   public void addResourceHandlers(ResourceHandlerRegistry registry) {
     registry.addResourceHandler("/webjars/**")
             .addResourceLocations("classpath:/META-INF/resources/webjars/")
-            .resourceChain(true); // necessary for the WebJarsResolver to be used
+            .resourceChain(true); // necessary for the webjars-locator to be used
     SUPPORTED_LANGUAGES.forEach(language -> registry.addResourceHandler("/" + language.getLanguage() + "/**")
                                                     .addResourceLocations(prefix + language.getLanguage() + "/"));
   }
@@ -315,7 +315,7 @@ public class WebFluxConfiguration implements WebFluxConfigurer {
   public void addResourceHandlers(ResourceHandlerRegistry registry) {
     registry.addResourceHandler("/webjars/**")
             .addResourceLocations("classpath:/META-INF/resources/webjars/")
-            .resourceChain(true); // necessary for the WebJarsResolver to be used
+            .resourceChain(true); // necessary for the webjars-locator to be used
     registry.addResourceHandler("/**")
             .addResourceLocations(prefix);
   }
