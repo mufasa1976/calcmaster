@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ThemeService } from "../services/theme.service";
-import { Observable } from "rxjs";
+import {BehaviorSubject, Observable, Subscription, tap} from "rxjs";
 import { DEFAULT_THEME, Theme, ThemeName } from "../../shared/theme";
 import { MatButtonToggleChange } from "@angular/material/button-toggle";
 import { CalculationProperties, initialCalculationProperties } from "../../shared/calculation-properties";
@@ -26,6 +26,7 @@ export class AppComponent implements OnInit {
 
   private _title = "Arbeitsblätter Mathematik";
   private _operators = new Set<string>();
+  private _generationInProgress = false;
 
   calculationProperties: CalculationProperties = { ...initialCalculationProperties };
   fileEnding: string = "pdf";
@@ -68,27 +69,36 @@ export class AppComponent implements OnInit {
   }
 
   generateButtonDisable() {
-    return _.isEmpty(this._operators);
+    return _.isEmpty(this._operators) || this._generationInProgress;
   }
 
   generate() {
+    this._generationInProgress = true;
     let subscription = this._calculationService.generate({
       ...this.calculationProperties,
       operators: [...this._operators]
-    }, this.fileEnding).subscribe(response => {
-      if (response.body) {
-        const contentDisposition = response.headers.get("content-disposition");
-        let fileName: string | undefined = undefined;
-        if (contentDisposition && contentDisposition.split(';')[0] === "attachment") {
-          fileName = contentDisposition.split(';')[1].split('=')[1].trim().replace(/["]+/g, '');
+    }, this.fileEnding).subscribe({
+      next: response => {
+        if (response.body) {
+          const contentDisposition = response.headers.get("content-disposition");
+          let fileName: string | undefined = undefined;
+          if (contentDisposition && contentDisposition.split(';')[0] === "attachment") {
+            fileName = contentDisposition.split(';')[1].split('=')[1].trim().replace(/["]+/g, '');
+          }
+          if (fileName) {
+            saveAs(response.body, fileName);
+          } else {
+            saveAs(response.body);
+          }
         }
-        if (fileName) {
-          saveAs(response.body, fileName);
-        } else {
-          saveAs(response.body);
-        }
-      }
-      subscription.unsubscribe();
-    });
+      },
+      error: error => this._unsubscribe(subscription),
+      complete: () => this._unsubscribe(subscription)
+    }) as Subscription;
+  }
+
+  private _unsubscribe(subscription: Subscription) {
+    this._generationInProgress = false;
+    subscription.unsubscribe();
   }
 }
