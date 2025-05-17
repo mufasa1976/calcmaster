@@ -1,6 +1,5 @@
 package io.github.mufasa1976.calcmaster.enums;
 
-import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
