@@ -2,7 +2,7 @@ package io.github.mufasa1976.calcmaster.services;
 
 import io.github.mufasa1976.calcmaster.ApplicationProperties;
 import io.github.mufasa1976.calcmaster.dtos.Calculation;
-import io.github.mufasa1976.calcmaster.enums.UnitConversion;
+import io.github.mufasa1976.calcmaster.enums.UnitConversionRule;
 import io.github.mufasa1976.calcmaster.records.CalculationProperties;
 import io.github.mufasa1976.calcmaster.records.Calculations;
 import lombok.RequiredArgsConstructor;
@@ -93,7 +93,7 @@ public class CalculationServiceImpl implements CalculationService {
   }
 
   private boolean hasUpscaleConversions(Calculations calculations) {
-    return calculations.calculations().stream().anyMatch(calculation -> calculation.getType() == Calculation.Type.CONVERSION && calculation.getConversionType() == UnitConversion.UPSCALE);
+    return calculations.calculations().stream().anyMatch(calculation -> calculation.getType() == Calculation.Type.CONVERSION && calculation.getConversionType() == UnitConversionRule.UPSCALE);
   }
 
   private Exporter<ExporterInput, PdfReportConfiguration, PdfExporterConfiguration, OutputStreamExporterOutput> createPdfExporter(JasperPrint... reports) {

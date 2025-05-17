@@ -111,7 +111,7 @@
         <source>Arbeitsblätter Mathematik</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/app.component.ts</context>
-          <context context-type="linenumber">38</context>
+          <context context-type="linenumber">39</context>
         </context-group>
       </trans-unit>
       <trans-unit id="7836516450578589347" datatype="html">
@@ -602,11 +602,25 @@
           <context context-type="linenumber">6</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="2033663988909325797" datatype="html">
+        <source>Quadratmeter</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/options/conversion/conversion-options/conversion-options.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="9107008051457693812" datatype="html">
+        <source>Kubikmeter</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/options/conversion/conversion-options/conversion-options.component.html</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="241728502218646515" datatype="html">
         <source>Sekunde</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/options/conversion/conversion-options/conversion-options.component.html</context>
-          <context context-type="linenumber">7</context>
+          <context context-type="linenumber">9</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4718987819029849814" datatype="html">
@@ -614,7 +628,7 @@
 </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/options/conversion/conversion-options/conversion-options.component.html</context>
-          <context context-type="linenumber">14,16</context>
+          <context context-type="linenumber">16,18</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1016553402191814289" datatype="html">

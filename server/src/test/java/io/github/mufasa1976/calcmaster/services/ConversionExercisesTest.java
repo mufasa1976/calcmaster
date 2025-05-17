@@ -11,7 +11,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Named;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -31,20 +34,10 @@ public class ConversionExercisesTest {
   @Autowired
   private CalculationService calculationService;
 
-  @Test
-  @DisplayName("Conversion Exercises with initial Parameters")
-  void conversionExercisesWithInitialValues() {
-    // GIVEN
-    final var calculationProperties =
-        CalculationProperties.builder()
-                             .operators(List.of(Operator.CONVERT))
-                             .numberOfCalculations(NUMBER_OF_EXERCISES)
-                             .conversionProperties(
-                                 ConversionProperties.builder()
-                                                     .unit(Unit.METER)
-                                                     .build())
-                             .build();
-
+  @ParameterizedTest
+  @DisplayName("Conversion Exercises with different Units")
+  @MethodSource
+  void conversionExercises(CalculationProperties calculationProperties, Unit expectedUnit) {
     // WHEN
     final var calculationsCandidate = calculationService.createCalculations(calculationProperties, Locale.ENGLISH);
 
@@ -55,7 +48,69 @@ public class ConversionExercisesTest {
     assertThat(calculations.calculations())
         .hasSize(NUMBER_OF_EXERCISES)
         .allMatch(calculation -> calculation.getType() == Calculation.Type.CONVERSION)
-        .allSatisfy(toConversionUnit(Unit.METER));
+        .allSatisfy(toConversionUnit(expectedUnit));
+  }
+
+  static Stream<Arguments> conversionExercises() {
+    return Stream.of(
+        Arguments.of(Named.of("Meters", CalculationProperties.builder()
+                                                             .operators(List.of(Operator.CONVERT))
+                                                             .numberOfCalculations(NUMBER_OF_EXERCISES)
+                                                             .conversionProperties(
+                                                                 ConversionProperties.builder()
+                                                                                     .unit(Unit.METER)
+                                                                                     .build())
+                                                             .build()), Unit.METER),
+        Arguments.of(Named.of("Square Meters", CalculationProperties.builder()
+                                                                    .operators(List.of(Operator.CONVERT))
+                                                                    .numberOfCalculations(NUMBER_OF_EXERCISES)
+                                                                    .conversionProperties(
+                                                                        ConversionProperties.builder()
+                                                                                            .unit(Unit.SQUARE_METER)
+                                                                                            .build())
+                                                                    .build()), Unit.SQUARE_METER),
+        Arguments.of(Named.of("Cubic Meters", CalculationProperties.builder()
+                                                                   .operators(List.of(Operator.CONVERT))
+                                                                   .numberOfCalculations(NUMBER_OF_EXERCISES)
+                                                                   .conversionProperties(
+                                                                       ConversionProperties.builder()
+                                                                                           .unit(Unit.CUBIC_METER)
+                                                                                           .build())
+                                                                   .build()), Unit.CUBIC_METER),
+        Arguments.of(Named.of("Kilometers", CalculationProperties.builder()
+                                                                 .operators(List.of(Operator.CONVERT))
+                                                                 .numberOfCalculations(NUMBER_OF_EXERCISES)
+                                                                 .conversionProperties(
+                                                                     ConversionProperties.builder()
+                                                                                         .unit(Unit.METER)
+                                                                                         .withKilometers(true)
+                                                                                         .build())
+                                                                 .build()), Unit.METER),
+        Arguments.of(Named.of("Grams", CalculationProperties.builder()
+                                                            .operators(List.of(Operator.CONVERT))
+                                                            .numberOfCalculations(NUMBER_OF_EXERCISES)
+                                                            .conversionProperties(
+                                                                ConversionProperties.builder()
+                                                                                    .unit(Unit.GRAM)
+                                                                                    .build())
+                                                            .build()), Unit.GRAM),
+        Arguments.of(Named.of("Seconds", CalculationProperties.builder()
+                                                              .operators(List.of(Operator.CONVERT))
+                                                              .numberOfCalculations(NUMBER_OF_EXERCISES)
+                                                              .conversionProperties(
+                                                                  ConversionProperties.builder()
+                                                                                      .unit(Unit.SECOND)
+                                                                                      .build())
+                                                              .build()), Unit.SECOND),
+        Arguments.of(Named.of("Litres", CalculationProperties.builder()
+                                                             .operators(List.of(Operator.CONVERT))
+                                                             .numberOfCalculations(NUMBER_OF_EXERCISES)
+                                                             .conversionProperties(
+                                                                 ConversionProperties.builder()
+                                                                                     .unit(Unit.LITRE)
+                                                                                     .build())
+                                                             .build()), Unit.LITRE)
+    );
   }
 
   private Consumer<Calculation> toConversionUnit(Unit unit) {
@@ -74,10 +129,10 @@ public class ConversionExercisesTest {
                                        .orElse(UnitPrefix.BASE);
     final var decomposedNumber = new StringBuilder();
     for (var unitPrefix = lowestUnitPrefix; unitPrefix != null; unitPrefix = getNextHigherUnitPrefixThan(unit, unitPrefix)) {
-      var conversionFactor = 10;
+      var conversionFactor = (int) unit.convertFactor(10.0);
       final var nextUnitPrefix = getNextHigherUnitPrefixThan(unit, unitPrefix);
       if (nextUnitPrefix != null) {
-        conversionFactor = (int) (nextUnitPrefix.getFactor() / unitPrefix.getFactor());
+        conversionFactor = (int) unit.convertFactor(nextUnitPrefix.getFactor() / unitPrefix.getFactor());
       }
       final var digit = value - ((value / conversionFactor) * conversionFactor);
       value /= conversionFactor;
@@ -98,114 +153,5 @@ public class ConversionExercisesTest {
 
     int index = ArrayUtils.indexOf(sortedUnitPrefixes, unitPrefix);
     return sortedUnitPrefixes[index - 1];
-  }
-
-  @Test
-  @DisplayName("Conversion Exercises with Kilometers")
-  void conversionExercisesWithKilometers() {
-    // GIVEN
-    final var calculationProperties =
-        CalculationProperties.builder()
-                             .operators(List.of(Operator.CONVERT))
-                             .numberOfCalculations(NUMBER_OF_EXERCISES)
-                             .conversionProperties(
-                                 ConversionProperties.builder()
-                                                     .unit(Unit.METER)
-                                                     .withKilometers(true)
-                                                     .build())
-                             .build();
-
-    // WHEN
-    final var calculationsCandidate = calculationService.createCalculations(calculationProperties, Locale.ENGLISH);
-
-    // THEN
-    assertThat(calculationsCandidate).isPresent();
-    final var calculations = calculationsCandidate.orElseThrow();
-    assertThat(calculations).extracting(Calculations::subheader, Calculations::verticalDisplay).contains(null, false);
-    assertThat(calculations.calculations())
-        .hasSize(NUMBER_OF_EXERCISES)
-        .allMatch(calculation -> calculation.getType() == Calculation.Type.CONVERSION)
-        .allSatisfy(toConversionUnit(Unit.KILOMETER));
-  }
-
-  @Test
-  @DisplayName("Conversion Exercises with Grams")
-  void conversionExercisesWithGrams() {
-    // GIVEN
-    final var calculationProperties =
-        CalculationProperties.builder()
-                             .operators(List.of(Operator.CONVERT))
-                             .numberOfCalculations(NUMBER_OF_EXERCISES)
-                             .conversionProperties(
-                                 ConversionProperties.builder()
-                                                     .unit(Unit.GRAM)
-                                                     .build())
-                             .build();
-
-    // WHEN
-    final var calculationsCandidate = calculationService.createCalculations(calculationProperties, Locale.ENGLISH);
-
-    // THEN
-    assertThat(calculationsCandidate).isPresent();
-    final var calculations = calculationsCandidate.orElseThrow();
-    assertThat(calculations).extracting(Calculations::subheader, Calculations::verticalDisplay).contains(null, false);
-    assertThat(calculations.calculations())
-        .hasSize(NUMBER_OF_EXERCISES)
-        .allMatch(calculation -> calculation.getType() == Calculation.Type.CONVERSION)
-        .allSatisfy(toConversionUnit(Unit.GRAM));
-  }
-
-  @Test
-  @DisplayName("Conversion Exercises with Seconds")
-  void conversionExercisesWithSeconds() {
-    // GIVEN
-    final var calculationProperties =
-        CalculationProperties.builder()
-                             .operators(List.of(Operator.CONVERT))
-                             .numberOfCalculations(NUMBER_OF_EXERCISES)
-                             .conversionProperties(
-                                 ConversionProperties.builder()
-                                                     .unit(Unit.SECOND)
-                                                     .build())
-                             .build();
-
-    // WHEN
-    final var calculationsCandidate = calculationService.createCalculations(calculationProperties, Locale.ENGLISH);
-
-    // THEN
-    assertThat(calculationsCandidate).isPresent();
-    final var calculations = calculationsCandidate.orElseThrow();
-    assertThat(calculations).extracting(Calculations::subheader, Calculations::verticalDisplay).contains(null, false);
-    assertThat(calculations.calculations())
-        .hasSize(NUMBER_OF_EXERCISES)
-        .allMatch(calculation -> calculation.getType() == Calculation.Type.CONVERSION)
-        .allSatisfy(toConversionUnit(Unit.SECOND));
-  }
-
-  @Test
-  @DisplayName("Conversion Exercises with Litres")
-  void conversionExercisesWithLitres() {
-    // GIVEN
-    final var calculationProperties =
-        CalculationProperties.builder()
-                             .operators(List.of(Operator.CONVERT))
-                             .numberOfCalculations(NUMBER_OF_EXERCISES)
-                             .conversionProperties(
-                                 ConversionProperties.builder()
-                                                     .unit(Unit.LITRE)
-                                                     .build())
-                             .build();
-
-    // WHEN
-    final var calculationsCandidate = calculationService.createCalculations(calculationProperties, Locale.ENGLISH);
-
-    // THEN
-    assertThat(calculationsCandidate).isPresent();
-    final var calculations = calculationsCandidate.orElseThrow();
-    assertThat(calculations).extracting(Calculations::subheader, Calculations::verticalDisplay).contains(null, false);
-    assertThat(calculations.calculations())
-        .hasSize(NUMBER_OF_EXERCISES)
-        .allMatch(calculation -> calculation.getType() == Calculation.Type.CONVERSION)
-        .allSatisfy(toConversionUnit(Unit.LITRE));
   }
 }

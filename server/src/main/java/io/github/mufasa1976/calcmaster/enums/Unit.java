@@ -1,55 +1,87 @@
 package io.github.mufasa1976.calcmaster.enums;
 
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+
+import java.util.function.UnaryOperator;
+
+import static lombok.AccessLevel.NONE;
 
 @RequiredArgsConstructor
 @Getter
 public enum Unit {
-  GRAM("g", new UnitPrefix[] {
+  GRAM("g", factor -> factor, new UnitPrefix[] {
       UnitPrefix.BASE,
       UnitPrefix.DEKA,
       UnitPrefix.KILO
-  }, new UnitConversion[] {
-      UnitConversion.WHOLE_NUMBERS,
-      UnitConversion.MATRIX,
-      UnitConversion.UPSCALE
+  }, new UnitConversionRule[] {
+      UnitConversionRule.WHOLE_NUMBERS,
+      UnitConversionRule.MATRIX,
+      UnitConversionRule.UPSCALE
   }),
-  LITRE("l", new UnitPrefix[] {
+  LITRE("l", factor -> factor, new UnitPrefix[] {
+      UnitPrefix.HEKTO,
       UnitPrefix.BASE,
       UnitPrefix.DECI,
       UnitPrefix.CENTI,
       UnitPrefix.MILLI
-  }, new UnitConversion[] {
-      UnitConversion.WHOLE_NUMBERS
+  }, new UnitConversionRule[] {
+      UnitConversionRule.WHOLE_NUMBERS
   }),
-  METER("m", new UnitPrefix[] {
+  METER("m", factor -> factor, new UnitPrefix[] {
       UnitPrefix.BASE,
       UnitPrefix.DECI,
       UnitPrefix.CENTI,
       UnitPrefix.MILLI
-  }, new UnitConversion[] {
-      UnitConversion.WHOLE_NUMBERS,
-      UnitConversion.MATRIX,
-      UnitConversion.UPSCALE
+  }, new UnitConversionRule[] {
+      UnitConversionRule.WHOLE_NUMBERS,
+      UnitConversionRule.MATRIX,
+      UnitConversionRule.UPSCALE
   }),
-  KILOMETER("m", new UnitPrefix[] {
+  SQUARE_METER("m²", factor -> Math.pow(factor, 2.0), new UnitPrefix[] {
+      UnitPrefix.BASE,
+      UnitPrefix.DECI,
+      UnitPrefix.CENTI,
+      UnitPrefix.MILLI
+  }, new UnitConversionRule[] {
+      UnitConversionRule.WHOLE_NUMBERS,
+      UnitConversionRule.MATRIX,
+      UnitConversionRule.UPSCALE
+  }),
+  CUBIC_METER("m³", factor -> Math.pow(factor, 3.0), new UnitPrefix[] {
+      UnitPrefix.BASE,
+      UnitPrefix.DECI,
+      UnitPrefix.CENTI,
+      UnitPrefix.MILLI
+  }, new UnitConversionRule[] {
+      UnitConversionRule.WHOLE_NUMBERS,
+      UnitConversionRule.MATRIX,
+      UnitConversionRule.UPSCALE
+  }),
+  KILOMETER("m", factor -> factor, new UnitPrefix[] {
       UnitPrefix.BASE,
       UnitPrefix.MILLI,
       UnitPrefix.KILO
-  }, new UnitConversion[] {
-      UnitConversion.WHOLE_NUMBERS
+  }, new UnitConversionRule[] {
+      UnitConversionRule.WHOLE_NUMBERS
   }),
-  SECOND("s", new UnitPrefix[] {
+  SECOND("s", factor -> factor, new UnitPrefix[] {
       UnitPrefix.BASE,
       UnitPrefix.MILLI,
       UnitPrefix.MICRO,
       UnitPrefix.NANO
-  }, new UnitConversion[] {
-      UnitConversion.WHOLE_NUMBERS
+  }, new UnitConversionRule[] {
+      UnitConversionRule.WHOLE_NUMBERS
   });
 
   private final String unitSymbol;
+  @Getter(NONE)
+  private final UnaryOperator<Double> conversionFactor;
   private final UnitPrefix[] allowedPrefixes;
-  private final UnitConversion[] allowedUnitConversions;
+  private final UnitConversionRule[] allowedUnitConversionRules;
+
+  public double convertFactor(double factor) {
+    return conversionFactor.apply(factor);
+  }
 }

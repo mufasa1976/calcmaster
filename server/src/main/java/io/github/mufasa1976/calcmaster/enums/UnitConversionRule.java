@@ -1,5 +1,5 @@
 package io.github.mufasa1976.calcmaster.enums;
 
-public enum UnitConversion {
+public enum UnitConversionRule {
   WHOLE_NUMBERS, MATRIX, UPSCALE
 }
